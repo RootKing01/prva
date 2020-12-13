@@ -18,7 +18,7 @@ import java.awt.Font;
 import javax.swing.JFormattedTextField;
 import java.awt.CardLayout;
 
-public class starter extends JFrame {
+public class login extends JFrame {
 
 	private JPanel contentPane;
 
@@ -29,7 +29,7 @@ public class starter extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					starter frame = new starter();
+					login frame = new login();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -41,7 +41,7 @@ public class starter extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public starter() {
+	public login() {
 		setAlwaysOnTop(true);
 		setResizable(false);
 		setBackground(Color.BLACK);
