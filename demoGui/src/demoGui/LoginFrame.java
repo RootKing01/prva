@@ -7,7 +7,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import controller.ControllerGrafic1;
 import controller.ControllerGrafica1;
 
 import java.awt.Point;
@@ -33,17 +32,14 @@ import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.Dialog.ModalExclusionType;
 
+@SuppressWarnings("serial")
 public class LoginFrame extends JFrame {
 
+	
 	private JPanel contentPane;
 	private final JPasswordField passwordField = new JPasswordField();
 	
 	public ControllerGrafica1 controller;
-	
-
-	/**
-	 * Launch the application.
-	 */
 	
 
 	/**

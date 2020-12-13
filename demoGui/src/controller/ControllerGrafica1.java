@@ -35,8 +35,8 @@ public class ControllerGrafica1 {
 		System.out.println("ecco "+email+ " "+ password);
 		if(controlloPassword() && controlloEmail()) 
 		{
-			
 			paginaLogin.setVisible(false);
+			paginaHome.setVisible(true);
 		}	
 	}
 

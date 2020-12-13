@@ -9,6 +9,7 @@ import javax.swing.border.EmptyBorder;
 
 import controller.ControllerGrafica1;
 
+@SuppressWarnings("serial")
 public class Home extends JFrame {
 
 	private JPanel contentPane;
