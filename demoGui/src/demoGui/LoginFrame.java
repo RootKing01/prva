@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.ControllerGrafic1;
+import controller.ControllerGrafica1;
 
 import java.awt.Point;
 import javax.swing.UIManager;
@@ -37,7 +38,7 @@ public class LoginFrame extends JFrame {
 	private JPanel contentPane;
 	private final JPasswordField passwordField = new JPasswordField();
 	
-	public ControllerGrafic1 controller;
+	public ControllerGrafica1 controller;
 	
 
 	/**
@@ -48,7 +49,7 @@ public class LoginFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoginFrame(ControllerGrafic1 controller) {
+	public LoginFrame(ControllerGrafica1 controller) {
 		
 		this.controller = controller;
 		
