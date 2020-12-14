@@ -1,3 +1,3 @@
-# prova1
-# sto imparando ad usare git e github 
-# ora imparerò a mettere file .java/.class (cmq from eclips) in github
+# materiale di prova per OO
+# base del progetto: una GUI di un login e una home vuota
+#                     un Controller per le interfacce
