@@ -1,8 +1,5 @@
 package demoGui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,23 +9,17 @@ import controller.ControllerGrafica1;
 import java.awt.Point;
 import javax.swing.UIManager;
 import java.awt.Toolkit;
-import javax.swing.JInternalFrame;
-import java.awt.Dimension;
 import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import javax.swing.JFormattedTextField;
-import java.awt.CardLayout;
-import java.awt.SystemColor;
-import java.awt.Window.Type;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JPasswordField;
 import javax.swing.JSeparator;
 import java.awt.Component;
-import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.Dialog.ModalExclusionType;
 
