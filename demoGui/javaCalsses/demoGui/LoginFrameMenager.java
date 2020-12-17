@@ -22,6 +22,8 @@ import javax.swing.JSeparator;
 import java.awt.Component;
 import javax.swing.JButton;
 import java.awt.Dialog.ModalExclusionType;
+import javax.swing.event.ChangeListener;
+import javax.swing.event.ChangeEvent;
 
 @SuppressWarnings("serial")
 public class LoginFrameMenager extends JFrame {
@@ -99,6 +101,10 @@ public class LoginFrameMenager extends JFrame {
 		contentPane.add(separator);
 		
 		JButton bottoneLogin = new JButton("commit");
+		bottoneLogin.addChangeListener(new ChangeListener() {
+			public void stateChanged(ChangeEvent e) {
+			}
+		});
 		bottoneLogin.setFont(new Font("Sitka Small", Font.PLAIN, 20));
 		bottoneLogin.setBounds(156, 336, 153, 50);
 		contentPane.add(bottoneLogin);
