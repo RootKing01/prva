@@ -37,16 +37,16 @@ public class LoginFrameMenager extends JFrame {
 	 * Create the frame.
 	 */
 	public LoginFrameMenager(ControllerGrafica1 controller) {
+		setResizable(false);
 		
 		this.controller = controller;
 		
 		setModalExclusionType(ModalExclusionType.APPLICATION_EXCLUDE);
 		setFont(new Font("Arial", Font.PLAIN, 20));
 		setType(Type.POPUP);
-		setResizable(false);
 		setAlwaysOnTop(true);
 		setBackground(UIManager.getColor("CheckBox.highlight"));
-		setTitle("LOGIN/USER");
+		setTitle("MENAGER LOGIN PAGE");
 		setLocation(new Point(0, 476));
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Lenovo\\Pictures\\Camera Roll\\albero1.jfif"));
 		setForeground(UIManager.getColor("CheckBoxMenuItem.selectionBackground"));
