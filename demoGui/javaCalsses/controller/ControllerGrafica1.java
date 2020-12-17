@@ -1,10 +1,11 @@
 package controller;
 
-import demoGui.*;
+import demoGui.Home;
+import demoGui.LoginFrameMenager;
 
 public class ControllerGrafica1 {
 	
-	public LoginFrame paginaLogin;
+	public LoginFrameMenager paginaLogin;
 	public Home paginaHome;
 	
 	
@@ -12,7 +13,7 @@ public class ControllerGrafica1 {
 	public ControllerGrafica1() 
 	{
 		
-		paginaLogin = new LoginFrame(this);
+		paginaLogin = new LoginFrameMenager(this);
 		paginaLogin.setVisible(false);
 		
 		paginaHome = new Home(this);
@@ -43,12 +44,14 @@ public class ControllerGrafica1 {
 	private boolean controlloEmail() 
 	{
 		// TODO Auto-generated method stub
+		// metodo nella classe StudenteDao
 		return true;
 	}
 
 	private boolean controlloPassword() 
 	{
 		// TODO Auto-generated method stub
+		// medoto nella classe StudenteDao
 		return true;
 	}
 }

@@ -24,7 +24,7 @@ import javax.swing.JButton;
 import java.awt.Dialog.ModalExclusionType;
 
 @SuppressWarnings("serial")
-public class LoginFrame extends JFrame {
+public class LoginFrameMenager extends JFrame {
 
 	
 	private JPanel contentPane;
@@ -36,7 +36,7 @@ public class LoginFrame extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public LoginFrame(ControllerGrafica1 controller) {
+	public LoginFrameMenager(ControllerGrafica1 controller) {
 		
 		this.controller = controller;
 		
