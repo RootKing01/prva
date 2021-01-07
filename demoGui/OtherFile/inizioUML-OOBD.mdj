@@ -4255,21 +4255,6 @@
 										},
 										{
 											"_type": "ERDColumnView",
-											"_id": "AAAAAAF2fEUZWDy6Zog=",
-											"_parent": {
-												"$ref": "AAAAAAF2cNIyNH2lido="
-											},
-											"model": {
-												"$ref": "AAAAAAF2fEUZTzy3ix4="
-											},
-											"font": "Arial;13;0",
-											"left": 573,
-											"top": 635,
-											"width": 239,
-											"height": 13
-										},
-										{
-											"_type": "ERDColumnView",
 											"_id": "AAAAAAF2fEGThzrZwCQ=",
 											"_parent": {
 												"$ref": "AAAAAAF2cNIyNH2lido="
@@ -4279,7 +4264,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 573,
-											"top": 650,
+											"top": 635,
 											"width": 239,
 											"height": 13
 										},
@@ -4326,7 +4311,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 573,
-											"top": 665,
+											"top": 650,
 											"width": 239,
 											"height": 13
 										},
@@ -4357,7 +4342,7 @@
 											},
 											"font": "Arial;13;0",
 											"left": 573,
-											"top": 680,
+											"top": 665,
 											"width": 239,
 											"height": 13
 										}
@@ -4366,7 +4351,7 @@
 									"left": 568,
 									"top": 615,
 									"width": 249,
-									"height": 83
+									"height": 68
 								}
 							],
 							"font": "Arial;13;0",
@@ -6140,6 +6125,19 @@
 							"columnCompartment": {
 								"$ref": "AAAAAAF22OstETvOZDg="
 							}
+						},
+						{
+							"_type": "UMLTextView",
+							"_id": "AAAAAAF23bUInmTEbNk=",
+							"_parent": {
+								"$ref": "AAAAAAF2cNHdvn1xaQQ="
+							},
+							"font": "Arial;13;0",
+							"left": 128,
+							"top": 472,
+							"width": 209,
+							"height": 89,
+							"text": "non 'è bisogno delc odice menager...   le classi non devono avere per foza una chiave primaria uffa. esempio:  proiezf biglietto."
 						}
 					]
 				},
@@ -6203,16 +6201,6 @@
 								"$ref": "AAAAAAF2cNIyM32hrt4="
 							},
 							"name": "nome",
-							"type": "VARCHAR",
-							"length": "20"
-						},
-						{
-							"_type": "ERDColumn",
-							"_id": "AAAAAAF2fEUZTzy3ix4=",
-							"_parent": {
-								"$ref": "AAAAAAF2cNIyM32hrt4="
-							},
-							"name": "cognome",
 							"type": "VARCHAR",
 							"length": "20"
 						},
@@ -6869,7 +6857,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF22KJ5uYGot0Q="
 							},
-							"name": "Nome",
+							"name": "nome",
 							"type": "VARCHAR",
 							"length": "20"
 						},
@@ -6879,7 +6867,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF22KJ5uYGot0Q="
 							},
-							"name": "Cognome",
+							"name": "cognome",
 							"type": "VARCHAR",
 							"length": "20"
 						},
@@ -6918,7 +6906,7 @@
 							"_parent": {
 								"$ref": "AAAAAAF22KJ5uYGot0Q="
 							},
-							"name": "Via",
+							"name": "via",
 							"type": "VARCHAR",
 							"length": "15"
 						},
