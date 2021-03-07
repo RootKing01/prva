@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import Controller.Driver;
+
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
@@ -13,6 +16,8 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import java.awt.ComponentOrientation;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class Inserimento_Manager extends JFrame {
 
@@ -26,27 +31,21 @@ public class Inserimento_Manager extends JFrame {
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_8;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					Inserimento_Manager frame = new Inserimento_Manager();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public Inserimento_Manager() {
+	
+	
+	
+	 Driver driver = new Driver(); 
+    static Inserimento_Manager inserimento_manager = new Inserimento_Manager(driver, inserimento_manager);
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	public Inserimento_Manager(Driver driver, Inserimento_Manager inserimento_manager) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 902, 617);
 		contentPane = new JPanel();
@@ -177,9 +176,22 @@ public class Inserimento_Manager extends JFrame {
 		ManagerOtesserato.addItem("Manager");
 		ManagerOtesserato.addItem("Tesserato");
 		
-		JButton btnNewButton = new JButton("Procedi all'inserimento");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		btnNewButton.setBounds(693, 463, 162, 60);
-		contentPane.add(btnNewButton);
+		JButton bottone_procedi = new JButton("Procedi all'inserimento");
+		bottone_procedi.setFont(new Font("Tahoma", Font.PLAIN, 13));
+		bottone_procedi.setBounds(693, 463, 162, 60);
+		contentPane.add(bottone_procedi);
+		
+		JButton bottone_annulla = new JButton("Annulla inserimento");
+		bottone_annulla.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				Gestione_Inserimento pagina_precedente = new Gestione_Inserimento(); 
+				driver.funzione_finestra_visibile(inserimento_manager, pagina_precedente);
+				inserimento_manager.setVisible(false);
+			}
+		});
+		bottone_annulla.setBounds(31, 463, 162, 60);
+		contentPane.add(bottone_annulla);
+		
 	}
 }

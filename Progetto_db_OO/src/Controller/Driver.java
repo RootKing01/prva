@@ -22,7 +22,7 @@ public class Driver {
 		
 		DBConnection istanza = null; 
 		Connection connessione = null; 
-		General prima_finestra = new General(); 
+		General prima_finestra = new General(this); 
 		
 		try{
 			
