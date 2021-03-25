@@ -20,16 +20,19 @@ import java.awt.event.MouseEvent;
 
 public class General extends JFrame {
 
-	static General general = new General();
 	
 	Driver driver = new Driver(); 
+	General general;
+
 	
 	private JPanel contentPane;
 
 
 	
 ////////////////////////////////////////////****FRAME****//////////////////////////////////////
-	public General() {
+	public General(Driver d) {
+		driver = d; 
+		general = this; 
 		setBackground(Color.DARK_GRAY);
 		setTitle("Operazioni");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,9 +49,11 @@ public class General extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
-				
-				Gestione_Inserimento inserimento = new Gestione_Inserimento(); 
-				driver.funzione_finestra_visibile(general, inserimento);
+	        general.setVisible(false);
+			Inserimento_dati_persona persona = new Inserimento_dati_persona(); 
+			persona.setVisible(true);
+			
+			    
 				
 			}
 		});
