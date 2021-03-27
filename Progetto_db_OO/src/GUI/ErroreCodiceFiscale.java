@@ -30,7 +30,7 @@ public class ErroreCodiceFiscale extends JDialog {
 	public ErroreCodiceFiscale() {
 
 	
-	   
+		 errore_codice_fiscale = this.errore_codice_fiscale; 
 	    
 	     
 		setTitle("ERRORE CODICE FISCALE");
@@ -64,8 +64,7 @@ public class ErroreCodiceFiscale extends JDialog {
 				tornaAdati.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-				    errore_codice_fiscale = this.; 
-					errore_codice_fiscale.setVisible(false);
+					
 				     
 						
 					}
