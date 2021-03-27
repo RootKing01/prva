@@ -16,10 +16,11 @@ import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class ErroreCodiceFiscale extends JDialog {
+public class ErroreInserimento extends JDialog {
 
 	private JPanel errore_codice_fiscale = new JPanel();
-
+	Inserimento_dati_persona persona; 
+	ErroreInserimento erroreInserimento;
     
     
 	
@@ -27,10 +28,10 @@ public class ErroreCodiceFiscale extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ErroreCodiceFiscale() {
+	public ErroreInserimento(Inserimento_dati_persona persona) {
 
-	
-		 errore_codice_fiscale = this.errore_codice_fiscale; 
+		this.persona = persona; 
+		erroreInserimento = this; 
 	    
 	     
 		setTitle("ERRORE CODICE FISCALE");
@@ -43,17 +44,19 @@ public class ErroreCodiceFiscale extends JDialog {
 		JLabel lblNewLabel = new JLabel("IL CODICE FISCALE DEVE ESSERE DI 16 CARATTERI");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		lblNewLabel.setBounds(60, 123, 840, 171);
+		lblNewLabel.setBounds(99, 119, 840, 171);
 		errore_codice_fiscale.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("ATTENZIONE");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		lblNewLabel_1.setBounds(373, 11, 286, 64);
+		lblNewLabel_1.setBounds(300, 11, 286, 64);
 		errore_codice_fiscale.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("ERRORE:");
+		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		lblNewLabel_2.setBounds(408, 86, 405, 64);
+		lblNewLabel_2.setBounds(154, 86, 405, 64);
 		errore_codice_fiscale.add(lblNewLabel_2);
 		{
 			JPanel buttonPane = new JPanel();
@@ -65,8 +68,8 @@ public class ErroreCodiceFiscale extends JDialog {
 					@Override
 					public void mouseClicked(MouseEvent e) {
 					
-				     
-						
+				     erroreInserimento.setVisible(false);
+					 persona.setVisible(true);	
 					}
 				});
 				tornaAdati.setActionCommand("OK");

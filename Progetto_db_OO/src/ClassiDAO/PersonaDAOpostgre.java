@@ -52,3 +52,16 @@ public class PersonaDAOpostgre {
 	}
 
 }
+
+
+
+//Bisogna cerare metodo per verificare che la persona non sia già esistente all'interno del database
+
+
+
+
+
+
+
+
+

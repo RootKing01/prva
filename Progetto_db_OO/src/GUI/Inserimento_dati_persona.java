@@ -37,20 +37,12 @@ public class Inserimento_dati_persona extends JFrame {
     
      Inserimento_dati_persona persona; 
      private JTextField textField_provincia;
-     
-
-	
-	
-	
-	
-	
-	
 	
 	
 	
 	public Inserimento_dati_persona() {
 		
-		persona = this; 
+         persona = this; 
 		
 		
 		setTitle("Inserimento Manager");
@@ -190,26 +182,37 @@ public class Inserimento_dati_persona extends JFrame {
 			public void mouseClicked(MouseEvent e) {
 				
 				boolean sos = true;
-				
-				
-                Driver driver = new Driver();  			     
-						if((sos = driver.ControlloDatiPersona(textField_CF, textField_Nome, textField_Cognome, textField_DataNascita, sesso.getSelectedIndex(), textField_ComuneNascita, textField_provincia, ManagerOtesserato.getSelectedIndex()) != true)) {
-                         
-				    
-						
+			     Driver driver = new Driver(); 
+
+	// 	  !
+//	System.out.println(ManagerOtesserato.getSelectedIndex().toString());
+	if(driver.controlloDati( textField_CF, textField_Nome, textField_Cognome, textField_DataNascita,
+								 sesso.getSelectedIndex(), textField_ComuneNascita, textField_provincia,
+								 ManagerOtesserato.getSelectedIndex(), persona) != true) {
+		
+		    while(driver.controlloDati( textField_CF, textField_Nome, textField_Cognome, textField_DataNascita,
+								 sesso.getSelectedIndex(), textField_ComuneNascita, textField_provincia,
+								 ManagerOtesserato.getSelectedIndex(), persona) ) {
 			
-			     }else {
+		}
+	}
+	else {
+		
+		
+		  
+	  }
+		 System.out.println("Sei nel matrix");
+										
+						
 				
-				persona.setVisible(false);
-				Inserimento_persona_tesserata tesserato = new Inserimento_persona_tesserata(); 
-				tesserato.setVisible(true);
-			}
 						
+
+			persona.setVisible(false);
+			Inserimento_persona_tesserata tesserato = new Inserimento_persona_tesserata(); 
+			tesserato.setVisible(true);
 						
-						
-						
-		  }
-		});
+  	}
+	});
 		bottone_procedi.setFont(new Font("Tahoma", Font.PLAIN, 13));
 		bottone_procedi.setBounds(693, 463, 162, 60);
 		contentPane_provincia.add(bottone_procedi);

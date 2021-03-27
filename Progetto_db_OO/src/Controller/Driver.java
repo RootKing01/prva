@@ -5,6 +5,7 @@ package Controller;
 import java.awt.event.MouseAdapter;
 import java.sql.SQLException;
 
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
@@ -13,7 +14,7 @@ import com.sun.jdi.connect.spi.Connection;
 import ClassiDAO.PersonaDAOpostgre;
 import ClassiDatabase.Tesserato;
 import ConnessioneDB.DBConnection;
-import GUI.ErroreCodiceFiscale;
+import GUI.ErroreInserimento;
 import GUI.General;
 import GUI.Inserimento_dati_persona;
 
@@ -85,11 +86,36 @@ public class Driver {
 	}
 
 
+public boolean controlloCodiceFiscale(JTextField CF){
+	
+	boolean flag = true; 
+	
+	if(CF.getText().length() != 16) 
+	{
+		System.out.println("errore, il CF deve essere di 16 caretteri");
+		flag = false; 
+		
+	}
+	else
+	{
+		System.out.println("flag true");
+		flag = true;
+	}
+	
+	return flag; 
+	
+	
+}
+	
+	
+	
+	
+	
 
-
-public boolean ControlloDatiPersona( JTextField CF			,JTextField Nome 	,JTextField Cognome,
+	
+public boolean controlloDati( JTextField CF			,JTextField Nome 	,JTextField Cognome,
 									 JTextField DataNascita	,int selectedIndex	,JTextField ComuneNascita,
-									 JTextField provincia	,int selectedIndex2
+									 JTextField provincia	,int selectedIndex2, Inserimento_dati_persona inserimento_dati_persona
 								   ) 
 {
 			
@@ -101,19 +127,16 @@ public boolean ControlloDatiPersona( JTextField CF			,JTextField Nome 	,JTextFie
 		// per ogni errore si aggiunge una labale o una stringa di testo 
 		// per ogni errore e alla fine si manda a schermo con una dialog
 		
-		
-		if(CF.toString().length()  != 16)
-		{	
+		if(!controlloCodiceFiscale(CF))
+		{
+			ErroreInserimento errore_codice_fiscale = new ErroreInserimento(inserimento_dati_persona); 
+			errore_codice_fiscale.setVisible(true);
+		}
 			
-      
-			System.out.println("errore, il CF deve essere di 16 caretteri");
-			ErroreCodiceFiscale erroreCF = new ErroreCodiceFiscale();  
-			 erroreCF.setVisible(true); 
-    	    //persona.setVisible(false); 
-			flag = true;	
 		
 		
-}
+		
+
 
 		return flag;
 
