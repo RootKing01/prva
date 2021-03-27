@@ -18,10 +18,10 @@ import java.awt.event.MouseEvent;
 
 public class ErroreCodiceFiscale extends JDialog {
 
-	private final JPanel errore_codice_fiscale = new JPanel();
+	private JPanel errore_codice_fiscale = new JPanel();
 
-     Inserimento_dati_persona persona;
-     Driver d; 
+    
+    
 	
 	
 	/**
@@ -29,9 +29,11 @@ public class ErroreCodiceFiscale extends JDialog {
 	 */
 	public ErroreCodiceFiscale() {
 
-	     this.d = d; 
+	
+	   
+	    
 	     
-		setTitle("ERRORE VODICE FISCALE");
+		setTitle("ERRORE CODICE FISCALE");
 		setBounds(100, 100, 999, 432);
 		getContentPane().setLayout(new BorderLayout());
 		errore_codice_fiscale.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -62,8 +64,10 @@ public class ErroreCodiceFiscale extends JDialog {
 				tornaAdati.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
-						errore_codice_fiscale.setVisible(false); 
-//						persona.setVisible(true);  // err
+				    errore_codice_fiscale = this.; 
+					errore_codice_fiscale.setVisible(false);
+				     
+						
 					}
 				});
 				tornaAdati.setActionCommand("OK");
