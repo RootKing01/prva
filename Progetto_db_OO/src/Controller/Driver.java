@@ -17,6 +17,7 @@ import ConnessioneDB.DBConnection;
 import GUI.ErroreInserimento;
 import GUI.General;
 import GUI.Inserimento_dati_persona;
+import GUI.Inserimento_persona_tesserata;
 
 
 public class Driver {
@@ -86,13 +87,15 @@ public class Driver {
 	}
 
 
-public boolean controlloCodiceFiscale(JTextField CF){
+public boolean controlloCodiceFiscale(JTextField CF, Inserimento_dati_persona inserimento_dati_persona){
 	
 	boolean flag = true; 
 	
 	if(CF.getText().length() != 16) 
 	{
 		System.out.println("errore, il CF deve essere di 16 caretteri");
+		ErroreInserimento errore_codice_fiscale = new ErroreInserimento(inserimento_dati_persona); 
+		errore_codice_fiscale.setVisible(true);
 		flag = false; 
 		
 	}
@@ -127,7 +130,7 @@ public boolean controlloDati( JTextField CF			,JTextField Nome 	,JTextField Cogn
 		// per ogni errore si aggiunge una labale o una stringa di testo 
 		// per ogni errore e alla fine si manda a schermo con una dialog
 		
-		if(!controlloCodiceFiscale(CF))
+		if(!controlloCodiceFiscale(CF, inserimento_dati_persona))
 		{
 			ErroreInserimento errore_codice_fiscale = new ErroreInserimento(inserimento_dati_persona); 
 			errore_codice_fiscale.setVisible(true);
@@ -145,4 +148,31 @@ public boolean controlloDati( JTextField CF			,JTextField Nome 	,JTextField Cogn
 
     }
 
+
+
+
+
+public void controllerInserimentoPersona( JTextField CF , Inserimento_dati_persona inserimento_dati_persona) {
+	
+	     
+	  boolean flag = true; 
+	   
+			  
+	   while( flag != false)
+{
+
+		  		flag = controlloCodiceFiscale(CF, inserimento_dati_persona); 
+		  
+		   
+		   
+	   }
+
+	
+
+   
+	
 }
+	
+}
+
+
