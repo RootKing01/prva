@@ -44,20 +44,26 @@ public class ErroreInserimento extends JDialog {
 		JLabel lblNewLabel = new JLabel("IL CODICE FISCALE DEVE ESSERE DI 16 CARATTERI");
 		lblNewLabel.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		lblNewLabel.setBounds(99, 119, 840, 171);
+		lblNewLabel.setBounds(85, 54, 840, 171);
 		errore_codice_fiscale.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("ATTENZIONE");
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		lblNewLabel_1.setBounds(300, 11, 286, 64);
+		lblNewLabel_1.setBounds(293, 0, 286, 64);
 		errore_codice_fiscale.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("ERRORE:");
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 35));
-		lblNewLabel_2.setBounds(154, 86, 405, 64);
+		lblNewLabel_2.setBounds(137, 54, 405, 64);
 		errore_codice_fiscale.add(lblNewLabel_2);
+		
+		JLabel lblNewLabel_3 = new JLabel("LA PROVINCIA INSERITA RISULTA ERRATA");
+		lblNewLabel_3.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 35));
+		lblNewLabel_3.setBounds(40, 164, 813, 90);
+		errore_codice_fiscale.add(lblNewLabel_3);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

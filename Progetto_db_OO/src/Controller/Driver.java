@@ -110,7 +110,19 @@ public boolean controlloCodiceFiscale(JTextField CF, Inserimento_dati_persona in
 	
 }
 	
+public boolean controlloProvincia(JTextField provincia, Inserimento_dati_persona inserimento_dati_persona) {
 	
+	
+	boolean flag = false;
+	
+	if(provincia.getText().length() < 2 || provincia.getText().length() > 3) {
+		System.out.println("Inserire la provincia corretta");
+		ErroreInserimento errore_provincia =  new ErroreInserimento(inserimento_dati_persona); 
+	}
+	
+	
+	return flag; 
+}
 	
 	
 	
@@ -130,7 +142,7 @@ public boolean controlloDati( JTextField CF			,JTextField Nome 	,JTextField Cogn
      {
 
 		  		flag = controlloCodiceFiscale(CF, inserimento_dati_persona); 
-		  
+		        flag = controlloProvincia(provincia, inserimento_dati_persona); 
 		 }
 		
 
