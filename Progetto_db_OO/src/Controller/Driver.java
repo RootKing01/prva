@@ -159,19 +159,13 @@ public void controllerInserimentoPersona( JTextField CF , Inserimento_dati_perso
 	   
 			  
 	   while( flag != false)
-{
+       {
 
 		  		flag = controlloCodiceFiscale(CF, inserimento_dati_persona); 
 		  
-		   
-		   
-	   }
+		 }
 
-	
-
-   
-	
-}
+     }
 	
 }
 
