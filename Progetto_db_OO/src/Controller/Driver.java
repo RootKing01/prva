@@ -138,7 +138,7 @@ public boolean controlloDati( JTextField CF			,JTextField Nome 	,JTextField Cogn
 	 boolean flag = true; 
 	   
 	  
-	   while( flag != false)
+	   while( flag )
      {
 
 		  		flag = controlloCodiceFiscale(CF, inserimento_dati_persona); 

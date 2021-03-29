@@ -185,7 +185,7 @@ public class Inserimento_dati_persona extends JFrame {
 			     Driver driver = new Driver(); 
 
 	
-           driver.controlloDati(textField_CF, textField_Nome, textField_Cognome, textField_DataNascita, ALLBITS, textField_ComuneNascita, textField_provincia, ABORT, persona);      
+           driver.controlloDati(textField_CF, textField_Nome, textField_Cognome, textField_DataNascita,  sesso.getSelectedIndex(), textField_ComuneNascita, textField_provincia, ManagerOtesserato.getSelectedIndex(), persona);      
 			     
 // 	  !
 //	System.out.println(ManagerOtesserato.getSelectedIndex().toString());
