@@ -22,21 +22,20 @@ import java.awt.event.MouseEvent;
 public class Inserimento_dati_persona extends JFrame {
 
 	private JPanel contentPane_provincia;
-	private JTextField textField_CF;
-	private JTextField textField_Nome;
-	private JTextField textField_Cognome;
-	private JTextField textField_DataNascita;
-	private JTextField textField_ComuneNascita;
-	private JTextField textField_ComuneResidenza;
-	private JTextField textField_Via;
-	private JTextField textField_NumeroCivico;
-	private JTextField textField_CAP;
+	private JTextField textFieldCF;
+	private JTextField textFieldNome;
+	private JTextField textFieldCognome;
+	private JTextField textFieldDataNascita;
+	private JTextField textFieldComuneNascita;
+	private JTextField textFieldComuneResidenza;
+	private JTextField textFieldVia;
+	private JTextField textFieldNumeroCivico;
+	private JTextField textFieldCAP;
 	
 	
 	
-    
-     Inserimento_dati_persona persona; 
-     private JTextField textField_provincia;
+    Inserimento_dati_persona persona; 
+    private JTextField textFieldProvincia;
 	
 	
 	
@@ -53,188 +52,145 @@ public class Inserimento_dati_persona extends JFrame {
 		setContentPane(contentPane_provincia);
 		contentPane_provincia.setLayout(null);
 		
-		JLabel lblNewLabel_CF = new JLabel("Codice fiscale:");
-		lblNewLabel_CF.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_CF.setBounds(31, 49, 178, 34);
-		contentPane_provincia.add(lblNewLabel_CF);
+		JLabel labelCodiceFiscale = new JLabel("Codice fiscale:");
+		labelCodiceFiscale.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelCodiceFiscale.setBounds(31, 49, 178, 34);
+		contentPane_provincia.add(labelCodiceFiscale);
 		
-		JLabel lblNewLabel_nome = new JLabel("Nome: ");
-		lblNewLabel_nome.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_nome.setBounds(31, 79, 178, 29);
-		contentPane_provincia.add(lblNewLabel_nome);
+		JLabel labelNome = new JLabel("Nome: ");
+		labelNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelNome.setBounds(31, 79, 178, 29);
+		contentPane_provincia.add(labelNome);
 		
-		JLabel lblNewLabel_cognome = new JLabel("Cognome :");
-		lblNewLabel_cognome.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_cognome.setBounds(31, 104, 178, 29);
-		contentPane_provincia.add(lblNewLabel_cognome);
+		JLabel labelCognome = new JLabel("Cognome :");
+		labelCognome.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelCognome.setBounds(31, 104, 178, 29);
+		contentPane_provincia.add(labelCognome);
 		
-		JLabel lblNewLabel_dataNascita = new JLabel("Data di nascita:");
-		lblNewLabel_dataNascita.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_dataNascita.setBounds(31, 129, 178, 29);
-		contentPane_provincia.add(lblNewLabel_dataNascita);
+		JLabel labelDataNascita = new JLabel("Data di nascita:");
+		labelDataNascita.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelDataNascita.setBounds(31, 129, 178, 29);
+		contentPane_provincia.add(labelDataNascita);
 		
-		JLabel lblNewLabel_comuneNascita = new JLabel("Comune di nascita: ");
-		lblNewLabel_comuneNascita.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_comuneNascita.setBounds(31, 151, 178, 39);
-		contentPane_provincia.add(lblNewLabel_comuneNascita);
+		JLabel labelComuneNascita = new JLabel("Comune di nascita: ");
+		labelComuneNascita.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelComuneNascita.setBounds(31, 151, 178, 39);
+		contentPane_provincia.add(labelComuneNascita);
 		
-		JLabel lblNewLabel_comuneResidenza = new JLabel("Comune di residenza: ");
-		lblNewLabel_comuneResidenza.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_comuneResidenza.setBounds(31, 180, 178, 34);
-		contentPane_provincia.add(lblNewLabel_comuneResidenza);
+		JLabel labelComuneResidenza = new JLabel("Comune di residenza: ");
+		labelComuneResidenza.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelComuneResidenza.setBounds(31, 180, 178, 34);
+		contentPane_provincia.add(labelComuneResidenza);
 		
-		JLabel lblNewLabel_via = new JLabel("Via: ");
-		lblNewLabel_via.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_via.setBounds(31, 201, 178, 38);
-		contentPane_provincia.add(lblNewLabel_via);
+		JLabel labelVia = new JLabel("Via: ");
+		labelVia.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelVia.setBounds(31, 201, 178, 38);
+		contentPane_provincia.add(labelVia);
 		
-		JLabel lblNewLabel_numeroCivico = new JLabel("Numero civico: ");
-		lblNewLabel_numeroCivico.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_numeroCivico.setBounds(31, 225, 178, 39);
-		contentPane_provincia.add(lblNewLabel_numeroCivico);
+		JLabel labelNumeroCivico = new JLabel("Numero civico: ");
+		labelNumeroCivico.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelNumeroCivico.setBounds(31, 225, 178, 39);
+		contentPane_provincia.add(labelNumeroCivico);
 		
-		JLabel lblNewLabel_cap = new JLabel("CAP:");
-		lblNewLabel_cap.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_cap.setBounds(31, 250, 178, 39);
-		contentPane_provincia.add(lblNewLabel_cap);
+		JLabel label_CAP = new JLabel("CAP:");
+		label_CAP.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		label_CAP.setBounds(31, 250, 178, 39);
+		contentPane_provincia.add(label_CAP);
 		
-		JLabel lblNewLabel_sesso = new JLabel("Identit\u00E0 sessuale:");
-		lblNewLabel_sesso.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_sesso.setBounds(31, 275, 178, 39);
-		contentPane_provincia.add(lblNewLabel_sesso);
+		JLabel labelSesso = new JLabel("Identit\u00E0 sessuale:");
+		labelSesso.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelSesso.setBounds(31, 275, 178, 39);
+		contentPane_provincia.add(labelSesso);
 		
-		JLabel lblNewLabel_provincia = new JLabel("Provincia di nascita: ");
-		lblNewLabel_provincia.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_provincia.setBounds(31, 305, 184, 34);
-		contentPane_provincia.add(lblNewLabel_provincia);
+		JLabel labelProvincia = new JLabel("Provincia di nascita: ");
+		labelProvincia.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelProvincia.setBounds(31, 305, 184, 34);
+		contentPane_provincia.add(labelProvincia);
 		
-		JLabel lblNewLabel_managerOsportivo = new JLabel("Manager o tesserato?");
-		lblNewLabel_managerOsportivo.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_managerOsportivo.setVerticalAlignment(SwingConstants.TOP);
-		lblNewLabel_managerOsportivo.setBounds(31, 339, 213, 39);
-		contentPane_provincia.add(lblNewLabel_managerOsportivo);
+		JLabel labelManagerOTesserato = new JLabel("Manager o tesserato?");
+		labelManagerOTesserato.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		labelManagerOTesserato.setVerticalAlignment(SwingConstants.TOP);
+		labelManagerOTesserato.setBounds(31, 347, 213, 39);
+		contentPane_provincia.add(labelManagerOTesserato);
 		
-		JLabel lblNewLabel_12 = new JLabel("(true=tesserato, false=manager)");
-		lblNewLabel_12.setBounds(31, 365, 162, 14);
-		contentPane_provincia.add(lblNewLabel_12);
+		textFieldCF = new JTextField();
+		textFieldCF.setBounds(249, 60, 358, 20);
+		contentPane_provincia.add(textFieldCF);
+		textFieldCF.setColumns(10);
 		
-		textField_CF = new JTextField();
-		textField_CF.setBounds(249, 60, 358, 20);
-		contentPane_provincia.add(textField_CF);
-		textField_CF.setColumns(10);
+		textFieldNome = new JTextField();
+		textFieldNome.setColumns(10);
+		textFieldNome.setBounds(249, 87, 358, 20);
+		contentPane_provincia.add(textFieldNome);
 		
-		textField_Nome = new JTextField();
-		textField_Nome.setColumns(10);
-		textField_Nome.setBounds(249, 87, 358, 20);
-		contentPane_provincia.add(textField_Nome);
+		textFieldCognome = new JTextField();
+		textFieldCognome.setColumns(10);
+		textFieldCognome.setBounds(249, 112, 358, 20);
+		contentPane_provincia.add(textFieldCognome);
 		
-		textField_Cognome = new JTextField();
-		textField_Cognome.setColumns(10);
-		textField_Cognome.setBounds(249, 112, 358, 20);
-		contentPane_provincia.add(textField_Cognome);
+		textFieldDataNascita = new JTextField();
+		textFieldDataNascita.setColumns(10);
+		textFieldDataNascita.setBounds(249, 137, 358, 20);
+		contentPane_provincia.add(textFieldDataNascita);
 		
-		textField_DataNascita = new JTextField();
-		textField_DataNascita.setColumns(10);
-		textField_DataNascita.setBounds(249, 137, 358, 20);
-		contentPane_provincia.add(textField_DataNascita);
+		textFieldComuneNascita = new JTextField();
+		textFieldComuneNascita.setColumns(10);
+		textFieldComuneNascita.setBounds(249, 164, 358, 20);
+		contentPane_provincia.add(textFieldComuneNascita);
 		
-		textField_ComuneNascita = new JTextField();
-		textField_ComuneNascita.setColumns(10);
-		textField_ComuneNascita.setBounds(249, 164, 358, 20);
-		contentPane_provincia.add(textField_ComuneNascita);
+		textFieldComuneResidenza = new JTextField();
+		textFieldComuneResidenza.setColumns(10);
+		textFieldComuneResidenza.setBounds(249, 191, 358, 20);
+		contentPane_provincia.add(textFieldComuneResidenza);
 		
-		textField_ComuneResidenza = new JTextField();
-		textField_ComuneResidenza.setColumns(10);
-		textField_ComuneResidenza.setBounds(249, 191, 358, 20);
-		contentPane_provincia.add(textField_ComuneResidenza);
+		textFieldVia = new JTextField();
+		textFieldVia.setColumns(10);
+		textFieldVia.setBounds(249, 214, 358, 20);
+		contentPane_provincia.add(textFieldVia);
 		
-		textField_Via = new JTextField();
-		textField_Via.setColumns(10);
-		textField_Via.setBounds(249, 214, 358, 20);
-		contentPane_provincia.add(textField_Via);
+		textFieldNumeroCivico = new JTextField();
+		textFieldNumeroCivico.setColumns(10);
+		textFieldNumeroCivico.setBounds(249, 238, 358, 20);
+		contentPane_provincia.add(textFieldNumeroCivico);
 		
-		textField_NumeroCivico = new JTextField();
-		textField_NumeroCivico.setColumns(10);
-		textField_NumeroCivico.setBounds(249, 238, 358, 20);
-		contentPane_provincia.add(textField_NumeroCivico);
+		textFieldCAP = new JTextField();
+		textFieldCAP.setColumns(10);
+		textFieldCAP.setBounds(249, 263, 358, 20);
+		contentPane_provincia.add(textFieldCAP);
 		
-		textField_CAP = new JTextField();
-		textField_CAP.setColumns(10);
-		textField_CAP.setBounds(249, 263, 358, 20);
-		contentPane_provincia.add(textField_CAP);
+		JComboBox comboBoxSesso = new JComboBox();
+		comboBoxSesso.setBounds(249, 287, 46, 22);
+		contentPane_provincia.add(comboBoxSesso);
+		comboBoxSesso.addItem("M");
+		comboBoxSesso.addItem("F");
 		
-		JComboBox sesso = new JComboBox();
-		sesso.setBounds(249, 287, 46, 22);
-		contentPane_provincia.add(sesso);
-		sesso.addItem("M");
-		sesso.addItem("F");
+		JComboBox comboBoxManagerOtesserato = new JComboBox();
+		comboBoxManagerOtesserato.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		comboBoxManagerOtesserato.setBounds(249, 344, 101, 34);
+		contentPane_provincia.add(comboBoxManagerOtesserato);
+		comboBoxManagerOtesserato.addItem("Manager");
+		comboBoxManagerOtesserato.addItem("Tesserato");
 		
-		JComboBox ManagerOtesserato = new JComboBox();
-		ManagerOtesserato.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		ManagerOtesserato.setBounds(249, 344, 101, 34);
-		contentPane_provincia.add(ManagerOtesserato);
-		ManagerOtesserato.addItem("Manager");
-		ManagerOtesserato.addItem("Tesserato");
-		
-		JButton bottone_procedi = new JButton("Procedi all'inserimento");
-		bottone_procedi.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				boolean sos = true;
-			     Driver driver = new Driver(); 
-
-	
-           driver.controlloDati(textField_CF, textField_Nome, textField_Cognome, textField_DataNascita,  sesso.getSelectedIndex(), textField_ComuneNascita, textField_provincia, ManagerOtesserato.getSelectedIndex(), persona);      
-			     
-// 	  !
-//	System.out.println(ManagerOtesserato.getSelectedIndex().toString());
-//	if(driver.controlloDati( textField_CF, textField_Nome, textField_Cognome, textField_DataNascita,
-//								 sesso.getSelectedIndex(), textField_ComuneNascita, textField_provincia,
-//								 ManagerOtesserato.getSelectedIndex(), persona) != true) {
-//		
-//		    while(driver.controlloDati( textField_CF, textField_Nome, textField_Cognome, textField_DataNascita,
-//								 sesso.getSelectedIndex(), textField_ComuneNascita, textField_provincia,
-//								 ManagerOtesserato.getSelectedIndex(), persona) ) {
-//			
-//		}
-//	}
-//	else {
-//		
-//		
-//		  
-//	  }
-//		 System.out.println("Sei nel matrix");
-//										
-//						
-//				
-//						
-//
-//			persona.setVisible(false);
-//			Inserimento_persona_tesserata tesserato = new Inserimento_persona_tesserata(); 
-//			tesserato.setVisible(true);
-//						
-//  	}
-			}
-	});
-		bottone_procedi.setFont(new Font("Tahoma", Font.PLAIN, 13));
-		bottone_procedi.setBounds(693, 463, 162, 60);
-		contentPane_provincia.add(bottone_procedi);
-		
-		JButton bottone_annulla = new JButton("Annulla inserimento");
-		bottone_annulla.addMouseListener(new MouseAdapter() {
+		JButton bottoneAnnulla = new JButton("Annulla inserimento");
+		bottoneAnnulla.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		bottoneAnnulla.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 			
 			}
 		});
-		bottone_annulla.setBounds(31, 463, 162, 60);
-		contentPane_provincia.add(bottone_annulla);
+		bottoneAnnulla.setBounds(31, 463, 178, 60);
+		contentPane_provincia.add(bottoneAnnulla);
 		
-		textField_provincia = new JTextField();
-		textField_provincia.setBounds(249, 316, 86, 20);
-		contentPane_provincia.add(textField_provincia);
-		textField_provincia.setColumns(10);
+		textFieldProvincia = new JTextField();
+		textFieldProvincia.setBounds(249, 316, 86, 20);
+		contentPane_provincia.add(textFieldProvincia);
+		textFieldProvincia.setColumns(10);
+		
+		JButton bottoneAvanti = new JButton("Avanti");
+		bottoneAvanti.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		bottoneAvanti.setBounds(588, 463, 178, 60);
+		contentPane_provincia.add(bottoneAvanti);
 		
 	}
 }
