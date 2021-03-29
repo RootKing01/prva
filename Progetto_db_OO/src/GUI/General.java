@@ -23,7 +23,6 @@ public class General extends JFrame {
 	
 	Driver driver = new Driver(); 
 	General general;
-
 	
 	private JPanel contentPane;
 
