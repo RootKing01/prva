@@ -20,16 +20,15 @@ import GUI.Inserimento_dati_persona;
 import GUI.Inserimento_persona_tesserata;
 
 
-public class Driver {
+public class Driver 
+{
   
 
 	//Inserimento_dati_persona persona = new Inserimento_dati_persona(); 
 	
 	
-	
-	
-	
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		
 		DBConnection istanza = null; 
 		Connection connessione = null; 
@@ -37,25 +36,17 @@ public class Driver {
 		
 		driver.Controller();
 		
-		try{
-			
-			
+		try
+		{
+				
 			istanza = DBConnection.getInstance(); 
 			connessione = (Connection) istanza.getConnection(); 
-          
-		 
 			
 			PersonaDAOpostgre personadao = null; 
 			
-			
-			
-			
-		}catch(SQLException e){
-			
-			
-			
-			
-			
+		}
+		catch(SQLException e)
+		{	
 			
 		}
 
@@ -65,12 +56,12 @@ public class Driver {
 
 /////////////////////////////////////////////////****METODI****////////////////////////////////////////////////////
 	
-	public void inertTesseratoDB(Tesserato tesserato) {
-		
-		
-		
+	public void inertTesseratoDB(Tesserato tesserato)
+	{
+			
 	}
 
+	
 //    public void funzione_finestra_visibile(JFrame Finestra, JFrame Finestra1) {
 //    	
 //    	Finestra.setVisible(false);    	
@@ -87,73 +78,91 @@ public class Driver {
 	}
 
 
-public boolean controlloCodiceFiscale(JTextField CF, Inserimento_dati_persona inserimento_dati_persona){
-	
-	boolean flag = true; 
-	
-	if(CF.getText().length() != 16) 
+	public boolean controlloCodiceFiscale(JTextField CF, Inserimento_dati_persona inserimento_dati_persona)
 	{
-		System.out.println("errore, il CF deve essere di 16 caretteri");
-		ErroreInserimento errore_codice_fiscale = new ErroreInserimento(inserimento_dati_persona); 
-		errore_codice_fiscale.setVisible(true);
-		flag = false; 
+	
+		boolean flag = true; 
 		
-	}
-	else
-	{
-		System.out.println("flag true");
-		flag = true;
-	}
-	
-	return flag; 
-	
-	
-}
-	
-public boolean controlloProvincia(JTextField provincia, Inserimento_dati_persona inserimento_dati_persona) {
-	
-	
-	boolean flag = false;
-	
-	if(provincia.getText().length() < 2 || provincia.getText().length() > 3) {
-		System.out.println("Inserire la provincia corretta");
-		ErroreInserimento errore_provincia =  new ErroreInserimento(inserimento_dati_persona); 
-	}
-	
-	
-	return flag; 
-}
-	
-	
-	
-
-	
-public boolean controlloDati( JTextField CF			,JTextField Nome 	,JTextField Cognome,
-									 JTextField DataNascita	,int selectedIndex	,JTextField ComuneNascita,
-									 JTextField provincia	,int selectedIndex2, Inserimento_dati_persona inserimento_dati_persona
-								   ) 
-{
+		if(CF.getText().length() != 16) 
+		{
+			System.out.println("errore, il CF deve essere di 16 caretteri");
+			ErroreInserimento errore_codice_fiscale = new ErroreInserimento(inserimento_dati_persona); 
+			errore_codice_fiscale.setVisible(true);
+			flag = false; 
 			
-	
-	 boolean flag = true; 
-	   
-	  
-	   while( flag )
-     {
-
-		  		flag = controlloCodiceFiscale(CF, inserimento_dati_persona); 
-		        flag = controlloProvincia(provincia, inserimento_dati_persona); 
-		 }
+		}
+		else
+		{
+			System.out.println("flag=true");
+			flag = true;
+		}
 		
+		return flag; 
+		
+		
+	}
+		
+	public boolean controlloProvincia(JTextField provincia, Inserimento_dati_persona inserimento_dati_persona) {
+		
+		
+		boolean flag = false;
+		 
+		if(provincia.getText().length() < 2 || provincia.getText().length() > 3)
+		{
+			System.out.println("Inserire la provincia corretta");
+			ErroreInserimento errore_provincia =  new ErroreInserimento(inserimento_dati_persona); 
+		}
+		
+//		qui c'è anche da chiamre una query sul db e controllare lappartenenza a provincia (variabile)
+		
+		
+		return flag; 
+	}
+	
+	
+	
+
+	
+	public boolean controlloDati( JTextField CF				,JTextField Nome		,JTextField Cognome,		
+								  JTextField DataNascita	,int selectedIndex		,JTextField ComuneNascita,
+								  JTextField provincia		,int selectedIndex2,	Inserimento_dati_persona persona
+								) 
+	{
+		
+		//  WORKING IN PROGRESS
+		
+		
+		// flag == vero, concettualmente vuol dire che va utto bene oppure vuol dire che c'è un errore?
+		
+		boolean flagCodiceFiscale = true;
+		boolean flagProvincia = true;
+		boolean flagGenerale;
+		
+		// codice originario: while(flag) 
+		// significa: se flag == vero continua a girare
+		// implica: deve gireare finche almeno una delle flag ... significhi errore
+		
+		// prima di tutto creare uno standard; 
+		// sia su i  nomi    sia sulle flag meaning
+		
+		while( flagCodiceFiscale && flagProvincia)
+	    {
+		 	flagCodiceFiscale = controlloCodiceFiscale(CF, persona); 
+		 	flagProvincia = controlloProvincia(provincia, persona); 
+	    }
+		
+		
+		// inutile metterer sia il while ( fatto cosi ) e il return flag: 
+		// il ciclo while finisce solo se le flag sono false -> il return sara solo falso. 
+		return 1!=1;
+	}
+	
+	
+	
+	
+}
 
 
-		return flag;
 
 
-
-
-    }
-
-
-  }
 
