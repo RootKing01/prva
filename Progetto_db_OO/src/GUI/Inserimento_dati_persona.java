@@ -188,7 +188,7 @@ public class Inserimento_dati_persona extends JFrame {
 		textFieldProvincia.setColumns(10);
 		
 		JButton bottoneAvanti = new JButton("Avanti");
-		bottoneAvanti.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		bottoneAvanti.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		bottoneAvanti.setBounds(588, 463, 178, 60);
 		contentPane_provincia.add(bottoneAvanti);
 		
