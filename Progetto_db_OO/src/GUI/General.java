@@ -43,8 +43,8 @@ public class General extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Inserisci");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		JButton bottoneInserisci = new JButton("Inserisci");
+		bottoneInserisci.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
@@ -56,8 +56,8 @@ public class General extends JFrame {
 				
 			}
 		});
-		btnNewButton.setBounds(281, 103, 131, 47);
-		contentPane.add(btnNewButton);
+		bottoneInserisci.setBounds(281, 103, 131, 47);
+		contentPane.add(bottoneInserisci);
 		
 	}
 }
