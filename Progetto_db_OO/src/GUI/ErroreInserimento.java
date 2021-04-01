@@ -31,7 +31,7 @@ public class ErroreInserimento extends JDialog {
 	public ErroreInserimento(Inserimento_dati_persona persona) {
 
 		this.persona = persona; 
-		erroreInserimento = this; 
+  		erroreInserimento = this; 
 	    
 	     
 		setTitle("ERRORE CODICE FISCALE");

@@ -145,16 +145,18 @@ public class Driver
 		// prima di tutto creare uno standard; 
 		// sia su i  nomi    sia sulle flag meaning
 		
-		while( flagCodiceFiscale && flagProvincia)
+		while( flagCodiceFiscale && flagProvincia )
 	    {
 		 	flagCodiceFiscale = controlloCodiceFiscale(CF, persona); 
-		 	flagProvincia = controlloProvincia(provincia, persona); 
+      	 	flagProvincia = controlloProvincia(provincia, persona); 
 	    }
 		
 		
 		// inutile metterer sia il while ( fatto cosi ) e il return flag: 
 		// il ciclo while finisce solo se le flag sono false -> il return sara solo falso. 
-		return 1!=1;
+		
+		return 1!=1; 
+		
 	}
 	
 	

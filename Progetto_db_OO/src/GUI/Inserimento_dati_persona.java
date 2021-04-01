@@ -36,13 +36,14 @@ public class Inserimento_dati_persona extends JFrame {
 	
     Inserimento_dati_persona persona; 
     private JTextField textFieldProvincia;
+    Driver driver = new Driver(); 
 	
 	
 	
 	public Inserimento_dati_persona() {
 		
          persona = this; 
-		
+		 
 		
 		setTitle("Inserimento Manager");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -188,6 +189,13 @@ public class Inserimento_dati_persona extends JFrame {
 		textFieldProvincia.setColumns(10);
 		
 		JButton bottoneAvanti = new JButton("Avanti");
+		bottoneAvanti.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				driver.controlloDati(textFieldCF, textFieldNome, textFieldCognome, textFieldDataNascita, ALLBITS, textFieldComuneNascita, textFieldProvincia, ABORT, persona); 
+			}
+		});
 		bottoneAvanti.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		bottoneAvanti.setBounds(588, 463, 178, 60);
 		contentPane_provincia.add(bottoneAvanti);
