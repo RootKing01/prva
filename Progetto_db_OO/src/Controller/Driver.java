@@ -26,6 +26,7 @@ public class Driver
 
 	//Inserimento_dati_persona persona = new Inserimento_dati_persona(); 
 	
+
 	
 	public static void main(String[] args) 
 	{
@@ -78,7 +79,7 @@ public class Driver
 	}
 
 
-	public boolean controlloCodiceFiscale(JTextField CF, Inserimento_dati_persona inserimento_dati_persona)
+	public boolean controlloCodiceFiscale(JTextField CF, Inserimento_dati_persona inserimento_dati_persona, ErroreInserimento errore_codice_fiscale)
 	{
 	
 		boolean flag = true; 
@@ -86,7 +87,6 @@ public class Driver
 		if(CF.getText().length() != 16) 
 		{
 			System.out.println("errore, il CF deve essere di 16 caretteri");
-			ErroreInserimento errore_codice_fiscale = new ErroreInserimento(inserimento_dati_persona); 
 			errore_codice_fiscale.setVisible(true);
 			flag = false; 
 			
@@ -102,7 +102,7 @@ public class Driver
 		
 	}
 		
-	public boolean controlloProvincia(JTextField provincia, Inserimento_dati_persona inserimento_dati_persona) {
+	public boolean controlloProvincia(JTextField provincia, Inserimento_dati_persona inserimento_dati_persona, ErroreInserimento errore_provincia) {
 		
 		
 		boolean flag = false;
@@ -110,7 +110,8 @@ public class Driver
 		if(provincia.getText().length() < 2 || provincia.getText().length() > 3)
 		{
 			System.out.println("Inserire la provincia corretta");
-			ErroreInserimento errore_provincia =  new ErroreInserimento(inserimento_dati_persona); 
+			errore_provincia.setVisible(true);
+			
 		}
 		
 //		qui c'è anche da chiamre una query sul db e controllare lappartenenza a provincia (variabile)
@@ -125,7 +126,8 @@ public class Driver
 	
 	public boolean controlloDati( JTextField CF				,JTextField Nome		,JTextField Cognome,		
 								  JTextField DataNascita	,int selectedIndex		,JTextField ComuneNascita,
-								  JTextField provincia		,int selectedIndex2,	Inserimento_dati_persona persona
+								  JTextField provincia		,int selectedIndex2,	Inserimento_dati_persona persona, 
+								  ErroreInserimento errore
 								) 
 	{
 		
@@ -147,8 +149,8 @@ public class Driver
 		
 		while( flagCodiceFiscale && flagProvincia )
 	    {
-		 	flagCodiceFiscale = controlloCodiceFiscale(CF, persona); 
-      	 	flagProvincia = controlloProvincia(provincia, persona); 
+		 	flagCodiceFiscale = controlloCodiceFiscale(CF, persona, errore); 
+      	 	flagProvincia = controlloProvincia(provincia, persona, errore); 
 	    }
 		
 		

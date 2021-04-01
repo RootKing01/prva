@@ -37,12 +37,14 @@ public class Inserimento_dati_persona extends JFrame {
     Inserimento_dati_persona persona; 
     private JTextField textFieldProvincia;
     Driver driver = new Driver(); 
+    ErroreInserimento errore = new ErroreInserimento(this); 
 	
 	
 	
 	public Inserimento_dati_persona() {
 		
          persona = this; 
+        
 		 
 		
 		setTitle("Inserimento Manager");
@@ -192,10 +194,26 @@ public class Inserimento_dati_persona extends JFrame {
 		bottoneAvanti.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				boolean flag; 
 				
-				driver.controlloDati(textFieldCF, textFieldNome, textFieldCognome, textFieldDataNascita, ALLBITS, textFieldComuneNascita, textFieldProvincia, ABORT, persona); 
+			
+				flag = driver.controlloDati(textFieldCF, textFieldNome, textFieldCognome, textFieldDataNascita, ALLBITS, textFieldComuneNascita, textFieldProvincia, ABORT, persona, errore); 
+                int count = e.getClickCount(); 
+				if(count >= 2)
+			       errore.setVisible(false);
+				
+				
+			//FOLLIA CHE MI ERA VENUTA IN MENTE 	
+//				if(flag == false) {
+//					while(flag == false) {
+//						errore. 
+//					}
+//				}
 			}
 		});
+		
+		
+		
 		bottoneAvanti.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		bottoneAvanti.setBounds(588, 463, 178, 60);
 		contentPane_provincia.add(bottoneAvanti);

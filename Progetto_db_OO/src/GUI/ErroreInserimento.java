@@ -75,7 +75,7 @@ public class ErroreInserimento extends JDialog {
 					public void mouseClicked(MouseEvent e) {
 					
 				     erroreInserimento.setVisible(false);
-					 persona.setVisible(true);	
+//					 persona.setVisible(true);	
 					}
 				});
 				tornaAdati.setActionCommand("OK");
