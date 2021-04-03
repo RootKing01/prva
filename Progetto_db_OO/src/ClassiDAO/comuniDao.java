@@ -57,41 +57,5 @@ public class comuniDao {
 		int row = inserisciComune.executeUpdate(); 
 		return row; 
 		
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	    }
 }
