@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 
+import javax.swing.text.PlainDocument;
+
 public class Comune {
 
 	public static void main(String[] args) throws IOException {
@@ -55,19 +57,28 @@ public class Comune {
 		this.codiceFisco = codiceFisco;
 	}
 	
-  public void letturaComuni() throws IOException {
+ 
+	
+	
+	public void letturaComuni() throws IOException {
 	    
+	//Creaiamo un oggetto f di tipo FileReader che indirizza il file da leggere 
+		
 	    FileReader  f = new FileReader("File\\listacomuni.txt");
 
+    //Adesso creiamo invece un oggetto b di tipo BufferedReader che prende in input il file da leggere 
+	    
 	    BufferedReader b = new BufferedReader(f);
 
 	    String s; 
 
 	    while(true) {
-	      
+	    
+    //Tramite il metodo readline prendiamo le stringhe dal file e con s ne recuperiamo il contenuto	    	
+	    	
 	      s = b.readLine();
 	     
-	      
+	//Eseguiamo un controllo sulla stringa presa per vedere se effettivamente è stato recuperato il contenuto  
 	     
 	     if(s == null)
 	        	break;
@@ -77,67 +88,65 @@ public class Comune {
 //	      System.out.println(s);
 	      
 	    } 
-	
+	//Chiudiamo il buffer 
 	      b.close();
-	      
+	//Chiudiamo il file reader      
 	      f.close();
   }
 	
-//	StringBuilder resultStringBuilder = new StringBuilder();
-//    try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-//        String line;
-//        while ((line = br.readLine()) != null) {
-//            resultStringBuilder.append(line).append("\n");
-//        }
-//	
-//	
-//	
-//	
-//    }	
-	
-  
 
 
 public void modificaFile(String s) throws IOException {
 	
-	   String input = s;
+	//Il metodo prende in input una stringa da analizzare, ovvero quella letta dal file nel metodo letturaFile
+	  
+	String input = s;
+	
+	//Creiamo un nuovo oggetto scanner che prende in input la stringa passata al metodo e ne appplica delle limitazioni tramite il metodo
+	//useDelimiter, che permette di applicare espressioni regolari o con caratteri che hanno uno specifico significato che determinano operazioni
+	//sul testo
+	   
 	   Scanner scanner = new Scanner(input).useDelimiter(";");
-
+	   
+	//Creiamo un oggetto writer di tipo FileWriter per indicare o creare il file da scrivere
+	   
 	   FileWriter writer = new FileWriter("File\\listacomunidb.txt", true);
-	   PrintWriter boh = new PrintWriter(writer);	    
+	   
+	//Creiamo un oggetto printer di tipo PrintWriter che prende l'oggetto su cui andare a scrivere 
+	   
+	   PrintWriter printer = new PrintWriter(writer);	    
 	   
 	   for(int i= 0; i<9; i++){
+		   
 			String tmp;
+			
+    //La stringa tmp prende il contenuto della stringa risultante da scanner.next(), stringa che risulta essere quella passata al metodo
+			
 			System.out.println(tmp=scanner.next());
+   
+	//Il seguente if ci dice che deve considerare le stringhe in posizione 2,3,6,7 rispetto al file (limitazioni tramite ; visto sopra)
+			
 			if(i == 1 || i == 2 || i == 5 || i == 6 )
 			{
-				boh.println(tmp+" "); 
+	
+	//La seguente stringa di codice stampa all'interno del file la stringa nel caso in cui la condizione sia vera 
+		
+				printer.println(tmp+" "); 
 				
 			}
 				
-		}
+		                         }
 		
-	     scanner.close(); 
+	//Viene chiuso lo scanner che prende in input le stringhe passate al metodo
+	    
+	   scanner.close(); 
 	    // f.close();
-	     boh.close();
+	   
+	//Chiudiamo il printer 
+	   
+	   printer.close();
 	
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+   }
 
 
 
