@@ -58,18 +58,10 @@ public class PersonaDAOpostgre {
 
 
 
-public void controlloComune() {
-	
-	public StudenteDAOPostgresImpl(Connection connection) throws SQLException {
-        this.connection=connection;
-        getStudenteByNomePS = connection.prepareStatement("SELECT * FROM studente where nome like ?");
-        inserisciStudentePS = connection.prepareStatement("INSERT INTO studente VALUES (?, ?, ?, ?)");
-    }
+
 	
 	
-	
-	
-       }
+       
 
 }
 
