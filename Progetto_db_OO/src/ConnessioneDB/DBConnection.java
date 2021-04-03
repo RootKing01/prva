@@ -1,6 +1,10 @@
 package ConnessioneDB;
 
-	import java.sql.Connection;
+	
+    import java.sql.PreparedStatement;
+
+
+    import java.sql.Connection;
 	import java.sql.DriverManager;
 	import java.sql.SQLException;
 	import java.sql.Statement;
@@ -14,7 +18,7 @@ package ConnessioneDB;
 	    private final String USERNAME = "postgres";
 	    private final String PASSWORD = "Database12";
 	    private final String IP = "localhost";
-	    private final String PORT = "5432";
+	    private final String PORT = "55441";
 	    private String url = "jdbc:postgresql://"+IP+":"+PORT+"/postgres";
 
 	    private DBConnection() throws SQLException {
@@ -31,7 +35,12 @@ package ConnessioneDB;
 	        catch (ClassNotFoundException ex)
 	        {
 	            System.out.println("Database Connection Creation Failed : " + ex.getMessage());
+	        }  
+	        catch (SQLException e)
+	        {
+	            System.out.println("Database Connection Creation Failed (SQL EXCEPTION) : " + e.getMessage());
 	        }
+
 
 	    }
 
