@@ -18,7 +18,7 @@ package ConnessioneDB;
 	    private final String USERNAME = "postgres";
 	    private final String PASSWORD = "Database12";
 	    private final String IP = "localhost";
-	    private final String PORT = "55441";
+	    private final String PORT = "55252";
 	    private String url = "jdbc:postgresql://"+IP+":"+PORT+"/postgres";
 
 	    private DBConnection() throws SQLException {

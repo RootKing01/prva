@@ -6,19 +6,49 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Scanner;
 
 import javax.swing.text.PlainDocument;
 
-public class Comune {
+import java.sql.PreparedStatement;
 
-	public static void main(String[] args) throws IOException {
-		
-		Comune comune = new Comune(); 
-		
-		comune.letturaComuni();
-		
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+import ClassiDAO.comuniDao;
+import ConnessioneDB.DBConnection;
+import Controller.Driver;
+
+
+
+
+
+
+public class Comune {
+	
+	
+
+	
+	public Comune(){}
+	
+	public Comune(String comune, String provincia, String cap, String codiceFisco) {
+	super(); 
+	//this.nomeComune = comune;
+	//this.provincia = provincia;
+	//this.cap = cap;
+	//this.codiceFisco = codiceFisco;
+
+
+	setNomeComune(comune);
+	setProvincia(provincia);
+	setCap(cap);
+	setCodiceFisco(codiceFisco);
+	
 	}
+	
 	
 	private String nomeComune; 
 	private String provincia; 
@@ -71,19 +101,25 @@ public class Comune {
 	    BufferedReader b = new BufferedReader(f);
 
 	    String s; 
-
-	    while(true) {
+		int count = 4;
+	 //Tramite il metodo readline prendiamo le stringhe dal file e con s ne recuperiamo il contenuto	   
 	    
-    //Tramite il metodo readline prendiamo le stringhe dal file e con s ne recuperiamo il contenuto	    	
-	    	
-	      s = b.readLine();
-	     
+
+		s = b.readLine();
+		System.out.println(s);
+		s = b.readLine();
+		System.out.println(s);
+		s = b.readLine();
+		System.out.println(s);
+		s = b.readLine();
+		System.out.println(s);
+	    while((s = b.readLine()) != null) {
+	    		
+			
+				
+    	
 	//Eseguiamo un controllo sulla stringa presa per vedere se effettivamente è stato recuperato il contenuto  
-	     
-	     if(s == null)
-	        	break;
-	      
-			modificaFile(s);
+		//modificaFile(s);
 
 //	      System.out.println(s);
 	      
@@ -148,9 +184,42 @@ public void modificaFile(String s) throws IOException {
 	
    }
 
-
-
+ public void insertComuni() throws IOException {
+	 
+	 FileReader  f = new FileReader("File\\listacomunidb.txt");
+	 
+	 BufferedReader b = new BufferedReader(f);
+	 
+	 String string_comune , string_codiceFisco, string_cap, string_provincia ; 
+	 
+	 string_comune = b.readLine(); 
+	 string_codiceFisco = b.readLine();
+	 string_cap = b.readLine();
+	 string_provincia = b.readLine();
+	
+	 while(string_comune != null) {
+		 
+		 string_comune = b.readLine(); 
+		 string_codiceFisco = b.readLine();
+	 	 string_cap = b.readLine();
+	 	 string_provincia = b.readLine();
+		 
+		
+		 Comune comune = new Comune(string_comune, string_codiceFisco, string_cap, string_provincia);
+		
+		  Driver driver = new Driver(); 
+		  driver.insertComuniDatabase(comune);
+				
+				 
+				 
+				 
+				
+		 
+		 
+	 }
+	 
+       b.close();
+	 f.close();
+ }
 
 }
-
-

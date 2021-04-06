@@ -3,6 +3,7 @@ package Controller;
 
 
 import java.awt.event.MouseAdapter;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.JDialog;
@@ -12,6 +13,8 @@ import javax.swing.JTextField;
 import com.sun.jdi.connect.spi.Connection;
 
 import ClassiDAO.PersonaDAOpostgre;
+import ClassiDAO.comuniDao;
+import ClassiDatabase.Comune;
 import ClassiDatabase.Tesserato;
 import ConnessioneDB.DBConnection;
 import GUI.ErroreInserimento;
@@ -25,7 +28,6 @@ public class Driver
   
 
 	//Inserimento_dati_persona persona = new Inserimento_dati_persona(); 
-	
 
 	
 	public static void main(String[] args) 
@@ -33,22 +35,28 @@ public class Driver
 		
 		DBConnection istanza = null; 
 		Connection connessione = null; 
-		Driver driver = new Driver(); 
+		Driver driver; 
 		
-		driver.Controller();
-		
+//		driver.Controller();
+	
 		try
 		{
 				
 			istanza = DBConnection.getInstance(); 
-			connessione = (Connection) istanza.getConnection(); 
-			
-			PersonaDAOpostgre personadao = null; 
+			connessione = (Connection) istanza.getConnection();
+			System.out.println("Connessione Eseguita correttamente"); 
+		
+			System.out.println("Comuni inseriti");
 			
 		}
 		catch(SQLException e)
 		{	
 			
+		}
+		catch (IOException e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 
 	}
@@ -162,6 +170,17 @@ public class Driver
 	}
 	
 	
+public void insertComuniDatabase(Comune comune) {
+	
+	
+	comuniDao comuneDao = new comuniDao(); 
+	
+	comuneDao.inserisciComune(comune);
+	
+	
+	
+	
+}
 
 
 
