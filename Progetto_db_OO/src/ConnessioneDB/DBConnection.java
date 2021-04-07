@@ -18,7 +18,7 @@ package ConnessioneDB;
 	    private final String USERNAME = "postgres";
 	    private final String PASSWORD = "Database12";
 	    private final String IP = "localhost";
-	    private final String PORT = "55252";
+	    private final String PORT = "5432";
 	    private String url = "jdbc:postgresql://"+IP+":"+PORT+"/postgres";
 
 	      
@@ -37,9 +37,10 @@ package ConnessioneDB;
 
 	        try
 	        {
+				System.out.println("try inizio");
 	            Class.forName("org.postgresql.Driver");
 	            connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
-
+				System.out.println("try fine");
 	        }
 	        catch (ClassNotFoundException ex)
 	        {
@@ -53,18 +54,20 @@ package ConnessioneDB;
 
 	    }
 
-	    public static Connection getConnection() {
+	    public Connection getConnection() {
 	        return connection;
 	    }
 
 	    public static DBConnection getInstance() throws SQLException {
 	        if (instance == null)
-	        {
+	        {	
+				System.out.println("getInstance tt ok");
 	            instance = new DBConnection();
 	        }
 	        else
 	            if (instance.getConnection().isClosed())
 	            {
+					System.out.println("istanza chiusa tt ok");
 	                instance = new DBConnection();
 	            }
 

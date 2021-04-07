@@ -10,7 +10,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 
-import com.sun.jdi.connect.spi.Connection;
+import java.sql.Connection;
 
 import ClassiDAO.PersonaDAOpostgre;
 import ClassiDAO.comuniDao;
@@ -34,7 +34,7 @@ public class Driver
 	//Inserimento_dati_persona persona = new Inserimento_dati_persona(); 
 
 	
-	public static void main(String[] args) throws SQLException 
+	public static void main(String[] args) throws SQLException, IOException 
 	{
 		
 //		driver.Controller();
@@ -42,9 +42,11 @@ public class Driver
 //		try
 //		{   
 //			
-			Driver driver = new Driver(); 
+			 
 			
-			driver.accessoConnessione(null);
+			Comune comune = new Comune(); 
+			
+			comune.insertComuni();
 		 
 		    System.out.println("Tutto a buon fine"); 
 		
@@ -167,26 +169,17 @@ public class Driver
 	}
 	
 	
-public void insertComuniDatabase(Comune comune) {
-	
-	
-		
-	
-	
-	
-}
 
-public void accessoConnessione(Comune comune) throws SQLException {
+public Connection accessoConnessione() throws SQLException {
 	
 	  
-	   Connection connection; 
-	   DBConnection connessione;
 	   
-	   connection = (Connection) DBConnection.getConnection();
+	   DBConnection connessioneDB = DBConnection.getInstance(); 
+	   Connection connection =   connessioneDB.getConnection();
 	   
-//	   comuniDao comuneDao = new comuniDao(connection); 
-//		
-//		comuneDao.inserisciComune(comune);
+	  // System.out.println("connessione"+ connection);
+	   
+	 return connection; 
 	
 	}
 

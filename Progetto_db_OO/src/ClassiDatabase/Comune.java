@@ -184,7 +184,7 @@ public void modificaFile(String s) throws IOException {
 	
    }
 
- public void insertComuni() throws IOException {
+ public void insertComuni() throws IOException, SQLException {
 	 
 	 FileReader  f = new FileReader("File\\listacomunidb.txt");
 	 
@@ -197,7 +197,7 @@ public void modificaFile(String s) throws IOException {
 	 string_cap = b.readLine();
 	 string_provincia = b.readLine();
 	
-	 while(string_comune != null) {
+	 while(string_comune != null && string_codiceFisco != null && string_cap != null && string_provincia != null) {
 		 
 		 string_comune = b.readLine(); 
 		 string_codiceFisco = b.readLine();
@@ -205,19 +205,20 @@ public void modificaFile(String s) throws IOException {
 	 	 string_provincia = b.readLine();
 		 
 		
-		 Comune comune = new Comune(string_comune, string_codiceFisco, string_cap, string_provincia);
+		  Comune comune = new Comune(string_comune, string_codiceFisco, string_cap, string_provincia);
 		
 		  Driver driver = new Driver(); 
-		  driver.insertComuniDatabase(comune);
+		  Connection connection = driver.accessoConnessione(); 
 				
-				 
+		  comuniDao comuneDao = new comuniDao(connection); 	 
+		  comuneDao.inserisciComune(comune); 
 				 
 				 
 				
 		 
 		 
 	 }
-	 
+	    
        b.close();
 	 f.close();
  }
