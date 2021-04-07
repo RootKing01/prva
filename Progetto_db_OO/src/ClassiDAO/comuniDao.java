@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Connection;
 
 import ClassiDatabase.Comune;
+import ConnessioneDB.DBConnection;
 
 public class comuniDao {
 
@@ -21,7 +22,7 @@ public class comuniDao {
 	
 	public comuniDao(Connection connection) throws SQLException{
 		
-	 this.connection = connection; 
+		this.connection = connection;   
 	 
 	 
    //Inizializiamo gli oggetti prima creati per le operazioni sql nel seguente modo. Osserviamo che il primo comando corrsiponde alla selezione

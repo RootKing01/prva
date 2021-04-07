@@ -26,38 +26,35 @@ import GUI.Inserimento_persona_tesserata;
 public class Driver 
 {
   
-
+         
+	
+	
+	
+	  
 	//Inserimento_dati_persona persona = new Inserimento_dati_persona(); 
 
 	
-	public static void main(String[] args) 
+	public static void main(String[] args) throws SQLException 
 	{
-		
-		DBConnection istanza = null; 
-		Connection connessione = null; 
-		Driver driver; 
 		
 //		driver.Controller();
 	
-		try
-		{
-				
-			istanza = DBConnection.getInstance(); 
-			connessione = (Connection) istanza.getConnection();
-			System.out.println("Connessione Eseguita correttamente"); 
+//		try
+//		{   
+//			
+			Driver driver = new Driver(); 
+			
+			driver.accessoConnessione(null);
+		 
+		    System.out.println("Tutto a buon fine"); 
 		
-			System.out.println("Comuni inseriti");
-			
-		}
-		catch(SQLException e)
-		{	
-			
-		}
-		catch (IOException e) 
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//			System.out.println("Comuni inseriti");
+//			
+//		}
+//		catch(SQLException e)
+//		{	
+//			
+//		}
 
 	}
 
@@ -173,15 +170,24 @@ public class Driver
 public void insertComuniDatabase(Comune comune) {
 	
 	
-	comuniDao comuneDao = new comuniDao(); 
-	
-	comuneDao.inserisciComune(comune);
-	
+		
 	
 	
 	
 }
 
-
+public void accessoConnessione(Comune comune) throws SQLException {
+	
+	  
+	   Connection connection; 
+	   DBConnection connessione;
+	   
+	   connection = (Connection) DBConnection.getConnection();
+	   
+//	   comuniDao comuneDao = new comuniDao(connection); 
+//		
+//		comuneDao.inserisciComune(comune);
+	
+	}
 
 }

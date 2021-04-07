@@ -14,14 +14,23 @@ package ConnessioneDB;
 	public class DBConnection {
 
 	    private static DBConnection instance;
-	    private Connection connection = null;
+	    private static Connection connection = null;
 	    private final String USERNAME = "postgres";
 	    private final String PASSWORD = "Database12";
 	    private final String IP = "localhost";
 	    private final String PORT = "55252";
 	    private String url = "jdbc:postgresql://"+IP+":"+PORT+"/postgres";
 
-	    private DBConnection() throws SQLException {
+	      
+//	    public static void main(String[] args) {
+//	    	
+//	    	DBConnection connessione = (DBConnection) getConnection(); 
+//	       System.out.println("Connesso correttamente ");	
+//	    
+//	    }
+	    
+	    
+	     private DBConnection() throws SQLException {
 	        //Properties props = new Properties();
 	        //props.setProperty("user", USERNAME);
 	        //props.setProperty("pwd", PASSWORD);
@@ -44,7 +53,7 @@ package ConnessioneDB;
 
 	    }
 
-	    public Connection getConnection() {
+	    public static Connection getConnection() {
 	        return connection;
 	    }
 
