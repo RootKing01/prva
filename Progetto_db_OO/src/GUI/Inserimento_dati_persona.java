@@ -18,6 +18,7 @@ import java.awt.ComponentOrientation;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 
 public class Inserimento_dati_persona extends JFrame {
 
@@ -197,7 +198,12 @@ public class Inserimento_dati_persona extends JFrame {
 				boolean flag; 
 				
 			
-				flag = driver.controlloDati(textFieldCF, textFieldNome, textFieldCognome, textFieldDataNascita, ALLBITS, textFieldComuneNascita, textFieldProvincia, ABORT, persona, errore); 
+				try {
+					flag = driver.controlloDati(textFieldCF, textFieldNome, textFieldCognome, textFieldDataNascita, ALLBITS, textFieldComuneNascita, textFieldProvincia, ABORT, persona, errore);
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} 
                 int count = e.getClickCount(); 
 				if(count >= 2)
 			       errore.setVisible(false);

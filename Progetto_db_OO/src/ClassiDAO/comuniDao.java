@@ -8,6 +8,8 @@ import java.sql.Connection;
 import ClassiDatabase.Comune;
 import ConnessioneDB.DBConnection;
 
+
+
 public class comuniDao {
 
     //Creiamo un oggetto connection di tipo Connection per effettuare la connessione al database 
@@ -28,7 +30,7 @@ public class comuniDao {
    //Inizializiamo gli oggetti prima creati per le operazioni sql nel seguente modo. Osserviamo che il primo comando corrsiponde alla selezione
    //da una tabella del db
 	 
-	 getComuneByNome = connection.prepareStatement("SELECT * FROM comuni WHERE comune like ?"); 
+	 getComuneByNome = connection.prepareStatement("SELECT * FROM comuni WHERE nomeComune like ?"); 
 	 
    //Questo ulteriore comando serve per inserire valori all'interno della tabella comuni (nel nostro caso, e che deve essere presente all'interno
    //del DB)
@@ -37,12 +39,17 @@ public class comuniDao {
 		
 	}
 	
-	
-	
-	
+		
 	
     //Il metodo inserisciComune prende in inpu un oggetto comune e procede invece all'inserimento nel database (i valori devono essere in ordine
 	//corretto)
+	public int getComuneByNome(String nome) throws SQLException
+	{
+		getComuneByNome.setString(1, nome);
+		
+		int row = getComuneByNome.executeUpdate(); 
+		return row; 
+	}
 	
 	public int inserisciComune(Comune comune) throws SQLException
 	    {
@@ -53,10 +60,12 @@ public class comuniDao {
 		inserisciComune.setString(3, comune.getCap() );
 		inserisciComune.setString(4, comune.getProvincia() );
 		
-     //Il comando seguente committa in modo definitivo le operazioni 
+     	//Il comando seguente committa in modo definitivo le operazioni 
 		
 		int row = inserisciComune.executeUpdate(); 
 		return row; 
 		
 	    }
+
+	
 }

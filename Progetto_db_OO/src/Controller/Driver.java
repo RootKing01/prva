@@ -36,8 +36,8 @@ public class Driver
 	
 	public static void main(String[] args) throws SQLException, IOException 
 	{
-		
-//		driver.Controller();
+		Driver driver = new Driver();	
+		driver.Controller();
 	
 //		try
 //		{   
@@ -46,7 +46,9 @@ public class Driver
 			
 			Comune comune = new Comune(); 
 			
-			comune.insertComuni();
+//			comune.insertComuni();
+			
+			
 		 
 		    System.out.println("Tutto a buon fine"); 
 		
@@ -81,12 +83,11 @@ public class Driver
 	public void Controller() 
 	{
 		General prima_finestra = new General(this);
-		prima_finestra.setVisible(true);
-		
+		prima_finestra.setVisible(true);	
 	}
 
 
-	public boolean controlloCodiceFiscale(JTextField CF, Inserimento_dati_persona inserimento_dati_persona, ErroreInserimento errore_codice_fiscale)
+	public boolean controlloCodiceFiscale(JTextField CF)
 	{
 	
 		boolean flag = true; 
@@ -94,7 +95,7 @@ public class Driver
 		if(CF.getText().length() != 16) 
 		{
 			System.out.println("errore, il CF deve essere di 16 caretteri");
-			errore_codice_fiscale.setVisible(true);
+			//errore_codice_fiscale.setVisible(true);
 			flag = false; 
 			
 		}
@@ -109,7 +110,7 @@ public class Driver
 		
 	}
 		
-	public boolean controlloProvincia(JTextField provincia, Inserimento_dati_persona inserimento_dati_persona, ErroreInserimento errore_provincia) {
+	public boolean controlloProvincia(JTextField provincia) {
 		
 		
 		boolean flag = false;
@@ -117,7 +118,7 @@ public class Driver
 		if(provincia.getText().length() < 2 || provincia.getText().length() > 3)
 		{
 			System.out.println("Inserire la provincia corretta");
-			errore_provincia.setVisible(true);
+//			errore_provincia.setVisible(true);
 			
 		}
 		
@@ -135,7 +136,7 @@ public class Driver
 								  JTextField DataNascita	,int selectedIndex		,JTextField ComuneNascita,
 								  JTextField provincia		,int selectedIndex2,	Inserimento_dati_persona persona, 
 								  ErroreInserimento errore
-								) 
+								) throws SQLException 
 	{
 		
 		//  WORKING IN PROGRESS
@@ -146,18 +147,17 @@ public class Driver
 		boolean flagCodiceFiscale = true;
 		boolean flagProvincia = true;
 		boolean flagGenerale;
+		boolean flagComuneNascita = true;
 		
-		// codice originario: while(flag) 
-		// significa: se flag == vero continua a girare
-		// implica: deve gireare finche almeno una delle flag ... significhi errore
-		
-		// prima di tutto creare uno standard; 
-		// sia su i  nomi    sia sulle flag meaning
 		
 		while( flagCodiceFiscale && flagProvincia )
 	    {
-		 	flagCodiceFiscale = controlloCodiceFiscale(CF, persona, errore); 
-      	 	flagProvincia = controlloProvincia(provincia, persona, errore); 
+			//System.out.println("while controllo credenziali");
+			flagComuneNascita = controlloComuneNascita(ComuneNascita);
+		 	flagCodiceFiscale = controlloCodiceFiscale(CF); 
+      	  
+			flagProvincia = controlloProvincia(provincia);
+				 
 	    }
 		
 		
@@ -170,10 +170,67 @@ public class Driver
 	
 	
 
+private boolean controlloComuneNascita(JTextField comuneNascita) {
+		
+		// aggiusta comuneNascita fatto
+		// chiamta al db con comuneNascita 
+		
+		String comuneNascitaString = comuneNascita.getText().trim();
+		int flagUpperCase = 0;
+		String tmp =""; 
+		
+		for ( int i = 0; i < comuneNascitaString.length(); i++)
+		{
+				
+			char carattere = comuneNascitaString.charAt(i);
+			
+			if( carattere <= 90 && carattere >= 65)
+			{
+				if( flagUpperCase == 2)
+				{
+					tmp += " ";
+				}	
+				
+				flagUpperCase++;
+			}
+			
+			tmp += carattere;
+		}
+		
+		comuneNascitaString = tmp + " ";
+		
+		
+		
+		try
+		{   
+			
+			System.out.println("sono prima nel try controlloComune");
+			comuniDao comunedao = new comuniDao(accessoConnessione());
+			
+			System.out.println("ha preso la connessione");
+			
+			
+			int row = comunedao.getComuneByNome(comuneNascitaString);
+			
+			
+			System.out.println("ecco la row del getComune" + row);
+		}
+		catch(SQLException e)
+		{
+			System.out.println("sono nel catch");
+			e.getStackTrace();
+		}
+		
+		
+		
+		
+		return false;
+	}
+
+
+
 public Connection accessoConnessione() throws SQLException {
 	
-	  
-	   
 	   DBConnection connessioneDB = DBConnection.getInstance(); 
 	   Connection connection =   connessioneDB.getConnection();
 	   
