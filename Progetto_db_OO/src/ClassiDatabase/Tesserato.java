@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import Controller.Driver;
 
-public class Tesserato extends Persona {
+public class Tesserato extends Persona_creata {
 
 	private String codiceFiscale; 
 	private String codiceFiscaleManager; 
@@ -30,7 +30,7 @@ public class Tesserato extends Persona {
 			int gettoneNazionale) {
 	
 		super(codiceFiscale, nome, cognome,  comuneNascita,  comuneResidenza,
-				via, provinciaNascita,  numeroCivico, cAP, dataNascita, true); 
+				via, provinciaNascita,  numeroCivico, cAP, dataNascita, codiceFederazioneSportiva, "tesserato"); 
 		
 		this.codiceFiscale = codiceFiscale;
 		this.codiceFiscaleManager = codiceFiscaleManager;
@@ -47,6 +47,42 @@ public class Tesserato extends Persona {
 	
 	
 	
+
+	public void setCodiceFiscale(String codiceFiscale) {
+		this.codiceFiscale = codiceFiscale;
+	}
+
+
+
+
+
+
+	public void setCodiceFiscaleManager(String codiceFiscaleManager) {
+		this.codiceFiscaleManager = codiceFiscaleManager;
+	}
+
+
+
+
+
+
+	public void setCodiceFederazioneSportiva(String codiceFederazioneSportiva) {
+		this.codiceFederazioneSportiva = codiceFederazioneSportiva;
+	}
+
+
+
+
+
+
+	public void setGettoneNazionale(int gettoneNazionale) {
+		this.gettoneNazionale = gettoneNazionale;
+	}
+
+
+
+
+
 
 	public String getCodiceFiscale() {
 		return codiceFiscale;

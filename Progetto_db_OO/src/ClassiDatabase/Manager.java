@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 import Controller.Driver;
 
-public class Manager extends Persona {
+public class Manager extends Persona_creata {
 
 	private String codiceFiscale;
 	

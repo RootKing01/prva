@@ -2,7 +2,7 @@ package ClassiDatabase;
 
 import java.sql.Date;
 
-public class Persona {
+public class Persona_creata {
 
 	private String codiceFiscale; 
 	private String nome; 
@@ -14,14 +14,15 @@ public class Persona {
 	private int numeroCivico;
 	private int CAP; 
 	private Date dataNascita; 
-	private boolean managerOtesserato;
+	private String sesso;
+	private String managerOtesserato;
 	
 	
 	
 	
-	public Persona(String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-			String via, String provinciaNascita, int numeroCivico, int cAP, Date dataNascita,
-			boolean managerOtesserato) {
+	public Persona_creata(String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
+			String via, String provinciaNascita, int numeroCivico, int cAP, Date dataNascita, String sesso,
+			String managerOtesserato) {
 		super();
 		this.codiceFiscale = codiceFiscale;
 		this.nome = nome;
@@ -31,9 +32,63 @@ public class Persona {
 		this.via = via;
 		this.provinciaNascita = provinciaNascita;
 		this.numeroCivico = numeroCivico;
-		CAP = cAP;
+		this.CAP = cAP;
+		this.sesso = sesso;
 		this.dataNascita = dataNascita;
 		this.managerOtesserato = managerOtesserato;
+	}
+
+
+
+
+//	public Persona_creata( String codiceFiscale, String Nome, String Cognome, String ComuneNascita
+//															,String ComuneResidenza, String Via,String  NumeroCivico
+//															,String Sesso, String Provincia, String  ManagerOtesserato) 
+//																
+//		{
+//			super();
+//			this.codiceFiscale = codiceFiscale;
+//			this.nome = Nome;
+//			this.cognome = Cognome;
+//			this.comuneNascita = ComuneNascita;
+//			this.comuneResidenza = ComuneResidenza;
+//			this.via = Via;
+//			this.provinciaNascita = ProvinciaNascita;
+//			this.numeroCivico = NumeroCivico;
+//			this.CAP = cAP;
+//			this.sesso = Sesso;
+//			this.dataNascita = SataNascita;
+//			this.managerOtesserato = ManagerOtesserato;
+//	}
+
+
+
+
+
+
+	public String getManagerOtesserato() {
+		return managerOtesserato;
+	}
+
+
+
+
+	public void setManagerOtesserato(String managerOtesserato) {
+		this.managerOtesserato = managerOtesserato;
+	}
+
+
+
+
+	public String getSesso() {
+		return sesso;
+	}
+
+
+
+
+	public void setSesso(String sesso) {
+		this.sesso = sesso;
 	}
 
 
@@ -179,15 +234,10 @@ public class Persona {
 
 
 
-	public boolean isManagerOtesserato() {
-		return managerOtesserato;
-	}
+	
 
 
 
-
-	public void setManagerOtesserato(boolean managerOtesserato) {
-		this.managerOtesserato = managerOtesserato;
-	} 
+	
 
 }
