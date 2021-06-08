@@ -34,13 +34,13 @@ public class comuniDao {
    //Inizializiamo gli oggetti prima creati per le operazioni sql nel seguente modo. Osserviamo che il primo comando corrsiponde alla selezione
    //da una tabella del db
 	 
-	 getComuneByNome = connection.prepareStatement("SELECT * FROM comuni WHERE \"nomeComune\" like '?'"); 
+	 getComuneByNome = connection.prepareStatement("SELECT \"nomeComune\" FROM comuni WHERE \"nomeComune\" like '?'"); 
 	 
-	 getCodiceFiscoByNome = connection.prepareStatement("SELECT \"codiceFisco\" FROM comuni WHERE \"codiceFisco\" like '?'"); 
+	 getCodiceFiscoByNome = connection.prepareStatement("SELECT \"codiceFisco\" FROM comuni WHERE \"nomeComune\" like  '?'"); 
 	 
 	 getProvinciaByNome = connection.prepareStatement("SELECT * FROM comuni WHERE \"provincia\" like '?'"); 
 	 
-	 getCapComune = connection.prepareStatement("SELECT * FROM comuni WHERE \"cap\" like '?'"); 
+	 getCapComune = connection.prepareStatement("SELECT * FROM comuni WHERE cap like '?'"); 
 
    //Questo ulteriore comando serve per inserire valori all'interno della tabella comuni (nel nostro caso, e che deve essere presente all'interno
    //del DB)
@@ -53,29 +53,30 @@ public class comuniDao {
 	
     //Il metodo inserisciComune prende in inpu un oggetto comune e procede invece all'inserimento nel database (i valori devono essere in ordine
 	//corretto)
-	public String  getComuneByNome(String nome) throws SQLException
+	public String  getComuneByNome(String nome)
 	{
-		String comune = nome; 
+		String comune = ""; 
 		
 		try 
 		{   
-			getComuneByNome.setString(0, nome+" ");
+			getComuneByNome.setString(0, nome);
 			rs = getComuneByNome.executeQuery();
 			comune = rs.getString("nomeComune");	
 			  
 		}
 		catch (Exception e) 
 		{
-			
+			System.out.println("Errore da nomeComune: ");
+			System.out.println( comune );		
 		}
 		
 		return comune;
 		
 	}
 	
-	public String  getProvinciaByNome(String nome) throws SQLException
+	public String  getProvinciaByNome(String nome)
 	{
-		String provincia = nome; 
+		String provincia = ""; 
 		
 		try 
 		{   
@@ -86,7 +87,7 @@ public class comuniDao {
 		}
 		catch (Exception e) 
 		{
-			
+			System.out.println("Errore da provincia: " + provincia);
 		}
 		
 		return provincia;
@@ -94,7 +95,7 @@ public class comuniDao {
 	
 	public String  getCapComune(String cap_) throws SQLException
 	{
-		String cap = cap_; 
+		String cap = ""; 
 		
 		try 
 		{   
@@ -105,7 +106,7 @@ public class comuniDao {
 		}
 		catch (Exception e) 
 		{
-//			System.out.println("Erroe: sezione executeQuery cap");
+			System.out.println("Erroe: sezione executeQuery cap");
 //			cap = null;
 		}
 		
@@ -115,23 +116,35 @@ public class comuniDao {
 	
 	
 	
-	public String getCodiceFisco(String comune_nascita ) throws SQLException
+	public String getCodiceFisco(String comune_nascita )
 	{
+        String codice_fisco = ""; 
 		
-		getCodiceFiscoByNome.setString(0, comune_nascita); 
-		rs = getCodiceFiscoByNome.executeQuery();
-		String result = rs.getString("codiceFisco"); 
+		try 
+		{   
+			
+			getCodiceFiscoByNome.setString(0, comune_nascita+" ");
+			rs = getComuneByNome.executeQuery();
+			codice_fisco = rs.getString("codiceFisco");	
+			  
+		}
+		catch (Exception e) 
+		{
+			System.out.println("Erroe: sezione executeQuery codiceFisco");
+//			cap = null;
+		}
 		
+		//System.out.println( codice_fisco );
+		//System.out.println("ecco l'errore per vedere meglio" + rs.toString() );
 		
-		return result;
-		
+		return codice_fisco;
 	}
 	
 
 
 
 	public int inserisciComune(Comune comune) throws SQLException
-	    {
+	{
 	      
 		
 		inserisciComune.setString(0, comune.getNomeComune() );
@@ -144,7 +157,7 @@ public class comuniDao {
 		int row = inserisciComune.executeUpdate(); 
 		return row; 
 		
-	    }
+	}
     
    
 	

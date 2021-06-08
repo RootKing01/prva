@@ -24,10 +24,10 @@ public class Manager extends Persona_creata {
 	
 
 	public Manager(String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-			String via, String provinciaNascita, int numeroCivico, int cAP, Date dataNascita) {
+			String via, String provinciaNascita, int numeroCivico, int cAP, String sesso,  Date dataNascita) {
 		
-	super(codiceFiscale, nome, cognome,  comuneNascita,  comuneResidenza,
-				via, provinciaNascita,  numeroCivico, cAP, dataNascita, false); 
+	super(codiceFiscale, nome, cognome, dataNascita, comuneNascita,  comuneResidenza,
+				via, numeroCivico, cAP, sesso, provinciaNascita, false); 
 	
 	
 				this.codiceFiscale = codiceFiscale;

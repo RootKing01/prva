@@ -1,10 +1,11 @@
 package ClassiDAO;
 
 import java.sql.Date;
+import java.sql.SQLException;
 
 import Controller.Driver;
 
-public class Tesserato extends PersonaDAOpostgre {
+public class TesseratoDAO extends PersonaDAOpostgre {
 
 	private String codiceFiscale; 
 	private String codiceFiscaleManager; 
@@ -16,21 +17,12 @@ public class Tesserato extends PersonaDAOpostgre {
 	
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-     public Tesserato(String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-			String via, String provinciaNascita, int numeroCivico, int cAP, Date dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
-			int gettoneNazionale) {
+     public TesseratoDAO( String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
+			String via, String provinciaNascita, int numeroCivico, int cAP, String sesso, Date dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
+			int gettoneNazionale) throws SQLException {
 	
 		super(codiceFiscale, nome, cognome,  comuneNascita,  comuneResidenza,
-				via, provinciaNascita,  numeroCivico, cAP, dataNascita, true); 
+				via, provinciaNascita,  numeroCivico, cAP, sesso,  dataNascita, true ); 
 		
 		this.codiceFiscale = codiceFiscale;
 		this.codiceFiscaleManager = codiceFiscaleManager;

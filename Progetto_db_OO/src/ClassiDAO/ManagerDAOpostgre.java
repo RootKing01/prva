@@ -98,12 +98,12 @@ public class ManagerDAOpostgre {
 		return codiceFiscale;
 	}
 	
-	public void addTesserato(Tesserato tesserato) {
+	public void addTesserato(TesseratoDAO tesserato) {
 		
 	
 	}
 	
-	public void removeTesserato(Tesserato tesserato) {
+	public void removeTesserato(TesseratoDAO tesserato) {
 		
 		
 		

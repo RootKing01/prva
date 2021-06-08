@@ -15,14 +15,15 @@ public class Persona_creata {
 	private int CAP; 
 	private Date dataNascita; 
 	private String sesso;
-	private String managerOtesserato;
+	private boolean managerOtesserato;
 	
 	
 	
 	
-	public Persona_creata(String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-			String via, String provinciaNascita, int numeroCivico, int cAP, Date dataNascita, String sesso,
-			String managerOtesserato) {
+	public Persona_creata( String codiceFiscale, String nome, String cognome, Date dataNascita, String comuneNascita, String comuneResidenza,
+			String via, int numeroCivico, int cAP, String sesso,  String provinciaNascita,
+			boolean managerOtesserato) {
+		
 		super();
 		this.codiceFiscale = codiceFiscale;
 		this.nome = nome;
@@ -66,27 +67,34 @@ public class Persona_creata {
 
 
 
-	public String getManagerOtesserato() {
+	
+
+
+
+
+
+
+
+
+	public boolean isManagerOtesserato() {
 		return managerOtesserato;
 	}
 
 
 
 
-	public void setManagerOtesserato(String managerOtesserato) {
+	public void setManagerOtesserato(boolean managerOtesserato) {
 		this.managerOtesserato = managerOtesserato;
 	}
 
 
-
-
+    
 	public String getSesso() {
 		return sesso;
 	}
 
 
-
-
+	
 	public void setSesso(String sesso) {
 		this.sesso = sesso;
 	}

@@ -19,6 +19,7 @@ import java.sql.ResultSet;
 import ClassiDAO.PersonaDAOpostgre;
 import ClassiDAO.comuniDao;
 import ClassiDatabase.Comune;
+import ClassiDatabase.Persona_creata;
 import ClassiDatabase.Tesserato;
 import ConnessioneDB.DBConnection;
 import GUI.ErroreInserimento;
@@ -33,21 +34,27 @@ public class Driver
 	
 	public static void main(String[] args) throws SQLException, IOException 
 	{
+		
+		
 		Driver driver = new Driver();	
 		driver.Controller();
-	
+		
+		
+		//PersonaDAOpostgre personadao = new PersonaDAOpostgre("RGOFNC00T22F839S", "fra", "rogo", "2000/12/02", "Napoli", "Napoli", "sos", "");
+		
+		
 //		try
 //		{   
 //			
 			 
 			
-			Comune comune = new Comune(); 
+			//Comune comune = new Comune(); 
 			
 //			comune.insertComuni();
 			
 			
 		 
-		    System.out.println("Tutto a buon fine"); 
+		    //System.out.println("Tutto a buon fine"); 
 		
 //			System.out.println("Comuni inseriti");
 //			
@@ -81,40 +88,83 @@ public void Controller()
 
 
 public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_utente, JTextField anno_nascita, JTextField mese_nascita, JTextField giorno_nascita ,
-			JComboBox Sesso_utente, JTextField comune_nascita_utente) throws SQLException {
+			JComboBox Sesso_utente, JTextField comune_nascita_utente ) throws SQLException {
 		
-	String cognome = cognome_utente.getText().toLowerCase(); 
-	String nome = nome_utente.getText().toLowerCase();
+	String cognome = cognome_utente.getText().toUpperCase(); 
+	String nome = nome_utente.getText().toUpperCase();
 	String anno = anno_nascita.getText();
 	String mese = mese_nascita.getText();
 	String giorno = giorno_nascita.getText(); 
-	String sesso = (String) Sesso_utente.getSelectedItem(); 
-	String comune_nascita = comune_nascita_utente.getText().toLowerCase(); 
-	String codiceFiscale = ""; 
+	String sesso = (String) Sesso_utente.getSelectedItem().toString(); 
+	String comune_nascita = comune_nascita_utente.getText()/*.toLower*/; 
+	String codiceFiscale = new String(); 
+	
+	// SETTO IL COMUNE CON SOLO LA PRIMA LETTERA MAIUSCOLA 
+	for(int i = 0; i < comune_nascita.length(); i++) {
+		
+		String comune_esatto_per_database = comune_nascita; 
+		comune_nascita = "";
+		
+		if( i == 0 )
+		{
+			comune_nascita += comune_esatto_per_database.charAt(i);
+			comune_nascita.toUpperCase();
+		}   
+		else
+		{
+			comune_nascita += comune_esatto_per_database.charAt(i);	
+		}
+		
+		//comune_nascita = comune_nascita + " "; 
+	}
 	
 	
-    //PRENDIAMO LE PRIME 3 CONSONANTI DEL COGNOME 
+	
+	System.out.println( "\necco il comune di nascita: " + comune_nascita );
+	
+    // PRENDIAMO LE PRIME 3 CONSONANTI DEL COGNOME 
 	for( int i = 0, count = 0; i < cognome.length(); i++ )
 	{
 		
-		if( (cognome.charAt(i) != 'a' || cognome.charAt(i) != 'e' || cognome.charAt(i) != 'i' || cognome.charAt(i) != 'o' || cognome.charAt(i) != 'u') && count < 3)
+		if( (cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')  )
+		{
+			 
+		}
+		else
 		{
 			
+			if( count == 3 )
+			{
+				break;
+			}
+			
 			codiceFiscale +=  cognome.charAt(i);
-			count++; 
+			count++;
+			
 		}
 	}
 	
-	//PRENDIAMO LA PRIMA, LA TERZA E LA QUARTA CONSONANTE DEL NOME 
+	//PRENDIAMO LA PRIMA, LA TERZA E LA QUARTA CONSONANTE DEL NOME
+	 
 	for( int i = 0, count = 0; i < nome.length(); i++ ) 
 	{
 			
-			if( (nome.charAt(i) != 'a' || nome.charAt(i) != 'e' || nome.charAt(i) != 'i' || nome.charAt(i) != 'o' || nome.charAt(i) != 'u') && ( count < 2 || count == 3 ) )
+			if( ( nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U' ) )
+			{
+				 
+			}
+			else
 			{
 				
-				codiceFiscale +=  cognome.charAt(i);
-				count++; 
+				if( count == 0 || count == 2 || count == 3 )
+				{
+					
+					codiceFiscale +=  nome.charAt(i);
+					
+				}
+				count++;
 			}
+			
 	}
 	
 	// USIAMO L'ANNO DI NASCITA
@@ -125,6 +175,7 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 	}
 	else if (anno.length() == 2 )
 	{
+		// solo le ultime due cifre dell'anno'
 		codiceFiscale += anno;
 	} 
 	else
@@ -134,58 +185,72 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 		
 	//USIAMO IL  MESE PER IL CALCOLO DELLA LETTERA 	
 		
-	switch ( mese ) {
-	case "01":
+	switch ( Integer.parseInt( mese ) ) 
 	{
-		codiceFiscale += "A";
-	}
-	case "02":
-	{
-		codiceFiscale += "B";
-	}
-	case "03":
-	{
-		codiceFiscale += "C";
-	}
-	case "04":
-	{
-		codiceFiscale += "D";
-	}
-	case "05":
-	{
-		codiceFiscale += "E";
-	}
-	case "06":
-	{
-		codiceFiscale += "H";
-	}
-	case "07":
-	{
-		codiceFiscale += "L";
-	}
-	case "08":
-	{
-		codiceFiscale += "M";
-	}
-	case "09":
-	{
-		codiceFiscale += "P";
-	}
-	case "10":
-	{
-		codiceFiscale += "R";
-	}
-	case "11":
-	{
-		codiceFiscale += "S";
-	}
-	case "12":
-	{
-		codiceFiscale += "T";
-	}
 	
-	default:
-		System.err.print("Unexpected value: " + mese);
+		case 1:
+		{
+			codiceFiscale += "A";
+			break;
+		}
+		case 2:
+		{
+			codiceFiscale += "B";
+			break;
+		}
+		case 3:
+		{
+			codiceFiscale += "C";
+			break;
+		}
+		case 4:
+		{
+			codiceFiscale += "D";
+			break;
+		}
+		case 5:
+		{
+			codiceFiscale += "E";
+			break;
+		}
+		case 6:
+		{
+			codiceFiscale += "H";
+			break;
+		}
+		case 7:
+		{
+			codiceFiscale += "L";
+			break;
+		}
+		case 8:
+		{
+			codiceFiscale += "M";
+			break;
+		}
+		case 9:
+		{
+			codiceFiscale += "P";
+			break;
+		}
+		case 10:
+		{
+			codiceFiscale += "R";
+			break;
+		}
+		case 11:
+		{
+			codiceFiscale += "S";
+			break;
+		}
+		case 12:
+		{
+			codiceFiscale += "T";
+			break;
+		}
+		
+		//default:
+		//	System.err.print("Unexpected value: " + mese);
 	}	
 	
 	// GIORNO
@@ -203,6 +268,7 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 	//AGGIUNGIAMO IL CODICE FISCO AL CODICE FISCALE 
 	
 	comuniDao codice_fisco = new comuniDao(accessoConnessione()); 
+	
 	
 	codiceFiscale += codice_fisco.getCodiceFisco(comune_nascita); 	
 	
@@ -650,54 +716,145 @@ public boolean controlloDati( JTextField Nome			,JTextField Cognome,
 		//  WORKING IN PROGRESS
 		
 		
-		// flag == vero, concettualmente vuol dire che va utto bene oppure vuol dire che c'è un errore?
+	    Integer anno = Integer.valueOf(anno_nascita.getText()); 
+		Integer mese =  Integer.valueOf( mese_nascita.getText() ); 
+		Integer giorno =  Integer.valueOf( giorno_nascita.getText() );
+	    
+		/*int c = anno.byteValue(); 
 		
+		System.out.println("Sto convertendo in bytes: "+ anno.byteValue());
+		System.out.println("Sto Eseguo nuovamente la conversione: "+ anno.reverseBytes( c ) );
+		
+		*/
+		
+		java.util.Date data = new java.util.Date( anno, mese, giorno);
+		
+		 long timeInMilliSeconds = data.getTime();
+	     java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
+		
+		long z = 12L;
+	    Date data_nascita = new Date( anno, mese, giorno );
+	   // Date data_nascita = new Date(  );
+
 		String [] controllo_errori = new  String[4];
-		
+//		
 		boolean flagProvincia = false;
 		boolean flagComuneNascita = false;
 		boolean flagCapComune = false; 
-		//boolean flagDataNascita = false;
-		
+		boolean flagDataNascita = false;
+		boolean flagGenerale = false; 
+//		
 		Errore_Inserimento_Dati finestra_di_errore;
+//		
+		boolean []vettore_flag = new boolean[3]; 
+		
+        int count = 0; 
 		
 
-		
-		
-		while( !flagProvincia || !flagComuneNascita || !flagCapComune /* ||  !flagDataNascita */)
-	    {
-						
-			if( flagComuneNascita = controlloComuneNascita(ComuneNascita) == false )
-			{
-				controllo_errori[0] = "Inserimento del Comune Nascita errato";				
-			}
-			
-			if( flagProvincia = controlloProvincia(provincia) == false )
-			{
-				controllo_errori[1] = "Inserimento della Provincia errato";
-			}
-			
-			if( flagCapComune = controlloCap(cap) == false )
-			{
-				controllo_errori[2] = "Inserimento del CAP errato";
-			}	 
-			
+        while(flagGenerale == false)
+        {
+	
+        	flagComuneNascita = controlloComuneNascita(ComuneNascita); 
+        	
+        	flagProvincia = controlloProvincia(provincia); 
+        	
+        	flagCapComune = controlloCap(cap); 
+        	
+        	vettore_flag[0] = flagComuneNascita; 
+    	    vettore_flag[1] = flagProvincia; 
+    	    vettore_flag[2] = flagCapComune;
+    	    
+        	for(int i = 0; i < vettore_flag.length; i++) {
+        		
+                if(vettore_flag[i] == true)
+                	count = count + 1; 
+                
+                if(count == 3)
+                	flagGenerale = true; //esce
+        		
+        	}
+        	count = 0; 
+        }
+        
+        
+        if ( flagGenerale != true )
+		{
+			finestra_di_errore = new Errore_Inserimento_Dati( controllo_errori );
+			finestra_di_errore.setVisible(true);
+		}   
+        
+//        
+//		while( (flagProvincia == flagComuneNascita == flagCapComune == flagDataNascita) == true )
+//	    {
+//						
+//			if( flagComuneNascita = controlloComuneNascita(ComuneNascita) == false )
+//			{
+//				controllo_errori[0] = "Inserimento del Comune Nascita errato";				
+//			}
+//			
+//			if( flagProvincia = controlloProvincia(provincia) == false )
+//			{
+//				controllo_errori[1] = "Inserimento della Provincia errato";
+//			}
+//			
+//			if( flagCapComune = controlloCap(cap) == false )
+//			{
+//				controllo_errori[2] = "Inserimento del CAP errato";
+//		    }	 
+//			
 //			if( flagDataNascita = controlloDataNascita(data_nascita) == false )
 //			{
 //				controllo_errori[3] = "Inserimento della Data di Nascita errato\n( range accetto: 1951-2021 ))";
 //			}
-			
-			
-			
-			
-	    }
-		
-		if ( !flagProvincia || !flagComuneNascita || !flagCapComune /* ||  !flagDataNascita */ )
-		{
-			finestra_di_errore = new Errore_Inserimento_Dati( controllo_errori );
-			finestra_di_errore.setVisible(true);
-		}
-		
+//			
+//		
+//			
+//			
+//	    }
+//		
+//		if ( !flagProvincia || !flagComuneNascita || !flagCapComune /* ||  !flagDataNascita */ )
+//		{
+//			finestra_di_errore = new Errore_Inserimento_Dati( controllo_errori );
+//			finestra_di_errore.setVisible(true);
+//		}
+        
+        
+        
+       
+//		while( !flagProvincia || !flagComuneNascita || !flagCapComune /* ||  !flagDataNascita */)
+//	    {
+//						
+//			if( flagComuneNascita = controlloComuneNascita(ComuneNascita) == false )
+//			{
+//				controllo_errori[0] = "Inserimento del Comune Nascita errato";				
+//			}
+//			
+//			if( flagProvincia = controlloProvincia(provincia) == false )
+//			{
+//				controllo_errori[1] = "Inserimento della Provincia errato";
+//			}
+//			
+//			if( flagCapComune = controlloCap(cap) == false )
+//			{
+//				controllo_errori[2] = "Inserimento del CAP errato";
+//		}	 
+//			
+////			if( flagDataNascita = controlloDataNascita(data_nascita) == false )
+////			{
+////				controllo_errori[3] = "Inserimento della Data di Nascita errato\n( range accetto: 1951-2021 ))";
+////			}
+//			
+//		
+//			
+//			
+//	    }
+//		
+//		if ( !flagProvincia || !flagComuneNascita || !flagCapComune /* ||  !flagDataNascita */ )
+//		{
+//			finestra_di_errore = new Errore_Inserimento_Dati( controllo_errori );
+//			finestra_di_errore.setVisible(true);
+//		}
+//		
 		// inutile metterer sia il while ( fatto cosi ) e il return flag: 
 		// il ciclo while finisce solo se le flag sono false -> il return sara solo falso. 
 		
@@ -709,6 +866,7 @@ public boolean controlloDati( JTextField Nome			,JTextField Cognome,
 					
 public boolean controlloDataNascita( Date data)
 {
+	
 	if (data.getYear() < 1950 || data.getYear() > LocalDate.now().getYear() )
 	    return false;
 	else
@@ -839,7 +997,7 @@ private boolean controlloComuneNascita(JTextField comuneNascita) {
 //		
 //		comuneNascitaString = tmp ;
 //		
-		String result = null ; 
+		String result =  null ; 
 			
 		try
 		{   
@@ -874,9 +1032,34 @@ private boolean controlloComuneNascita(JTextField comuneNascita) {
 		}
 	}
 
+public void inserimento_persone_tesserate_database(Persona_creata persona, Tesserato tesserato) throws SQLException 
+{
+	
+	  PersonaDAOpostgre registrazione = new PersonaDAOpostgre(persona.getCodiceFiscale(), persona.getNome(),  persona.getCognome() , persona.getComuneNascita(), 
+			                                                  persona.getComuneResidenza(),  persona.getVia(), persona.getProvinciaNascita(), 
+			                                                  persona.getNumeroCivico(), persona.getCAP(), persona.getSesso(),      persona.getDataNascita(),      
+			                                                  persona.isManagerOtesserato()); 
+		
+	  
+	
+	  
+	  
+	  
+	  registrazione.inserisciPersona(persona, tesserato);
+	  
+	  /*	  
+	  	String cognome, String comuneNascita, String comuneResidenza,
+		String via, String provinciaNascita, int numeroCivico, int CAP, String sesso, Date dataNascita,
+		boolean ManagerOtesserato
+		*/
+}
 
 
-public Connection accessoConnessione() throws SQLException {
+
+
+
+// basterebbe chiamare DBConnection.getInstance();
+public static Connection accessoConnessione() throws SQLException {
 	
 	   DBConnection connessioneDB = DBConnection.getInstance(); 
 	   Connection connection =   connessioneDB.getConnection();

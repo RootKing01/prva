@@ -9,18 +9,20 @@ import javax.swing.border.EmptyBorder;
 
 import ClassiDatabase.Persona_creata;
 import Controller.Driver;
-
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JComboBox;
 import java.awt.ComponentOrientation;
+
+import javax.print.attribute.DateTimeSyntax;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
 
 public class Inserimento_dati_persona extends JFrame {
 
@@ -40,8 +42,10 @@ public class Inserimento_dati_persona extends JFrame {
 	
     Inserimento_dati_persona persona; 
     private JTextField textFieldProvincia;
-    Driver driver = new Driver(); 
-    ErroreInserimento errore = new ErroreInserimento(this);
+   
+	Driver driver = new Driver(); 
+    
+	ErroreInserimento errore = new ErroreInserimento(this);
     private Persona_creata persona_creata;
     
 	
@@ -205,6 +209,7 @@ public class Inserimento_dati_persona extends JFrame {
 		bottoneAvanti.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
+				
 				boolean flag; 
 				String codiceFiscale = null; 
 				
@@ -212,29 +217,49 @@ public class Inserimento_dati_persona extends JFrame {
 			
 				try {
 					
-					flag = driver.controlloDati( textFieldNome		, textFieldCognome,		
-							textFieldDataNascita_anno , textFieldDataNascita_mese		, textFieldDataNascita_giorno,
-							textFieldComuneNascita ,    textFieldComuneResidenza	    ,  
-							textFieldCAP 			, textFieldProvincia	);
+					flag = driver.controlloDati(	textFieldNome		, textFieldCognome,		
+													textFieldDataNascita_anno , textFieldDataNascita_mese		, textFieldDataNascita_giorno,
+													textFieldComuneNascita ,    textFieldComuneResidenza	    ,  
+													textFieldCAP 			, textFieldProvincia	
+												);
 					
 					if(flag)
 					{	
-						codiceFiscale = driver.creazioneCodiceFiscale(textFieldDataNascita_giorno, textFieldDataNascita_anno, textFieldComuneResidenza, textFieldComuneNascita, textFieldCognome, comboBoxManagerOtesserato, textFieldCAP);
+						codiceFiscale = driver.creazioneCodiceFiscale(		textFieldCognome, textFieldNome, textFieldDataNascita_anno,
+												 							textFieldDataNascita_mese, textFieldDataNascita_giorno,
+																		 	comboBoxSesso, textFieldComuneNascita 
+																	);
 					}
 					else
 					{
-						// non è andato a buon fine 
+						System.out.println("La creazione del codice fiscale non è andata a buon fine\n");
 					}
+						
+					int anno = Integer.parseInt( textFieldDataNascita_anno.getText() ); 
+					int mese = Integer.parseInt( textFieldDataNascita_mese.getText()); 
+					int giorno = Integer.parseInt( textFieldDataNascita_giorno.getText() ); 
 					
-					Date data_nascita = new Date( Integer.parseInt(textFieldDataNascita_anno.toString().trim() ), Integer.parseInt(textFieldDataNascita_mese.toString().trim()) ,  Integer.parseInt(textFieldDataNascita_giorno.toString().trim()) );
+					//Date data_nascita = new Date(anno, mese, giorno); 
+					 
+					java.util.Date data = new java.util.Date( anno, mese, giorno);
 					
-					persona_creata = new Persona_creata( codiceFiscale,  textFieldNome.toString(), textFieldCognome.toString(), textFieldComuneNascita.toString(), textFieldComuneResidenza.toString(),
-																textFieldVia.toString(), textFieldProvincia.toString(),  Integer.parseInt(textFieldNumeroCivico.toString().trim()), Integer.parseInt(textFieldCAP.toString().trim()), data_nascita , comboBoxSesso.toString(),
-																comboBoxManagerOtesserato.getSelectedItem().toString() ); 
-									
-				
+					long timeInMilliSeconds = data.getTime();
+				    java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
+				     
+				     
+				    System.out.println("Ho appena eseguito i controlli e creato il codice fiscale\n");
+				    
+	                persona_creata = new Persona_creata(	 codiceFiscale, textFieldNome.getText(), textFieldCognome.getText(), date1 , textFieldComuneNascita.getText(),
+															textFieldComuneResidenza.getText(), textFieldVia.getText(),  Integer.parseInt( textFieldNumeroCivico.getText() ) ,
+															Integer.parseInt( textFieldCAP.getText() ), comboBoxSesso.getSelectedItem().toString(),
+															textFieldProvincia.getText(),  Boolean.parseBoolean( comboBoxManagerOtesserato.getSelectedItem().toString() ) ); 
+										
+					System.out.println("Adesso ho creato una nuova persona \n");
 					
-					persona_tesserata tesserato = new persona_tesserata(persona_creata);
+					persona_tesserata tesserato = new persona_tesserata( persona_creata , persona);
+					
+					System.out.println("Adesso vado in tesserato\n");
+					
 					tesserato.setVisible(true); 
 					
 				} catch (SQLException e1) {

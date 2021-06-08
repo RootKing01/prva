@@ -17,6 +17,7 @@ public class Tesserato extends Persona_creata {
 	
 	
 	
+	//boolean tesserato = true; 
 	
 	
 	
@@ -24,14 +25,15 @@ public class Tesserato extends Persona_creata {
 	
 	
 	
+     public Tesserato(	String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
+						String via, String provinciaNascita, int numeroCivico, int cAP, String sesso, Date dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
+						int gettoneNazionale) 
+	{
 	
-     public Tesserato(String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-			String via, String provinciaNascita, int numeroCivico, int cAP, Date dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
-			int gettoneNazionale) {
-	
-		super(codiceFiscale, nome, cognome,  comuneNascita,  comuneResidenza,
-				via, provinciaNascita,  numeroCivico, cAP, dataNascita, codiceFederazioneSportiva, "tesserato"); 
-		
+		super(codiceFiscale, nome, cognome, dataNascita, comuneNascita,  comuneResidenza,
+				via, numeroCivico,   cAP, sesso, provinciaNascita, true ); 
+				
+				
 		this.codiceFiscale = codiceFiscale;
 		this.codiceFiscaleManager = codiceFiscaleManager;
 		this.codiceFederazioneSportiva = codiceFederazioneSportiva;

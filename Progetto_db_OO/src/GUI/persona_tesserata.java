@@ -7,9 +7,11 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ClassiDAO.Tesserato;
+import ClassiDAO.PersonaDAOpostgre;
+import ClassiDAO.TesseratoDAO;
 import ClassiDatabase.Comune;
 import ClassiDatabase.Persona_creata;
+import ClassiDatabase.Tesserato;
 import Controller.Driver;
 
 import javax.swing.JTextField;
@@ -17,9 +19,13 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
 
 import javax.swing.JComboBox;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 public class persona_tesserata extends JFrame {
 
@@ -37,10 +43,17 @@ public class persona_tesserata extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField_codiecFiscale_tesserato;
 	private JTextField textField_codiceFiscale_manager;
+	
 	private Tesserato persona_tesserata;
+	private persona_tesserata tesserato;
+	
 
-	public persona_tesserata(Persona_creata persona) {
+
+
+	public persona_tesserata( Persona_creata persona, Inserimento_dati_persona dati_persona) throws NumberFormatException, SQLException {
 		
+		tesserato = this;
+		 
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 951, 572);
@@ -54,6 +67,8 @@ public class persona_tesserata extends JFrame {
 		textField_codiecFiscale_tesserato.setBounds(351, 58, 421, 59);
 		contentPane.add(textField_codiecFiscale_tesserato);
 		textField_codiecFiscale_tesserato.setColumns(10);
+		
+		textField_codiecFiscale_tesserato.setText(persona.getCodiceFiscale());
 		
 		JLabel lblNewLabel = new JLabel("Il suo codice fiscale risulta essere: ");
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -106,12 +121,56 @@ public class persona_tesserata extends JFrame {
 		comboBox_codiceFederazioneSposrtiva.setBounds(353, 325, 206, 37);
 		contentPane.add(comboBox_codiceFederazioneSposrtiva);
 		
+		JButton btnNewButton = new JButton("Avanti");
+		
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+		
+			public void mouseClicked(MouseEvent e) {
+					
+					
+					
+					
+					
+			      	tesserato.setVisible(false);
+			      	dati_persona.setVisible(false);
+			      	Driver driver = new Driver(); 
+			      	try {
+						driver.inserimento_persone_tesserate_database(persona, persona_tesserata);
+						System.out.println("Ho eseguito l'inserimneto");
+					} catch (SQLException e1) {
+						
+						e1.printStackTrace();
+					}
+			}
 		
 		
-		persona_tesserata = new Tesserato( persona.getCodiceFiscale(), persona.getNome(), persona.getCognome(), persona.getComuneNascita(), persona.getComuneResidenza(),
-											persona.getVia(), persona.getProvinciaNascita(), persona.getNumeroCivico(), persona.getCAP(), persona.getDataNascita(), textField_codiceFiscale_manager.toString() , comboBox_codiceFederazioneSposrtiva.getSelectedItem().toString(),
-											Integer.parseInt(comboBox_gettoni_nazionale.getSelectedItem().toString()));
 		
+		});
+		btnNewButton.setBounds(709, 419, 161, 48);
+		contentPane.add(btnNewButton);
 		
+		int gettoni_nazionale = Integer.parseInt( (String) comboBox_gettoni_nazionale.getSelectedItem().toString()); 
+		
+		System.out.println("Sono in tesserato e provo a procedere con la creazione di un tesserato\n");
+		
+		persona_tesserata = new Tesserato(	persona.getCodiceFiscale(), persona.getNome(), persona.getCognome(),
+											    persona.getComuneNascita(), persona.getComuneResidenza(), persona.getVia(),
+											    persona.getProvinciaNascita(), persona.getNumeroCivico(), persona.getCAP(),
+											    persona.getSesso().toString(), persona.getDataNascita(), textField_codiceFiscale_manager.getText(),
+											    comboBox_codiceFederazioneSposrtiva.getSelectedItem().toString(),
+											    Integer.parseInt( comboBox_gettoni_nazionale.getSelectedItem().toString() ) 
+										
+				);
+		
+		System.out.println("Ho eseguito la creazione della persona tesserata\n");
+		
+		/*
+		(  persona.getCodiceFiscale(), persona.getNome(), persona.getCognome(), persona.getComuneNascita(), persona.getComuneResidenza(),
+											persona.getVia(), persona.getProvinciaNascita(), persona.getNumeroCivico(), persona.getCAP(), persona.getSesso(), persona.getDataNascita(), textField_codiceFiscale_manager.toString() , comboBox_codiceFederazioneSposrtiva.getSelectedItem().toString(),
+											gettoni_nazionale 
+										);
+		
+		*/
 	}
 }

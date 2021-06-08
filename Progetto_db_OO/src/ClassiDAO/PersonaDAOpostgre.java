@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import ClassiDatabase.Persona_creata;
+import ClassiDatabase.Tesserato;
+import ConnessioneDB.DBConnection;
+import Controller.Driver;
 
 public class PersonaDAOpostgre {
 
@@ -32,9 +35,11 @@ public class PersonaDAOpostgre {
 	
 	 
 	
-	public PersonaDAOpostgre(String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-			String via, String provinciaNascita, int numeroCivico, int CAP, Date dataNascita,
-			boolean managerOtesserato) throws SQLException {
+	public PersonaDAOpostgre(	String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
+								String via, String provinciaNascita, int numeroCivico, int CAP, String sesso, Date dataNascita,
+								boolean ManagerOtesserato
+							) throws SQLException
+	{
 		super();
 		this.codiceFiscale = codiceFiscale;
 		this.nome = nome;
@@ -46,12 +51,12 @@ public class PersonaDAOpostgre {
 		this.numeroCivico = numeroCivico;
 		this.cap = CAP;
 		this.dataNascita = dataNascita;
-		this.managerOtesserato = managerOtesserato;
+		this.managerOtesserato = ManagerOtesserato;
 		
 		
-		this.connection = connection;
+		this.connection = Driver.accessoConnessione();
 		
-		getPersonaByNome = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE \"nome\" like '?");
+		getPersonaByNome = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE \"nome\" like '?'");
 		 
 		inserisciPersona = connection.prepareStatement("INSERT INTO persona_tesserata VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 		
@@ -81,22 +86,22 @@ public class PersonaDAOpostgre {
 
    public void inserisciPersona(Persona_creata persona, Tesserato tesserato) throws SQLException {
 	   
-	   inserisciPersona.setString(0, persona.getCodiceFiscale() );
-	   inserisciPersona.setString(1, persona.getNome() );
-	   inserisciPersona.setString(2, persona.getCognome() );
-	   inserisciPersona.setString(3, persona.getDataNascita().toString());
-	   inserisciPersona.setString(4, persona.getComuneNascita() );
-	   inserisciPersona.setString(5, persona.getComuneResidenza() );
-	   inserisciPersona.setString(6, persona.getVia() );
-	   inserisciPersona.setLong(7, persona.getNumeroCivico() );
-	   inserisciPersona.setLong(8, persona.getCAP() );
-	   inserisciPersona.setString(9, persona.getSesso() );
-	   inserisciPersona.setString(10, persona.getProvinciaNascita() );
-	   inserisciPersona.setString(11, persona.getManagerOtesserato());
-	   inserisciPersona.setString(12, tesserato.getCodiceFiscale() ); 
-	   inserisciPersona.setString(13, tesserato.getCodiceFiscaleManager() ); 
-	   inserisciPersona.setLong(14, tesserato.getGettoneNazionale() );
-	   inserisciPersona.setString(15, tesserato.getCodiceFederazioneSportiva() );
+	   inserisciPersona.setString(1, persona.getCodiceFiscale() );
+	   inserisciPersona.setString(2, persona.getNome() );
+	   inserisciPersona.setString(3, persona.getCognome() );
+	   inserisciPersona.setDate(4, persona.getDataNascita());
+	   inserisciPersona.setString(5, persona.getComuneNascita() );
+	   inserisciPersona.setString(6, persona.getComuneResidenza() );
+	   inserisciPersona.setString(7, persona.getVia() );
+	   inserisciPersona.setInt(8, persona.getNumeroCivico() );
+	   inserisciPersona.setInt(9, persona.getCAP() );
+	   inserisciPersona.setString(10, persona.getSesso() );
+	   inserisciPersona.setString(11, persona.getProvinciaNascita() );
+	   inserisciPersona.setBoolean(12, persona.isManagerOtesserato());
+	   inserisciPersona.setString(13, tesserato.getCodiceFiscale() ); 
+	   inserisciPersona.setString(14, tesserato.getCodiceFiscaleManager() ); 
+	   inserisciPersona.setInt(15, tesserato.getGettoneNazionale() );
+	   inserisciPersona.setString(16, tesserato.getCodiceFederazioneSportiva() );
 	   
    }
 	
