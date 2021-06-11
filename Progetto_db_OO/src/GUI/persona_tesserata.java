@@ -130,7 +130,14 @@ public class persona_tesserata extends JFrame {
 					
 					
 					
-					
+		persona_tesserata = new Tesserato(	persona.getCodiceFiscale(), persona.getNome(), persona.getCognome(),
+											    persona.getComuneNascita(), persona.getComuneResidenza(), persona.getVia(),
+											    persona.getProvinciaNascita(), persona.getNumeroCivico(), persona.getCAP(),
+											    persona.getSesso().toString(), persona.getDataNascita(), textField_codiceFiscale_manager.getText().toString(),
+											    comboBox_codiceFederazioneSposrtiva.getSelectedItem().toString(),
+											    Integer.parseInt( comboBox_gettoni_nazionale.getSelectedItem().toString() ) 
+										);			
+		System.out.println("codice fiscale menager = " + textField_codiceFiscale_manager.getText());			
 					
 			      	tesserato.setVisible(false);
 			      	dati_persona.setVisible(false);
@@ -154,14 +161,8 @@ public class persona_tesserata extends JFrame {
 		
 		System.out.println("Sono in tesserato e provo a procedere con la creazione di un tesserato\n");
 		
-		persona_tesserata = new Tesserato(	persona.getCodiceFiscale(), persona.getNome(), persona.getCognome(),
-											    persona.getComuneNascita(), persona.getComuneResidenza(), persona.getVia(),
-											    persona.getProvinciaNascita(), persona.getNumeroCivico(), persona.getCAP(),
-											    persona.getSesso().toString(), persona.getDataNascita(), textField_codiceFiscale_manager.getText(),
-											    comboBox_codiceFederazioneSposrtiva.getSelectedItem().toString(),
-											    Integer.parseInt( comboBox_gettoni_nazionale.getSelectedItem().toString() ) 
-										
-				);
+		
+		
 		
 		System.out.println("Ho eseguito la creazione della persona tesserata\n");
 		

@@ -6,6 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -87,8 +88,10 @@ public void Controller()
 
 
 
-public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_utente, JTextField anno_nascita, JTextField mese_nascita, JTextField giorno_nascita ,
-			JComboBox Sesso_utente, JTextField comune_nascita_utente ) throws SQLException {
+public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_utente, JTextField anno_nascita, JTextField mese_nascita,
+									 JTextField giorno_nascita ,JComboBox Sesso_utente, JTextField comune_nascita_utente
+								    ) throws SQLException 
+{
 		
 	String cognome = cognome_utente.getText().toUpperCase(); 
 	String nome = nome_utente.getText().toUpperCase();
@@ -99,11 +102,21 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 	String comune_nascita = comune_nascita_utente.getText()/*.toLower*/; 
 	String codiceFiscale = new String(); 
 	
+	//Per l'anno, andiamo a creare un frammento di codice che ci prenda solo decine e unità
+	
+	anno = anno.substring( anno.length() -3 , anno.length() -1 );
+	
+	
 	// SETTO IL COMUNE CON SOLO LA PRIMA LETTERA MAIUSCOLA 
-	for(int i = 0; i < comune_nascita.length(); i++) {
-		
-		String comune_esatto_per_database = comune_nascita; 
-		comune_nascita = "";
+	
+	
+	String comune_esatto_per_database;  
+	
+	comune_esatto_per_database = comune_nascita;
+	comune_nascita = "";
+	
+	for(int i = 0; i < comune_esatto_per_database.length(); i++) 
+	{
 		
 		if( i == 0 )
 		{
@@ -115,15 +128,18 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 			comune_nascita += comune_esatto_per_database.charAt(i);	
 		}
 		
-		//comune_nascita = comune_nascita + " "; 
+		
 	}
-	
+	//comune_nascita = comune_nascita + " "; 
 	
 	
 	System.out.println( "\necco il comune di nascita: " + comune_nascita );
 	
-    // PRENDIAMO LE PRIME 3 CONSONANTI DEL COGNOME 
-	for( int i = 0, count = 0; i < cognome.length(); i++ )
+   
+	int count = 0; 
+	int i = 0; 
+	// PRENDIAMO LE PRIME 3 CONSONANTI DEL COGNOME 
+	for( i = 0, count = 0; i < cognome.length(); i++ )
 	{
 		
 		if( (cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')  )
@@ -138,15 +154,34 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 				break;
 			}
 			
+			
+				
+			
 			codiceFiscale +=  cognome.charAt(i);
 			count++;
 			
 		}
 	}
 	
+	
+	if( count < 3)
+	{
+			for( i = 0; i < cognome.length(); i++) 
+			{
+				if(cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')
+				{
+					codiceFiscale +=  cognome.charAt(i);
+				    count++; 
+				    if(count == 3)
+				    	break;
+				}
+		    }
+		
+	}
+	
 	//PRENDIAMO LA PRIMA, LA TERZA E LA QUARTA CONSONANTE DEL NOME
 	 
-	for( int i = 0, count = 0; i < nome.length(); i++ ) 
+	for(  i = 0, count = 0; i < nome.length(); i++ ) 
 	{
 			
 			if( ( nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U' ) )
@@ -266,167 +301,212 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 		
 	
 	//AGGIUNGIAMO IL CODICE FISCO AL CODICE FISCALE 
+	System.out.println("Accedo alla connesione");
 	
 	comuniDao codice_fisco = new comuniDao(accessoConnessione()); 
 	
+	String codice_fisco_real = codice_fisco.getCodiceFisco(comune_nascita); 
 	
-	codiceFiscale += codice_fisco.getCodiceFisco(comune_nascita); 	
+	codiceFiscale += codice_fisco_real; 	
 	
-	//TROVIAMO LE LETTERE PARI
+	System.out.println("Si presuppone abbia recuperato il codice fisco");
 	
-	int somma = 0;
+	System.out.println(codice_fisco.getComuneByNome(comune_nascita));
 	
-	for(int i = 0; i < codiceFiscale.length(); i++ ) 
+	// TROVIAMO LE LETTERE PARI
+	
+	int somma_pari = 0;
+	int somma_dispari = 0; 
+	int resto_totale = 0; 
+	int somma_totale = 0; 
+	
+	
+	
+	
+	for( i = 0; i < codiceFiscale.length(); i++ ) 
 	{
-		if( i % 2 == 0 ) 
+		
+		if( ( i + 1 )  % 2 == 0 ) 
 		{
-			switch ( codiceFiscale.charAt(i) ) 
+			switch ( codiceFiscale.charAt( i ) ) 
 			{
-			case 'A' :
-			{
-				somma += 0; 
-			}
-			case 'B':
-			{
-				somma += 1 ; 
-			}
-			case 'C':
-			{
-				somma += 2 ; 
-			}
-			case 'D':
-			{
-				somma += 3 ; 
-			}
-			case 'E':
-			{
-				somma += 4 ; 
-			}
-			case 'F':
-			{
-				somma += 5 ; 
-			}
-			case 'G':
-			{
-				somma += 6 ; 
-			}
-			case 'H':
-			{
-				somma += 7 ; 
-			}
-			case 'I':
-			{
-				somma += 8 ; 
-			}
-			case 'J':
-			{
-				somma += 9 ; 
-			}
-			case 'K':
-			{
-				somma += 10 ; 
-			}
-			case 'L':
-			{
-				somma += 11 ; 
-			}
-			case 'M':
-			{
-				somma += 12 ; 
-			}
-			case 'N':
-			{
-				somma += 13 ; 
-			}
-			case 'O':
-			{
-				somma += 14 ; 
-			}
-			case 'P':
-			{
-				somma += 15 ; 
-			}
-			case 'Q':
-			{
-				somma += 16 ; 
-			}
-			case 'R':
-			{
-				somma += 17 ; 
-			}
-			case 'S':
-			{
-				somma += 18 ; 
-			}
-			case 'T':
-			{
-				somma += 19 ; 
-			}
-			case 'U':
-			{
-				somma += 20 ; 
-			}
-			case 'V':
-			{
-				somma += 21 ; 
-			}
-			case 'W':
-			{
-				somma += 22 ; 
-			}
-			case 'X':
-			{
-				somma += 23 ; 
-			}
-			case 'Y':
-			{
-				somma += 24 ; 
-			}
-			case 'Z':
-			{
-				somma += 25 ; 
-			}
-			case '1':
-			{
-				somma += 1 ; 
-			}
-			case '2':
-			{
-				somma += 2 ; 
-			}
-			case '3':
-			{
-				somma += 3 ; 
-			}
-			case '4':
-			{
-				somma += 4 ; 
-			}
-			case '5':
-			{
-				somma += 5 ; 
-			}
-			case '6':
-			{
-				somma += 6 ; 
-			}
-			case '7':
-			{
-				somma += 7 ; 
-			}
-			case '8':
-			{
-				somma += 8 ; 
-			}
-			case '9':
-			{
-				somma += 9 ; 
-			}
-			
-			
-			
-			
-			default:
+				case 'A' :
+				{
+					somma_pari += 0; 
+					break;
+				}
+				case 'B':
+				{
+					somma_pari += 1 ;
+					break; 
+				}
+				case 'C':
+				{
+					somma_pari += 2 ;
+					break; 
+				}
+				case 'D':
+				{
+					somma_pari += 3 ;
+					break; 
+				}
+				case 'E':
+				{
+					somma_pari += 4 ;
+					break; 
+				}
+				case 'F':
+				{
+					somma_pari += 5 ;
+					break; 
+				}
+				case 'G':
+				{
+					somma_pari += 6 ;
+					break; 
+				}
+				case 'H':
+				{
+					somma_pari += 7 ;
+					break; 
+				}
+				case 'I':
+				{
+					somma_pari += 8 ;
+					break; 
+				}
+				case 'J':
+				{
+					somma_pari += 9 ;
+					break; 
+				}
+				case 'K':
+				{
+					somma_pari += 10 ;
+					break; 
+				}
+				case 'L':
+				{
+					somma_pari += 11 ;
+					break; 
+				}
+				case 'M':
+				{
+					somma_pari += 12 ;
+					break; 
+				}
+				case 'N':
+				{
+					somma_pari += 13 ;
+					break; 
+				}
+				case 'O':
+				{
+					somma_pari += 14 ;
+					break; 
+				}
+				case 'P':
+				{
+					somma_pari += 15 ;
+					break; 
+				}
+				case 'Q':
+				{
+					somma_pari += 16 ;
+					break; 
+				}
+				case 'R':
+				{
+					somma_pari += 17 ;
+					break; 
+				}
+				case 'S':
+				{
+					somma_pari += 18 ;
+					break; 
+				}
+				case 'T':
+				{
+					somma_pari += 19 ;
+					break; 
+				}
+				case 'U':
+				{
+					somma_pari += 20 ;
+					break; 
+				}
+				case 'V':
+				{
+					somma_pari += 21 ;
+					break; 
+				}
+				case 'W':
+				{
+					somma_pari += 22 ;
+					break; 
+				}
+				case 'X':
+				{
+					somma_pari += 23 ;
+					break; 
+				}
+				case 'Y':
+				{
+					somma_pari += 24 ;
+					break; 
+				}
+				case 'Z':
+				{
+					somma_pari += 25 ;
+					break; 
+				}
+				case '1':
+				{
+					somma_pari += 1 ;
+					break; 
+				}
+				case '2':
+				{
+					somma_pari += 2 ;
+					break; 
+				}
+				case '3':
+				{
+					somma_pari += 3 ;
+					break; 
+				}
+				case '4':
+				{
+					somma_pari += 4 ;
+					break; 
+				}
+				case '5':
+				{
+					somma_pari += 5 ;
+					break; 
+				}
+				case '6':
+				{
+					somma_pari += 6 ;
+					break; 
+				}
+				case '7':
+				{
+					somma_pari += 7 ;
+					break; 
+				}
+				case '8':
+				{
+					somma_pari += 8 ;
+					break; 
+				}
+				case '9':
+				{
+					somma_pari += 9 ;
+					break; 
+				}
+				
+				
 				
 			}
 		}
@@ -437,267 +517,332 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 			{
 			case 'A' :
 			{
-				somma += 1; 
+				somma_dispari += 1; 
+				break; 
 			}
 			case 'B':
 			{
-				somma += 0 ; 
+				somma_dispari += 0 ;
+				break; 
 			}
 			case 'C':
 			{
-				somma += 5 ; 
+				somma_dispari += 5 ; 
+				break; 
 			}
 			case 'D':
 			{
-				somma += 7 ; 
+				somma_dispari += 7 ; 
+				break; 
 			}
 			case 'E':
 			{
-				somma += 9 ; 
+				somma_dispari += 9 ;
+				break; 
 			}
 			case 'F':
 			{
-				somma += 13 ; 
+				somma_dispari += 13 ;
+				break; 
 			}
 			case 'G':
 			{
-				somma += 15 ; 
+				somma_dispari += 15 ;
+				break; 
 			}
 			case 'H':
 			{
-				somma += 17 ; 
+				somma_dispari += 17 ;
+				break; 
 			}
 			case 'I':
 			{
-				somma += 19; 
+				somma_dispari += 19;
+				break; 
 			}
 			case 'J':
 			{
-				somma += 21 ; 
+				somma_dispari += 21 ;
+				break; 
 			}
 			case 'K':
 			{
-				somma += 2 ; 
+				somma_dispari += 2 ;
+				break; 
 			}
 			case 'L':
 			{
-				somma += 4 ; 
+				somma_dispari += 4 ;
+				break; 
 			}
 			case 'M':
 			{
-				somma += 18 ; 
+				somma_dispari += 18 ; 
+				break; 
 			}
 			case 'N':
 			{
-				somma += 20 ; 
+				somma_dispari += 20 ; 
+				break; 
 			}
 			case 'O':
 			{
-				somma += 11 ; 
+				somma_dispari += 11 ; 
+				break; 
 			}
 			case 'P':
 			{
-				somma += 3 ; 
+				somma_dispari += 3 ;
+				break; 
 			}
 			case 'Q':
 			{
-				somma += 6 ; 
+				somma_dispari += 6 ;
+				break; 
 			}
 			case 'R':
 			{
-				somma += 8 ; 
+				somma_dispari += 8 ;
+				break; 
 			}
 			case 'S':
 			{
-				somma += 12 ; 
+				somma_dispari += 12 ;
+				break; 
 			}
 			case 'T':
 			{
-				somma += 14 ; 
+				somma_dispari += 14 ;
+				break; 
 			}
 			case 'U':
 			{
-				somma += 16 ; 
+				somma_dispari += 16 ;
+				break; 
 			}
 			case 'V':
 			{
-				somma += 10 ; 
+				somma_dispari += 10 ;
+				break; 
 			}
 			case 'W':
 			{
-				somma += 22 ; 
+				somma_dispari += 22 ;
+				break; 
 			}
 			case 'X':
 			{
-				somma += 25 ; 
+				somma_dispari += 25 ;
+				break; 
 			}
 			case 'Y':
 			{
-				somma += 24 ; 
+				somma_dispari += 24 ;
+				break; 
 			}
 			case 'Z':
 			{
-				somma += 23 ; 
+				somma_dispari += 23 ;
+				break; 
 			}
 			case '0':
 			{
-				somma += 1 ; 
+				somma_dispari += 1 ;
+				break; 
 			}
 			case '1':
 			{
-				somma += 0 ; 
+				somma_dispari += 0 ;
+				break; 
 			}
 			case '2':
 			{
-				somma += 5 ; 
+				somma_dispari += 5 ;
+				break; 
 			}
 			case '3':
 			{
-				somma += 7 ; 
+				somma_dispari += 7 ;
+				break; 
 			}
 			case '4':
 			{
-				somma += 9 ; 
+				somma_dispari += 9 ;
+				break; 
 			}
 			case '5':
 			{
-				somma += 13 ; 
+				somma_dispari += 13 ;
+				break; 
 			}
 			case '6':
 			{
-				somma += 15 ; 
+				somma_dispari += 15 ;
+				break; 
 			}
 			case '7':
 			{
-				somma += 17 ; 
+				somma_dispari += 17 ;
+				break; 
 			}
 			case '8':
 			{
-				somma += 19 ; 
+				somma_dispari += 19 ;
+				break; 
 			}
 			case '9':
 			{
-				somma += 21 ; 
-			}
-			
-            default:
-				
+				somma_dispari += 21 ; 
+				break;
 			}
 			
 		}
-	}
+	}// end else
 	
-	somma = somma % 26; 
+	}// end for
 	
-	switch ( somma ) 
-	{
-	case 0 :
-	{
-		codiceFiscale += 'A'; 
-	}
-	case 1 :
-	{
-		codiceFiscale += 'B'; 
-	}
-	case 2 :
-	{
-		codiceFiscale += 'C'; 
-	}
-	case 3 :
-	{
-		codiceFiscale += 'D'; 
-	}
-	case 4 :
-	{
-		codiceFiscale += 'E'; 
-	}
-	case 5 :
-	{
-		codiceFiscale += 'F'; 
-	}
-	case 6 :
-	{
-		codiceFiscale += 'G'; 
-	}
-	case 7 :
-	{
-		codiceFiscale += 'H'; 
-	}
-	case 8 :
-	{
-		codiceFiscale += 'I'; 
-	}
-	case 9 :
-	{
-		codiceFiscale += 'J'; 
-	}
-	case 10 :
-	{
-		codiceFiscale += 'K'; 
-	}
-	case 11:
-	{
-		codiceFiscale += 'L' ; 
-	}
-	case 12:
-	{
-		codiceFiscale += 'M' ; 
-	}
-	case 13:
-	{
-		codiceFiscale += 'N' ; 
-	}
-	case 14:
-	{
-		codiceFiscale += 'O' ; 
-	}
-	case 15:
-	{
-		codiceFiscale += 'P' ; 
-	}
-	case 16:
-	{
-		codiceFiscale += 'Q' ; 
-	}
-	case 17:
-	{
-		codiceFiscale += 'R' ; 
-	}
-	case 18:
-	{
-		codiceFiscale += 'S' ; 
-	}
-	case 19:
-	{
-		codiceFiscale += 'T' ; 
-	}
-	case 20:
-	{
-		codiceFiscale += 'U' ; 
-	}
-	case 21:
-	{
-		codiceFiscale += 'V' ; 
-	}
-	case 22:
-	{
-		codiceFiscale += 'W' ; 
-	}
-	case 23:
-	{
-		codiceFiscale += 'X' ; 
-	}
-	case 24:
-	{
-		codiceFiscale += 'Y'; 
-	}
-	case 25:
-	{
-		codiceFiscale += 'Z' ; 
-	}
 	
-	default:
-			
+	
+      
+	
+	
+	somma_totale = somma_pari + somma_dispari; 
+	resto_totale =  (somma_totale) % 26  ; 
+	System.out.println(resto_totale);
+	
+	switch ( resto_totale ) 
+	{
+		case 0 :
+		{
+			codiceFiscale += 'A';
+			break; 
+		}
+		case 1 :
+		{
+			codiceFiscale += 'B';
+			break; 
+		}
+		case 2 :
+		{
+			codiceFiscale += 'C';
+			break; 
+		}
+		case 3 :
+		{
+			codiceFiscale += 'D';
+			break; 
+		}
+		case 4 :
+		{
+			codiceFiscale += 'E';
+			break; 
+		}
+		case 5 :
+		{
+			codiceFiscale += 'F';
+			break; 
+		}
+		case 6 :
+		{
+			codiceFiscale += 'G';
+			break; 
+		}
+		case 7 :
+		{
+			codiceFiscale += 'H';
+			break; 
+		}
+		case 8 :
+		{
+			codiceFiscale += 'I';
+			break; 
+		}
+		case 9 :
+		{
+			codiceFiscale += 'J';
+			break; 
+		}
+		case 10 :
+		{
+			codiceFiscale += 'K';
+			break; 
+		}
+		case 11:
+		{
+			codiceFiscale += 'L' ;
+			break; 
+		}
+		case 12:
+		{
+			codiceFiscale += 'M' ;
+			break; 
+		}
+		case 13:
+		{
+			codiceFiscale += 'N' ;
+			break; 
+		}
+		case 14:
+		{
+			codiceFiscale += 'O' ;
+			break; 
+		}
+		case 15:
+		{
+			codiceFiscale += 'P' ;
+			break; 
+		}
+		case 16:
+		{
+			codiceFiscale += 'Q' ;
+			break; 
+		}
+		case 17:
+		{
+			codiceFiscale += 'R' ;
+			break; 
+		}
+		case 18:
+		{
+			codiceFiscale += 'S' ;
+			break; 
+		}
+		case 19:
+		{
+			codiceFiscale += 'T' ;
+			break; 
+		}
+		case 20:
+		{
+			codiceFiscale += 'U' ;
+			break; 
+		}
+		case 21:
+		{
+			codiceFiscale += 'V' ;
+			break; 
+		}
+		case 22:
+		{
+			codiceFiscale += 'W' ;
+			break; 
+		}
+		case 23:
+		{
+			codiceFiscale += 'X' ; 
+			break;
+		}
+		case 24:
+		{
+			codiceFiscale += 'Y' ;
+			break; 
+		}
+		case 25:
+		{
+			codiceFiscale += 'Z' ;
+			break; 
+		}
+		
 	}
 		
 		return codiceFiscale; 

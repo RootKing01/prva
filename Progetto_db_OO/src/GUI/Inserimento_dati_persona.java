@@ -241,19 +241,32 @@ public class Inserimento_dati_persona extends JFrame {
 					
 					//Date data_nascita = new Date(anno, mese, giorno); 
 					 
-					java.util.Date data = new java.util.Date( anno, mese, giorno);
+					Date data = new Date( anno, mese, giorno);
 					
-					long timeInMilliSeconds = data.getTime();
-				    java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
-				     
+					/*
+						long timeInMilliSeconds = data.getTime();
+				    	java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
+				    */ 
 				     
 				    System.out.println("Ho appena eseguito i controlli e creato il codice fiscale\n");
 				    
-	                persona_creata = new Persona_creata(	 codiceFiscale, textFieldNome.getText(), textFieldCognome.getText(), date1 , textFieldComuneNascita.getText(),
+				    boolean manager_o_tesserato = false; 
+				    
+				    if( comboBoxManagerOtesserato.getSelectedItem().toString().equals("Manager")) 
+				    {
+				    	
+				    }
+				    else
+				    {
+				    	manager_o_tesserato = true; 
+				    }
+	                persona_creata = new Persona_creata(	codiceFiscale, textFieldNome.getText(), textFieldCognome.getText(), data , textFieldComuneNascita.getText(),
 															textFieldComuneResidenza.getText(), textFieldVia.getText(),  Integer.parseInt( textFieldNumeroCivico.getText() ) ,
 															Integer.parseInt( textFieldCAP.getText() ), comboBoxSesso.getSelectedItem().toString(),
-															textFieldProvincia.getText(),  Boolean.parseBoolean( comboBoxManagerOtesserato.getSelectedItem().toString() ) ); 
-										
+															textFieldProvincia.getText(), manager_o_tesserato  
+														); 
+					
+	                System.out.println("\n\n\n\n\n\n"+comboBoxManagerOtesserato.getSelectedItem().toString() );				
 					System.out.println("Adesso ho creato una nuova persona \n");
 					
 					persona_tesserata tesserato = new persona_tesserata( persona_creata , persona);

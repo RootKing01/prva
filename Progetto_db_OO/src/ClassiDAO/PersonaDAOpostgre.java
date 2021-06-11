@@ -103,6 +103,9 @@ public class PersonaDAOpostgre {
 	   inserisciPersona.setInt(15, tesserato.getGettoneNazionale() );
 	   inserisciPersona.setString(16, tesserato.getCodiceFederazioneSportiva() );
 	   
+	   inserisciPersona.executeUpdate(); 
+		 
+	   
    }
 	
 	
