@@ -8,20 +8,39 @@ package ConnessioneDB;
 	import java.sql.DriverManager;
 	import java.sql.SQLException;
 	import java.sql.Statement;
-	import java.sql.DatabaseMetaData;
+import java.util.Properties;
+
+import com.jcraft.jsch.JSch;
+import com.jcraft.jsch.JSchException;
+import com.jcraft.jsch.Session;
+
+import java.sql.DatabaseMetaData;
 	import java.sql.ResultSet;
 
 	public class DBConnection {
 
-	    private static DBConnection instance;
-	    private static Connection connection = null;
-	    private final String USERNAME = "postgres";
-	    private final String PASSWORD = "Database12";
-	    private final String IP = "localhost";
-	    private final String PORT = "5432";
-	    private String url = "jdbc:postgresql://"+IP+":"+PORT+"/postgres";
+	    
 
-	      
+//	    private final String USERNAME = "postgres";
+//	    private final String PASSWORD = "";
+//	    private final String IP = "localhost";
+//	    private final String PORT = "5432";
+//	    private String url = "jdbc:postgresql://"+IP+":"+PORT+"/postgres";
+	    
+		private static DBConnection instance;
+		private static Connection connection = null;
+		
+		private String strSshUser = "Rootking"; // SSH loging username
+		private String strSshPassword = "Cerimele1"; // SSH login password
+		private String strSshHost = "95.239.47.125"; // hostname or ip or SSH server
+		private int nSshPort = 22; // remote SSH host port number
+		private String strRemoteHost = "localhost"; // hostname or ip of your database server
+		private int nLocalPort = 5433; // local port number use to bind SSH tunnel
+		private int nRemotePort = 5432; // remote port number of your database
+		private String strDbUser = "postgres"; // database loging username
+		private String strDbPassword = ""; // database login password
+
+	    
 //	    public static void main(String[] args) {
 //	    	
 //	    	DBConnection connessione = (DBConnection) getConnection(); 
@@ -30,18 +49,32 @@ package ConnessioneDB;
 //	    }
 	    
 	    
-	     private DBConnection() throws SQLException {
+	    private DBConnection() throws SQLException
+		{
 	        //Properties props = new Properties();
 	        //props.setProperty("user", USERNAME);
 	        //props.setProperty("pwd", PASSWORD);
 
 	        try
 	        {
-				System.out.println("try inizio");
-	            Class.forName("org.postgresql.Driver");
-	            connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
+//				System.out.println("try inizio");
+//	            Class.forName("org.postgresql.Driver");
+//	            connection = DriverManager.getConnection(url, USERNAME, PASSWORD);
+	        	
+	        	doSshTunnel(strSshUser, strSshPassword, strSshHost, nSshPort, strRemoteHost, nLocalPort, nRemotePort);
+
+	        	Class.forName("org.postgresql.Driver");
+	        	connection = DriverManager.getConnection("jdbc:postgresql://localhost:"+nLocalPort + "/", strDbUser, strDbPassword );
+	        	//connection.close();					 "jdbc:postgresql://"+IP+":   "+PORT+        "/postgres";
+	   
 				System.out.println("try fine");
 	        }
+			catch ( JSchException exx )
+			{
+				System.out.println("Database SSH Connection Creation Failed :" + exx.getMessage() );
+				exx.getStackTrace();
+				
+			}
 	        catch (ClassNotFoundException ex)
 	        {
 	            System.out.println("Database Connection Creation Failed : " + ex.getMessage());
@@ -73,5 +106,24 @@ package ConnessioneDB;
 
 	        return instance;
 	    }
+	    
+	    private static void doSshTunnel( String strSshUser, String strSshPassword, String strSshHost, int nSshPort, String strRemoteHost, int nLocalPort, int nRemotePort ) throws JSchException
+		{
+			final JSch jsch = new JSch();
+			Session session = jsch.getSession( strSshUser, strSshHost, 22 );
+			session.setPassword( strSshPassword );
+	
+			final Properties config = new Properties();
+			config.put( "StrictHostKeyChecking", "no" );
+			session.setConfig( config );
+	
+			session.connect();
+			session.setPortForwardingL(nLocalPort, strRemoteHost, nRemotePort);
+		} 
+	    
+	    
+	    
+	    
+	    
 
 }
