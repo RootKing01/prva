@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
@@ -25,7 +26,7 @@ public class PersonaDAOpostgre {
 	private String provinciaNascita; 
 	private int numeroCivico;
 	private int cap; 
-	private Date dataNascita; 
+	private LocalDate dataNascita; 
 	private boolean managerOtesserato;
 	private Connection connection;
 	
@@ -36,7 +37,7 @@ public class PersonaDAOpostgre {
 	 
 	
 	public PersonaDAOpostgre(	String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-								String via, String provinciaNascita, int numeroCivico, int CAP, String sesso, Date dataNascita,
+								String via, String provinciaNascita, int numeroCivico, int CAP, String sesso, LocalDate dataNascita,
 								boolean ManagerOtesserato
 							) throws SQLException
 	{
@@ -89,7 +90,7 @@ public class PersonaDAOpostgre {
 	   inserisciPersona.setString(1, persona.getCodiceFiscale() );
 	   inserisciPersona.setString(2, persona.getNome() );
 	   inserisciPersona.setString(3, persona.getCognome() );
-	   inserisciPersona.setDate(4, persona.getDataNascita());
+	   inserisciPersona.setObject(4, persona.getDataNascita());
 	   inserisciPersona.setString(5, persona.getComuneNascita() );
 	   inserisciPersona.setString(6, persona.getComuneResidenza() );
 	   inserisciPersona.setString(7, persona.getVia() );

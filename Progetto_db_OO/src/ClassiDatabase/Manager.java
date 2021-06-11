@@ -1,6 +1,7 @@
 package ClassiDatabase;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
 
 import Controller.Driver;
@@ -24,7 +25,7 @@ public class Manager extends Persona_creata {
 	
 
 	public Manager(String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-			String via, String provinciaNascita, int numeroCivico, int cAP, String sesso,  Date dataNascita) {
+			String via, String provinciaNascita, int numeroCivico, int cAP, String sesso,  LocalDate dataNascita) {
 		
 	super(codiceFiscale, nome, cognome, dataNascita, comuneNascita,  comuneResidenza,
 				via, numeroCivico, cAP, sesso, provinciaNascita, false); 

@@ -23,6 +23,7 @@ import java.awt.event.MouseEvent;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.time.LocalDate;
 
 public class Inserimento_dati_persona extends JFrame {
 
@@ -235,13 +236,17 @@ public class Inserimento_dati_persona extends JFrame {
 						System.out.println("La creazione del codice fiscale non è andata a buon fine\n");
 					}
 						
-					int anno = Integer.parseInt( textFieldDataNascita_anno.getText() ); 
-					int mese = Integer.parseInt( textFieldDataNascita_mese.getText()); 
-					int giorno = Integer.parseInt( textFieldDataNascita_giorno.getText() ); 
+//					int anno = Integer.parseInt( textFieldDataNascita_anno.getText() ); 
+//					int mese = Integer.parseInt( textFieldDataNascita_mese.getText()); 
+//					int giorno = Integer.parseInt( textFieldDataNascita_giorno.getText() ); 
+					
+					String Data_finale = textFieldDataNascita_anno.getText()+"-"+textFieldDataNascita_mese.getText()+"-"+textFieldDataNascita_giorno.getText();
 					
 					//Date data_nascita = new Date(anno, mese, giorno); 
 					 
-					Date data = new Date( anno, mese, giorno);
+					LocalDate data = LocalDate.parse(Data_finale); 
+					
+					 
 					
 					/*
 						long timeInMilliSeconds = data.getTime();

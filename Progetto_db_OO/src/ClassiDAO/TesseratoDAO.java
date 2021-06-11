@@ -2,6 +2,7 @@ package ClassiDAO;
 
 import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 import Controller.Driver;
 
@@ -18,7 +19,7 @@ public class TesseratoDAO extends PersonaDAOpostgre {
 	
 	
      public TesseratoDAO( String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-			String via, String provinciaNascita, int numeroCivico, int cAP, String sesso, Date dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
+			String via, String provinciaNascita, int numeroCivico, int cAP, String sesso, LocalDate dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
 			int gettoneNazionale) throws SQLException {
 	
 		super(codiceFiscale, nome, cognome,  comuneNascita,  comuneResidenza,

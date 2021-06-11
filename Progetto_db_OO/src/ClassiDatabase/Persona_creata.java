@@ -1,6 +1,7 @@
 package ClassiDatabase;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Persona_creata {
 
@@ -13,14 +14,14 @@ public class Persona_creata {
 	private String provinciaNascita; 
 	private int numeroCivico;
 	private int CAP; 
-	private Date dataNascita; 
+	private LocalDate dataNascita; 
 	private String sesso;
 	private boolean managerOtesserato;
 	
 	
 	
 	
-	public Persona_creata( String codiceFiscale, String nome, String cognome, Date dataNascita, String comuneNascita, String comuneResidenza,
+	public Persona_creata( String codiceFiscale, String nome, String cognome, LocalDate dataNascita, String comuneNascita, String comuneResidenza,
 			String via, int numeroCivico, int cAP, String sesso,  String provinciaNascita,
 			boolean managerOtesserato) {
 		
@@ -228,14 +229,14 @@ public class Persona_creata {
 
 
 
-	public Date getDataNascita() {
+	public LocalDate getDataNascita() {
 		return dataNascita;
 	}
 
 
 
 
-	public void setDataNascita(Date dataNascita) {
+	public void setDataNascita(LocalDate dataNascita) {
 		this.dataNascita = dataNascita;
 	}
 

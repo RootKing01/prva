@@ -202,6 +202,21 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 			
 	}
 	
+	if( count < 3)
+	{
+			for( i = 0; i < nome.length(); i++) 
+			{
+				if(nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U')
+				{
+					codiceFiscale +=  nome.charAt(i);
+				    count++; 
+				    if(count == 3)
+				    	break;
+				}
+		    }
+		
+	}
+	
 	// USIAMO L'ANNO DI NASCITA
 	if( anno.length() < 2 || anno.length() > 4 || anno.length() == 3)
 	{
@@ -874,10 +889,10 @@ public boolean controlloDati( JTextField Nome			,JTextField Cognome,
 		
 		java.util.Date data = new java.util.Date( anno, mese, giorno);
 		
-		 long timeInMilliSeconds = data.getTime();
-	     java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
+//		 long timeInMilliSeconds = data.getTime();
+//	     java.sql.Date date1 = new java.sql.Date(timeInMilliSeconds);
 		
-		long z = 12L;
+		
 	    Date data_nascita = new Date( anno, mese, giorno );
 	   // Date data_nascita = new Date(  );
 
@@ -1009,7 +1024,7 @@ public boolean controlloDati( JTextField Nome			,JTextField Cognome,
 
 
 					
-public boolean controlloDataNascita( Date data)
+public boolean controlloDataNascita( LocalDate data)
 {
 	
 	if (data.getYear() < 1950 || data.getYear() > LocalDate.now().getYear() )

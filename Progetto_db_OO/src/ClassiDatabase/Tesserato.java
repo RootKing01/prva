@@ -1,6 +1,7 @@
 package ClassiDatabase;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 import Controller.Driver;
 
@@ -26,7 +27,7 @@ public class Tesserato extends Persona_creata {
 	
 	
      public Tesserato(	String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-						String via, String provinciaNascita, int numeroCivico, int cAP, String sesso, Date dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
+						String via, String provinciaNascita, int numeroCivico, int cAP, String sesso, LocalDate dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
 						int gettoneNazionale) 
 	{
 	
