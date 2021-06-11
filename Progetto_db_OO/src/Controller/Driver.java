@@ -206,15 +206,48 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 	{
 			for( i = 0; i < nome.length(); i++) 
 			{
-				if(nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U')
+				if( count == 2 ) 
 				{
-					codiceFiscale +=  nome.charAt(i);
-				    count++; 
-				    if(count == 3)
-				    	break;
+					if(nome.charAt(i) != 'A' || nome.charAt(i) != 'E' || nome.charAt(i) != 'I' || nome.charAt(i) != 'O' || nome.charAt(i) != 'U')
+					{
+						codiceFiscale +=  nome.charAt(i);
+						count++;
+						 if(count == 3)
+						    	break;
+					}
 				}
-		    }
+//				else
+//				{
+//				if(nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U')
+//				{
+//					codiceFiscale +=  nome.charAt(i);
+//				    count++; 
+//				    if(count == 3)
+//				    	break;
+//				}
+//		    }    
+		}
 		
+	  if(count == 1) 
+	  {
+		  
+		  for(i = 0; i < nome.length(); i++) 
+		  {  
+			  while(count != 3)
+			  {
+				    if( ( nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U' ) ) 
+				  {
+					    codiceFiscale +=  nome.charAt(i);
+						count++;
+				  
+				  }
+			   
+			  }
+	    }
+	
+	 }
+	
+	
 	}
 	
 	// USIAMO L'ANNO DI NASCITA

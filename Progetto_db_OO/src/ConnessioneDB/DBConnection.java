@@ -41,7 +41,7 @@ import java.sql.DatabaseMetaData;
 		private String strDbPassword = ""; // database login password
 
 	    
-//	    public static void main(String[] args) {
+//	    public static void main(String[] args) 2
 //	    	
 //	    	DBConnection connessione = (DBConnection) getConnection(); 
 //	       System.out.println("Connesso correttamente ");	
@@ -64,8 +64,8 @@ import java.sql.DatabaseMetaData;
 	        	doSshTunnel(strSshUser, strSshPassword, strSshHost, nSshPort, strRemoteHost, nLocalPort, nRemotePort);
 
 	        	Class.forName("org.postgresql.Driver");
-	        	connection = DriverManager.getConnection("jdbc:postgresql://localhost:"+nLocalPort + "/", strDbUser, strDbPassword );
-	        	//connection.close();					 "jdbc:postgresql://"+IP+":   "+PORT+        "/postgres";
+	        	connection = DriverManager.getConnection("jdbc:postgresql://localhost:"+nLocalPort + "/", strDbUser,  strDbPassword );
+	        	//connection.close();
 	   
 				System.out.println("try fine");
 	        }
