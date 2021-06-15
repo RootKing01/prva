@@ -43,6 +43,7 @@ public class persona_tesserata extends JFrame {
 	private JPanel contentPane;
 	private JTextField textField_codiecFiscale_tesserato;
 	private JTextField textField_codiceFiscale_manager;
+	private JTextField textField_password;
 	
 	private Tesserato persona_tesserata;
 	private persona_tesserata tesserato;
@@ -92,6 +93,7 @@ public class persona_tesserata extends JFrame {
 		contentPane.add(textField_codiceFiscale_manager);
 		textField_codiceFiscale_manager.setColumns(10);
 		
+		
 		JComboBox comboBox_gettoni_nazionale = new JComboBox();
 		comboBox_gettoni_nazionale.setBounds(351, 251, 208, 37);
 		contentPane.add(comboBox_gettoni_nazionale);
@@ -128,23 +130,41 @@ public class persona_tesserata extends JFrame {
 		
 			public void mouseClicked(MouseEvent e) {
 					
+							
+				if(textField_codiceFiscale_manager.getText().toString().equals(""))	
+				{
+				     persona_tesserata = new Tesserato(	persona.getCodiceFiscale(), persona.getNome(), persona.getCognome(),
+													    persona.getComuneNascita(), persona.getComuneResidenza(), persona.getVia(),
+													    persona.getProvinciaNascita(), persona.getNumeroCivico(), persona.getCAP(),
+													    persona.getSesso().toString(), persona.getDataNascita(), null,
+													    comboBox_codiceFederazioneSposrtiva.getSelectedItem().toString(),
+													    Integer.parseInt( comboBox_gettoni_nazionale.getSelectedItem().toString()),
+														persona.getPassword() 
+													
+													);		
+		
+				}
+				else
+				{
 					
 					
-		persona_tesserata = new Tesserato(	persona.getCodiceFiscale(), persona.getNome(), persona.getCognome(),
-											    persona.getComuneNascita(), persona.getComuneResidenza(), persona.getVia(),
-											    persona.getProvinciaNascita(), persona.getNumeroCivico(), persona.getCAP(),
-											    persona.getSesso().toString(), persona.getDataNascita(), textField_codiceFiscale_manager.getText().toString(),
-											    comboBox_codiceFederazioneSposrtiva.getSelectedItem().toString(),
-											    Integer.parseInt( comboBox_gettoni_nazionale.getSelectedItem().toString() ) 
-										);			
-		System.out.println("codice fiscale menager = " + textField_codiceFiscale_manager.getText());			
+					persona_tesserata = new Tesserato(	persona.getCodiceFiscale(), persona.getNome(), persona.getCognome(),
+						    persona.getComuneNascita(), persona.getComuneResidenza(), persona.getVia(),
+						    persona.getProvinciaNascita(), persona.getNumeroCivico(), persona.getCAP(),
+						    persona.getSesso().toString(), persona.getDataNascita(), textField_codiceFiscale_manager.getText().toString(),
+						    comboBox_codiceFederazioneSposrtiva.getSelectedItem().toString(),
+						    Integer.parseInt( comboBox_gettoni_nazionale.getSelectedItem().toString()), 
+						    persona.getPassword() 
+						    
+							);
+					
+				}
 					
 			      	tesserato.setVisible(false);
 			      	dati_persona.setVisible(false);
 			      	Driver driver = new Driver(); 
 			      	try {
 						driver.inserimento_persone_tesserate_database(persona, persona_tesserata);
-						System.out.println("Ho eseguito l'inserimneto");
 					} catch (SQLException e1) {
 						
 						e1.printStackTrace();

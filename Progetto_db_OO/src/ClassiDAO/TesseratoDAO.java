@@ -20,10 +20,10 @@ public class TesseratoDAO extends PersonaDAOpostgre {
 	
      public TesseratoDAO( String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
 			String via, String provinciaNascita, int numeroCivico, int cAP, String sesso, LocalDate dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
-			int gettoneNazionale) throws SQLException {
+			int gettoneNazionale, String password) throws SQLException {
 	
 		super(codiceFiscale, nome, cognome,  comuneNascita,  comuneResidenza,
-				via, provinciaNascita,  numeroCivico, cAP, sesso,  dataNascita, true ); 
+				via, provinciaNascita,  numeroCivico, cAP, sesso,  dataNascita, true, password ); 
 		
 		this.codiceFiscale = codiceFiscale;
 		this.codiceFiscaleManager = codiceFiscaleManager;

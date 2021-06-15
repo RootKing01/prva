@@ -17,13 +17,14 @@ public class Persona_creata {
 	private LocalDate dataNascita; 
 	private String sesso;
 	private boolean managerOtesserato;
+	private String password; 
 	
 	
 	
 	
 	public Persona_creata( String codiceFiscale, String nome, String cognome, LocalDate dataNascita, String comuneNascita, String comuneResidenza,
 			String via, int numeroCivico, int cAP, String sesso,  String provinciaNascita,
-			boolean managerOtesserato) {
+			boolean managerOtesserato, String password) {
 		
 		super();
 		this.codiceFiscale = codiceFiscale;
@@ -38,41 +39,21 @@ public class Persona_creata {
 		this.sesso = sesso;
 		this.dataNascita = dataNascita;
 		this.managerOtesserato = managerOtesserato;
+		this.password = password; 
+	}
+
+
+
+	public String getPassword() {
+		return password;
 	}
 
 
 
 
-//	public Persona_creata( String codiceFiscale, String Nome, String Cognome, String ComuneNascita
-//															,String ComuneResidenza, String Via,String  NumeroCivico
-//															,String Sesso, String Provincia, String  ManagerOtesserato) 
-//																
-//		{
-//			super();
-//			this.codiceFiscale = codiceFiscale;
-//			this.nome = Nome;
-//			this.cognome = Cognome;
-//			this.comuneNascita = ComuneNascita;
-//			this.comuneResidenza = ComuneResidenza;
-//			this.via = Via;
-//			this.provinciaNascita = ProvinciaNascita;
-//			this.numeroCivico = NumeroCivico;
-//			this.CAP = cAP;
-//			this.sesso = Sesso;
-//			this.dataNascita = SataNascita;
-//			this.managerOtesserato = ManagerOtesserato;
-//	}
-
-
-
-
-
-
-	
-
-
-
-
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 
 

@@ -23,11 +23,13 @@ public class PersonaDAOpostgre {
 	private String comuneNascita; 
 	private String comuneResidenza; 
 	private String via; 
-	private String provinciaNascita; 
+	private String provinciaNascita;
+	private String password; 
 	private int numeroCivico;
 	private int cap; 
 	private LocalDate dataNascita; 
 	private boolean managerOtesserato;
+	
 	private Connection connection;
 	
 	
@@ -38,7 +40,7 @@ public class PersonaDAOpostgre {
 	
 	public PersonaDAOpostgre(	String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
 								String via, String provinciaNascita, int numeroCivico, int CAP, String sesso, LocalDate dataNascita,
-								boolean ManagerOtesserato
+								boolean ManagerOtesserato, String password
 							) throws SQLException
 	{
 		super();
@@ -53,13 +55,14 @@ public class PersonaDAOpostgre {
 		this.cap = CAP;
 		this.dataNascita = dataNascita;
 		this.managerOtesserato = ManagerOtesserato;
+		this.password = password;
 		
 		
 		this.connection = Driver.accessoConnessione();
 		
 		getPersonaByNome = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE \"nome\" like '?'");
 		 
-		inserisciPersona = connection.prepareStatement("INSERT INTO persona_tesserata VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
+		inserisciPersona = connection.prepareStatement("INSERT INTO persona_tesserata VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 		
 //		getPersonaByLavoro = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE managerOtesserato like ?");
 		
@@ -70,13 +73,6 @@ public class PersonaDAOpostgre {
 /////////////////////////////////////////////////////////////****METODI****////////////////////////////////////////////////////////
 
 	public ArrayList<String> getPersonaByNome(String nome) throws SQLException {
-		
-		
-		
-		
-		
-		
-		
 		
 		
 		
@@ -99,10 +95,12 @@ public class PersonaDAOpostgre {
 	   inserisciPersona.setString(10, persona.getSesso() );
 	   inserisciPersona.setString(11, persona.getProvinciaNascita() );
 	   inserisciPersona.setBoolean(12, persona.isManagerOtesserato());
-	   inserisciPersona.setString(13, tesserato.getCodiceFiscale() ); 
-	   inserisciPersona.setString(14, tesserato.getCodiceFiscaleManager() ); 
-	   inserisciPersona.setInt(15, tesserato.getGettoneNazionale() );
-	   inserisciPersona.setString(16, tesserato.getCodiceFederazioneSportiva() );
+	   inserisciPersona.setString(13, persona.getPassword() );
+	   inserisciPersona.setString(14, tesserato.getCodiceFiscale() ); 
+	   inserisciPersona.setString(15, tesserato.getCodiceFiscaleManager() ); 
+	   inserisciPersona.setInt(16, tesserato.getGettoneNazionale() );
+	   inserisciPersona.setString(17, tesserato.getCodiceFederazioneSportiva() );
+	  
 	   
 	   inserisciPersona.executeUpdate(); 
 		 

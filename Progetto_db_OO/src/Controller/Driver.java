@@ -26,7 +26,7 @@ import ConnessioneDB.DBConnection;
 import GUI.ErroreInserimento;
 import GUI.General;
 import GUI.Inserimento_dati_persona;
-import GUI.Inserimento_persona_tesserata;
+
 
 
 public class Driver 
@@ -40,6 +40,11 @@ public class Driver
 		Driver driver = new Driver();	
 		driver.Controller();
 		
+		// RSSMRA80A01F839W	mario rossi napoli na 01 01 1980
+		// RGONNA80A01F839W anna rogo ...
+		// baglio stefano
+		// BGLSFN	80A01H978Y stefano baglio san marcellino ce 01 01 1980 
+		// BGLSFN	80A01F839S
 		
 		//PersonaDAOpostgre personadao = new PersonaDAOpostgre("RGOFNC00T22F839S", "fra", "rogo", "2000/12/02", "Napoli", "Napoli", "sos", "");
 		
@@ -102,9 +107,8 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 	String comune_nascita = comune_nascita_utente.getText()/*.toLower*/; 
 	String codiceFiscale = new String(); 
 	
-	//Per l'anno, andiamo a creare un frammento di codice che ci prenda solo decine e unità
 	
-	anno = anno.substring( anno.length() -3 , anno.length() -1 );
+	
 	
 	
 	// SETTO IL COMUNE CON SOLO LA PRIMA LETTERA MAIUSCOLA 
@@ -138,7 +142,159 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
    
 	int count = 0; 
 	int i = 0; 
+	
 	// PRENDIAMO LE PRIME 3 CONSONANTI DEL COGNOME 
+	/*
+		Vengono prese le consonanti del cognome nel loro ordine
+		Se le consonanti sono insufficienti, si prelevano anche le vocali
+		(se sono sufficienti le consonanti si prelevano la prima, la seconda e la terza consonante),
+		sempre nel loro ordine e, comunque, le vocali vengono riportate dopo le consonanti
+		(per esempio: Rosi -> RSO).
+		Nel caso in cui un cognome abbia meno di tre lettere,
+		la parte di codice viene completata aggiungendo la lettera X 
+		(per esempio: Fo -> FOX). 
+	*/	
+	
+	// se il nome ha meno di 3 lettere fai una cosa
+	// altrimenti conto le consonanti e se sono (almeno) 3 si prnendono la 1-2-3
+	// se non ce ne sono si usano le vocali alla fine
+	int counter_consonanti = 0;
+	
+	if( cognome.length() == 2 ) 
+	{
+		
+		char s = cognome.charAt(0);
+			
+		if(s != 'A' && s != 'E' && s != 'I' && s != 'O' && s != 'U')
+		{
+			codiceFiscale +=  s;
+			codiceFiscale += cognome.charAt(1);
+		}
+		else
+		{
+			codiceFiscale += cognome.charAt(1);
+			codiceFiscale +=  s;
+		}
+
+        codiceFiscale += 'X'; 
+	}
+	else
+	{
+		// conto le consonanti:
+		for(i = 0; i < cognome.length(); i++)
+		{
+				char s = cognome.charAt(i);
+					
+				if( ( s == 'A' || s == 'E' || s == 'I' || s == 'O' || s == 'U' ) )
+				{
+					 
+				}
+				else
+				{
+					counter_consonanti++;
+				}
+			
+		}
+			
+		switch( counter_consonanti )
+		{
+			
+			case 3: 
+					for(  i = 0, count = 0; i < cognome.length(); i++ ) 
+					{
+						if(cognome.charAt(i) != 'A' && cognome.charAt(i) != 'E' && cognome.charAt(i) != 'I' && cognome.charAt(i) != 'O' && cognome.charAt(i) != 'U')
+						{	
+						    if( count == 0 || count == 1 || count == 2 )
+							{
+									
+								codiceFiscale +=  cognome.charAt(i);
+									
+							}
+		         			count++;
+						 }	
+					 }
+					break;
+			
+			// il nome ha 2 consonanti -> si inserisconno le prime 2 cons. + la prima vocale 
+			case 2:	
+					for(  i = 0, count = 0; i < cognome.length(); i++ ) 
+					{
+						if(cognome.charAt(i) != 'A' && cognome.charAt(i) != 'E' && cognome.charAt(i) != 'I' && cognome.charAt(i) != 'O' && cognome.charAt(i) != 'U')
+						{	
+						    if( count == 0 || count == 1 )
+							{
+									
+									codiceFiscale +=  cognome.charAt(i);
+									
+							}
+		         			count++;
+						 }	
+			
+					}
+					for( i = 0; i < cognome.length(); i++ )
+					{
+						
+						if(cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')
+						{	
+							codiceFiscale += cognome.charAt(i);
+							break; 	
+						}	
+						
+					} 
+					break;
+					
+			case 1: 
+					
+					for( i = 0, count = 0; i < cognome.length(); i++ ) 
+					{
+		
+						if(cognome.charAt(i) != 'A' && cognome.charAt(i) != 'E' && cognome.charAt(i) != 'I' && cognome.charAt(i) != 'O' && cognome.charAt(i) != 'U')
+						{
+							codiceFiscale +=  cognome.charAt(i);
+							break;	
+						}
+									
+					}	
+						
+					
+					for( i = 0, count = 0;  i < cognome.length() && count < 2; i++ )
+					{
+								
+						if( cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')
+						{	
+							codiceFiscale += cognome.charAt(i);
+							count ++;
+									
+						}	
+								
+					} 
+							
+					break;
+						
+			
+			
+			default: 
+					for( i = 0, count = 0; i < cognome.length(); i++ ) 
+					{ 
+						   
+						if(cognome.charAt(i) != 'A' && cognome.charAt(i) != 'E' && cognome.charAt(i) != 'I' && cognome.charAt(i) != 'O' && cognome.charAt(i) != 'U')
+						{	
+						
+							if( count == 0 || count == 1 || count == 2 )
+							{
+										
+								codiceFiscale +=  cognome.charAt(i);
+													
+							}
+							count++;
+						}
+					 }
+					break;
+		}
+	
+}	
+
+	/*
 	for( i = 0, count = 0; i < cognome.length(); i++ )
 	{
 		
@@ -154,103 +310,201 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 				break;
 			}
 			
-			
-				
-			
 			codiceFiscale +=  cognome.charAt(i);
 			count++;
 			
 		}
 	}
-	
-	
-	if( count < 3)
+
+	if(count == 0) 
 	{
-			for( i = 0; i < cognome.length(); i++) 
+		for( i = 0; i < cognome.length() && count < 2; i++) 
+		{
+			if(cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')
+			{
+				codiceFiscale +=  cognome.charAt(i);
+			    count++; 
+			    
+			}
+	    }
+		codiceFiscale +=  'X';
+	}
+	
+	
+	if( count < 2 && count > 0)
+	{
+			for( i = 0; i < cognome.length() && count < 2; i++) 
 			{
 				if(cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')
 				{
 					codiceFiscale +=  cognome.charAt(i);
 				    count++; 
-				    if(count == 3)
-				    	break;
+				   
 				}
 		    }
 		
 	}
+	*/
 	
-	//PRENDIAMO LA PRIMA, LA TERZA E LA QUARTA CONSONANTE DEL NOME
-	 
-	for(  i = 0, count = 0; i < nome.length(); i++ ) 
+	// PRENDIAMO LA PRIMA, LA TERZA E LA QUARTA CONSONANTE DEL NOME
+	/*
+	Vengono prese le consonanti del nome (o dei nomi, se ve ne è più di uno) nel loro ordine
+ 	(primo nome, di seguito il secondo e così via) in questo modo: se il nome contiene quattro o più consonanti,
+ 	si scelgono la prima, la terza e la quarta (per esempio: Gianfranco -> GFR), altrimenti le prime tre in ordine
+		(per esempio: Tiziana -> TZN). Se il nome non ha consonanti a sufficienza, si prendono anche le vocali; 
+	in ogni caso le vocali vengono riportate dopo le consonanti (per esempio: Luca  LCU). 
+	Nel caso in cui il nome abbia meno di tre lettere la parte di codice viene completata aggiungendo la lettera X.
+	*/
+	
+	count = 0; 
+	counter_consonanti = 0; 
+	
+	
+	if(nome.length() == 2) 
 	{
 			
-			if( ( nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U' ) )
-			{
-				 
-			}
-			else
-			{
-				
-				if( count == 0 || count == 2 || count == 3 )
-				{
-					
-					codiceFiscale +=  nome.charAt(i);
-					
-				}
-				count++;
-			}
+		char s = nome.charAt(0);
 			
-	}
-	
-	if( count < 3)
-	{
-			for( i = 0; i < nome.length(); i++) 
-			{
-				if( count == 2 ) 
-				{
-					if(nome.charAt(i) != 'A' || nome.charAt(i) != 'E' || nome.charAt(i) != 'I' || nome.charAt(i) != 'O' || nome.charAt(i) != 'U')
-					{
-						codiceFiscale +=  nome.charAt(i);
-						count++;
-						 if(count == 3)
-						    	break;
-					}
-				}
-//				else
-//				{
-//				if(nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U')
-//				{
-//					codiceFiscale +=  nome.charAt(i);
-//				    count++; 
-//				    if(count == 3)
-//				    	break;
-//				}
-//		    }    
+		if(s != 'A' && s != 'E' && s != 'I' && s != 'O' && s != 'U')
+		{
+			codiceFiscale +=  s;
+			codiceFiscale +=nome.charAt(1);
 		}
-		
-	  if(count == 1) 
-	  {
-		  
-		  for(i = 0; i < nome.length(); i++) 
-		  {  
-			  while(count != 3)
-			  {
-				    if( ( nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U' ) ) 
-				  {
-					    codiceFiscale +=  nome.charAt(i);
-						count++;
-				  
-				  }
-			   
-			  }
-	    }
-	
-	 }
-	
-	
+		else
+		{
+			codiceFiscale +=nome.charAt(1);
+			codiceFiscale +=  s;
+		}
+
+        codiceFiscale += 'X'; 
 	}
+	else
+	{
+		// conto le consonanti:
+		for(i = 0; i < nome.length(); i++)
+		{
+			
+				if( ( nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U' ) )
+				{
+					 
+				}
+				else
+				{
+					counter_consonanti++;
+				}
+			
+		}
+			
+		switch( counter_consonanti )
+		{
+			
+			case 3: 
+					for(  i = 0, count = 0; i < nome.length(); i++ ) 
+					{
+						if(nome.charAt(i) != 'A' && nome.charAt(i) != 'E' && nome.charAt(i) != 'I' && nome.charAt(i) != 'O' && nome.charAt(i) != 'U')
+						{	
+						    if( count == 0 || count == 1 || count == 2 )
+							{
+									
+									codiceFiscale +=  nome.charAt(i);
+									
+							}
+		         			count++;
+						 }	
+					 }
+					break;
+			
+			// il nome ha 2 consonanti -> si inserisconno le prime 2 cons. + la prima vocale 
+			case 2:	
+					for(  i = 0, count = 0; i < nome.length(); i++ ) 
+					{
+						if(nome.charAt(i) != 'A' && nome.charAt(i) != 'E' && nome.charAt(i) != 'I' && nome.charAt(i) != 'O' && nome.charAt(i) != 'U')
+						{	
+						    if( count == 0 || count == 1 )
+							{
+									
+									codiceFiscale +=  nome.charAt(i);
+									
+							}
+		         			count++;
+						 }	
+			
+					}
+					for( i = 0; i < nome.length(); i++ )
+					{
+						
+						if(nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U')
+						{	
+							codiceFiscale += nome.charAt(i);
+							break; 	
+						}	
+						
+					} 
+					break;
+					
+			case 1: 
+					
+					for( i = 0, count = 0; i < nome.length(); i++ ) 
+					{
+		
+						if(nome.charAt(i) != 'A' && nome.charAt(i) != 'E' && nome.charAt(i) != 'I' && nome.charAt(i) != 'O' && nome.charAt(i) != 'U')
+						{
+							codiceFiscale +=  nome.charAt(i);
+							break;	
+						}
+									
+					}	
+						
+					
+					for( i = 0, count = 0;  i < nome.length() && count < 2; i++ )
+					{
+								
+						if(nome.charAt(i) == 'A' || nome.charAt(i) == 'E' || nome.charAt(i) == 'I' || nome.charAt(i) == 'O' || nome.charAt(i) == 'U')
+						{	
+							codiceFiscale += nome.charAt(i);
+							count ++;
+									
+						}	
+								
+								
+					} 
+							
+						break;
+						
+			
+			
+			default: 
+					for( i = 0, count = 0; i < nome.length(); i++ ) 
+					{ 
+						   
+						if(nome.charAt(i) != 'A' && nome.charAt(i) != 'E' && nome.charAt(i) != 'I' && nome.charAt(i) != 'O' && nome.charAt(i) != 'U')
+						{	
+						
+							if( count == 0 || count == 2 || count == 3 )
+							{
+										
+								codiceFiscale +=  nome.charAt(i);
+													
+							}
+							count++;
+						}
+					 }
+			break;
+		}
+	
+	}	
+			
+	
+	
+	
+	
+	
+	
 	
 	// USIAMO L'ANNO DI NASCITA
+	System.out.println( anno );
+	System.out.println( anno.length() );
+	
 	if( anno.length() < 2 || anno.length() > 4 || anno.length() == 3)
 	{
 		System.err.println("Errore: anno sbagliato... " + anno);
@@ -262,8 +516,8 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 		codiceFiscale += anno;
 	} 
 	else
-	{
-		codiceFiscale += anno.charAt(2) + anno.charAt(3); 	
+	{    
+		codiceFiscale += anno.charAt(2) +""+ anno.charAt(3); 	
 	}
 		
 	//USIAMO IL  MESE PER IL CALCOLO DELLA LETTERA 	
@@ -344,7 +598,7 @@ public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_
 	}
 	else
 	{
-		codiceFiscale += (giorno + 40); 
+		codiceFiscale += Integer.parseInt(giorno) + 40;
 	}
 		
 	
@@ -1231,7 +1485,8 @@ public void inserimento_persone_tesserate_database(Persona_creata persona, Tesse
 	  PersonaDAOpostgre registrazione = new PersonaDAOpostgre(persona.getCodiceFiscale(), persona.getNome(),  persona.getCognome() , persona.getComuneNascita(), 
 			                                                  persona.getComuneResidenza(),  persona.getVia(), persona.getProvinciaNascita(), 
 			                                                  persona.getNumeroCivico(), persona.getCAP(), persona.getSesso(),      persona.getDataNascita(),      
-			                                                  persona.isManagerOtesserato()); 
+			                                                  persona.isManagerOtesserato(), persona.getPassword() 
+															); 
 		
 	  
 	

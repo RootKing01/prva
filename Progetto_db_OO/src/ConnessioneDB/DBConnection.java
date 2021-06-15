@@ -30,8 +30,8 @@ import java.sql.DatabaseMetaData;
 		private static DBConnection instance;
 		private static Connection connection = null;
 		
-		private String strSshUser = "Rootking"; // SSH loging username
-		private String strSshPassword = "Cerimele1"; // SSH login password
+		private String strSshUser = "Progetto_oo_db"; // SSH loging username
+		private String strSshPassword = "Progetto_oo_db"; // SSH login password
 		private String strSshHost = "95.239.47.125"; // hostname or ip or SSH server
 		private int nSshPort = 22; // remote SSH host port number
 		private String strRemoteHost = "localhost"; // hostname or ip of your database server

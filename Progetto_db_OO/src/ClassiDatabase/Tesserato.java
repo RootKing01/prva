@@ -28,11 +28,11 @@ public class Tesserato extends Persona_creata {
 	
      public Tesserato(	String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
 						String via, String provinciaNascita, int numeroCivico, int cAP, String sesso, LocalDate dataNascita, String codiceFiscaleManager, String codiceFederazioneSportiva,
-						int gettoneNazionale) 
+						int gettoneNazionale, String password ) 
 	{
 	
-		super(codiceFiscale, nome, cognome, dataNascita, comuneNascita,  comuneResidenza,
-				via, numeroCivico,   cAP, sesso, provinciaNascita, true ); 
+		super( codiceFiscale, nome, cognome, dataNascita, comuneNascita,  comuneResidenza,
+				via, numeroCivico,   cAP, sesso, provinciaNascita, true, password ); 
 				
 				
 		this.codiceFiscale = codiceFiscale;
@@ -61,7 +61,17 @@ public class Tesserato extends Persona_creata {
 
 
 	public void setCodiceFiscaleManager(String codiceFiscaleManager) {
-		this.codiceFiscaleManager = codiceFiscaleManager;
+		
+		if(codiceFiscaleManager.equals(""))			
+		
+		{
+			this.codiceFiscaleManager = null;
+		}
+		else
+		{
+			this.codiceFiscaleManager = codiceFiscaleManager;
+		}
+			
 	}
 
 
