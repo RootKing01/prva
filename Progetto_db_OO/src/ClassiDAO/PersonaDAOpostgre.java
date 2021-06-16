@@ -9,6 +9,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JTextField;
 
 import ClassiDatabase.Persona_creata;
 import ClassiDatabase.Tesserato;
@@ -17,63 +18,64 @@ import Controller.Driver;
 
 public class PersonaDAOpostgre {
 
-	private String codiceFiscale; 
-	private String nome; 
-	private String cognome; 
-	private String comuneNascita; 
-	private String comuneResidenza; 
-	private String via; 
-	private String provinciaNascita;
-	private String password; 
-	private int numeroCivico;
-	private int cap; 
-	private LocalDate dataNascita; 
-	private boolean managerOtesserato;
+	/*
+		private String codiceFiscale; 
+		private String nome; 
+		private String cognome; 
+		private String comuneNascita; 
+		private String comuneResidenza; 
+		private String via; 
+		private String provinciaNascita;
+		private String password; 
+		private int numeroCivico;
+		private int cap; 
+		private LocalDate dataNascita; 
+		private boolean managerOtesserato;
+		// forse possiamo anche togliere questi parametri 
+		
+		
+		String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
+									String via, String provinciaNascita, int numeroCivico, int CAP, String sesso, LocalDate dataNascita,
+									boolean ManagerOtesserato, String password
+	*/
 	
 	private Connection connection;
 	
 	
-	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro ; 
+	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro ;
+	private static PreparedStatement getPersonaByCodiceFiscale, getPasswordByCodiceFiscale; 
 	private ResultSet rs;
+//	private static ResultSet rs1; 
 	
 	 
+
 	
-	public PersonaDAOpostgre(	String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-								String via, String provinciaNascita, int numeroCivico, int CAP, String sesso, LocalDate dataNascita,
-								boolean ManagerOtesserato, String password
-							) throws SQLException
+	
+	public PersonaDAOpostgre( ) throws SQLException
 	{
 		super();
-		this.codiceFiscale = codiceFiscale;
-		this.nome = nome;
-		this.cognome = cognome;
-		this.comuneNascita = comuneNascita;
-		this.comuneResidenza = comuneResidenza;
-		this.via = via;
-		this.provinciaNascita = provinciaNascita;
-		this.numeroCivico = numeroCivico;
-		this.cap = CAP;
-		this.dataNascita = dataNascita;
-		this.managerOtesserato = ManagerOtesserato;
-		this.password = password;
-		
 		
 		this.connection = Driver.accessoConnessione();
+		
 		
 		getPersonaByNome = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE \"nome\" like '?'");
 		 
 		inserisciPersona = connection.prepareStatement("INSERT INTO persona_tesserata VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 		
+		getPersonaByCodiceFiscale = connection.prepareStatement("SELECT \"codiceFiscale\" FROM persona_ WHERE \"codiceFiscale\" like ?"); 
+		
 //		getPersonaByLavoro = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE managerOtesserato like ?");
+		
+		getPasswordByCodiceFiscale = connection.prepareStatement("SELECT \"password\" FROM persona_ WHERE \"codiceFiscale\" like ?"); 
 		
 		
 	}
+	// end costruttore
 
 
 /////////////////////////////////////////////////////////////****METODI****////////////////////////////////////////////////////////
 
 	public ArrayList<String> getPersonaByNome(String nome) throws SQLException {
-		
 		
 		
 		return null;
@@ -111,14 +113,48 @@ public class PersonaDAOpostgre {
 	
 	
 
-//Bisogna cer	are metodo per verificare che la persona non sia già esistente all'interno del database
+//Bisogna cerare metodo per verificare che la persona non sia già esistente all'interno del database
+// bisogna togliere lo static
 
-
-
-
+   
+	public boolean getPersonaByCodiceFiscale( String codiceFiscale ) throws SQLException
+	{
+		
+		boolean verifica = false;
+		
+		
+		getPersonaByCodiceFiscale.setString(1, codiceFiscale);
+		rs = getPersonaByCodiceFiscale.executeQuery();
+		
+		while(rs.next()) 
+		{
+			
+			if( rs.getString("codiceFiscale") != null )
+				verifica = true;
+				
+		}
+		rs.close();
+		
+		return verifica;
+	}
 	
-	
-       
+	public String getPasswordByCodiceFiscale(String codiceFiscale) throws SQLException
+	{
+		
+		String risultato = null;
+		
+	    getPasswordByCodiceFiscale.setString(1, codiceFiscale);
+	    rs = getPasswordByCodiceFiscale.executeQuery(); 
+	    
+	    while(rs.next())	
+		risultato = rs.getString("password");
+		System.out.println(risultato);
+		
+		
+	    rs.close();
+	    
+		return risultato;
+	}
 
 }
 

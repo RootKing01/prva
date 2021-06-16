@@ -17,24 +17,36 @@ public class Errore_Inserimento_Dati extends JDialog {
 
 
 	public Errore_Inserimento_Dati( String [] stringa_di_controllo ) {
-
+		
+		setLocation(500, 500);
+        
+		
 		setTitle("Errore Inserimento Dati");
 
-		setBounds(100, 100, 788, 348);
+		contentPanel.setBounds( WIDTH - WIDTH/2, HEIGHT - HEIGHT/2, 500, 500 );
+		setBounds(200, 200, 781, 524);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
 
 		contentPanel.setLayout(null);
 		{
+			
 			TextArea textArea = new TextArea();
+			textArea.setText("\n\n");
+			
 			for( int i = 0; i < stringa_di_controllo.length; i++ )
 			{
-				textArea.setText( textArea.getText() + stringa_di_controllo[i] + "\n" );	
+				if( !(stringa_di_controllo[i] == null) )
+				{
+					textArea.setText( "\t\t" + textArea.getText() + stringa_di_controllo[i] + "\n" );	
+				}
+				
+					
 			}
 			
 			textArea.setEditable(false);
-			textArea.setBounds(0, 0, 772, 276);
+			textArea.setBounds(0, 0, 765, 452);
 			contentPanel.add(textArea);
 		}
 

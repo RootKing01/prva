@@ -54,8 +54,8 @@ public class persona_tesserata extends JFrame {
 	public persona_tesserata( Persona_creata persona, Inserimento_dati_persona dati_persona) throws NumberFormatException, SQLException {
 		
 		tesserato = this;
-		 
-		
+		setLocation(500, 500); 
+				
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 951, 572);
 		contentPane = new JPanel();

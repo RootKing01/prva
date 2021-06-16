@@ -49,16 +49,17 @@ public class Inserimento_dati_persona extends JFrame {
     
 	ErroreInserimento errore = new ErroreInserimento(this);
     private Persona_creata persona_creata;
-    private JPasswordField passwordField;
+    private JPasswordField inserimento_password;
+    private JPasswordField controllo_password;
     
 	
 	
 	
 	public Inserimento_dati_persona() {
 		
-         persona = this; 
+        persona = this; 
         
-		 
+		setLocation(500, 500); 
 		
 		setTitle("Inserimento Persona");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -129,12 +130,12 @@ public class Inserimento_dati_persona extends JFrame {
 		
 	    textFieldNome = new JTextField();
 		textFieldNome.setColumns(10);
-		textFieldNome.setBounds(214, 19, 358, 20);
+		textFieldNome.setBounds(235, 19, 337, 20);
 		contentPane_provincia.add(textFieldNome);
 		
 		textFieldCognome = new JTextField();
 		textFieldCognome.setColumns(10);
-		textFieldCognome.setBounds(214, 59, 358, 20);
+		textFieldCognome.setBounds(235, 59, 337, 20);
 		contentPane_provincia.add(textFieldCognome);
 		
 		textFieldDataNascita_anno = new JTextField();
@@ -198,7 +199,7 @@ public class Inserimento_dati_persona extends JFrame {
 			
 			}
 		});
-		bottoneAnnulla.setBounds(76, 473, 187, 60);
+		bottoneAnnulla.setBounds(26, 507, 187, 60);
 		contentPane_provincia.add(bottoneAnnulla);
 		
 		textFieldProvincia = new JTextField();
@@ -207,11 +208,47 @@ public class Inserimento_dati_persona extends JFrame {
 		textFieldProvincia.setColumns(10);
 		
 		
+		
+		JLabel lblNewLabel = new JLabel("Anno");
+		lblNewLabel.setBounds(472, 102, 46, 14);
+		contentPane_provincia.add(lblNewLabel);
+		
+		JLabel lblNewLabel_1 = new JLabel("Mese");
+		lblNewLabel_1.setBounds(345, 102, 46, 14);
+		contentPane_provincia.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_2 = new JLabel("Giorno");
+		lblNewLabel_2.setBounds(214, 102, 46, 14);
+		contentPane_provincia.add(lblNewLabel_2);
+		
+		JLabel creazione_password = new JLabel("Crea e inserisci una password:");
+		creazione_password.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		creazione_password.setBounds(26, 389, 279, 29);
+		contentPane_provincia.add(creazione_password);
+		
+		inserimento_password = new JPasswordField();
+		inserimento_password.setBounds(345, 397, 198, 20);
+		contentPane_provincia.add(inserimento_password);
+		
+		JLabel reinserimento_password = new JLabel("Reinserisci password:");
+		reinserimento_password.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		reinserimento_password.setBounds(26, 439, 279, 39);
+		contentPane_provincia.add(reinserimento_password);
+		
+		controllo_password = new JPasswordField();
+		controllo_password.setBounds(345, 452, 198, 20);
+		contentPane_provincia.add(controllo_password);
+		
 	
 		
 		
-		JButton bottoneAvanti = new JButton("Avanti");
-		bottoneAvanti.addMouseListener(new MouseAdapter() {
+		
+		
+	
+		contentPane_provincia.add(bottoneAnnulla);
+		
+		JButton btnNewButton = new JButton("Avanti");
+		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				
@@ -225,7 +262,7 @@ public class Inserimento_dati_persona extends JFrame {
 					flag = driver.controlloDati(	textFieldNome		, textFieldCognome,		
 													textFieldDataNascita_anno , textFieldDataNascita_mese		, textFieldDataNascita_giorno,
 													textFieldComuneNascita ,    textFieldComuneResidenza	    ,  
-													textFieldCAP 			, textFieldProvincia	
+													textFieldCAP 			, textFieldProvincia, inserimento_password, controllo_password
 												);
 					
 					if(flag)
@@ -270,9 +307,11 @@ public class Inserimento_dati_persona extends JFrame {
 				    	manager_o_tesserato = true; 
 				    }
 					
-					String myPass=String.valueOf(passwordField.getPassword());
+					String myPass=String.valueOf(inserimento_password.getPassword());
 					
-					
+					if(controllo_password.equals(myPass));
+						
+						
 	                persona_creata = new Persona_creata(	codiceFiscale, textFieldNome.getText(), textFieldCognome.getText(), data , textFieldComuneNascita.getText(),
 															textFieldComuneResidenza.getText(), textFieldVia.getText(),  Integer.parseInt( textFieldNumeroCivico.getText() ) ,
 															Integer.parseInt( textFieldCAP.getText() ), comboBoxSesso.getSelectedItem().toString(),
@@ -300,36 +339,12 @@ public class Inserimento_dati_persona extends JFrame {
 				
 //					}
 //				}
+			
 			}
 		});
-		
-		
-		
-		bottoneAvanti.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		bottoneAvanti.setBounds(617, 474, 187, 60);
-		contentPane_provincia.add(bottoneAvanti);
-		
-		JLabel lblNewLabel = new JLabel("Anno");
-		lblNewLabel.setBounds(472, 102, 46, 14);
-		contentPane_provincia.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("Mese");
-		lblNewLabel_1.setBounds(345, 102, 46, 14);
-		contentPane_provincia.add(lblNewLabel_1);
-		
-		JLabel lblNewLabel_2 = new JLabel("Giorno");
-		lblNewLabel_2.setBounds(214, 102, 46, 14);
-		contentPane_provincia.add(lblNewLabel_2);
-		
-		JLabel lblNewLabel_4 = new JLabel("Crea e inserisci una password:");
-		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		lblNewLabel_4.setBounds(26, 389, 279, 29);
-		contentPane_provincia.add(lblNewLabel_4);
-		
-		passwordField = new JPasswordField();
-		passwordField.setBounds(345, 397, 198, 20);
-		contentPane_provincia.add(passwordField);
-		
+		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		btnNewButton.setBounds(579, 507, 187, 60);
+		contentPane_provincia.add(btnNewButton);
 			
 	}
 }

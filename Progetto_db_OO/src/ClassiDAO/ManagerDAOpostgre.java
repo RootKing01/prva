@@ -59,7 +59,7 @@ public class ManagerDAOpostgre {
 		
 		rs = inserisciManager.executeQuery(); 
 		
-		while(rs.next()) 
+		while( rs.next() ) 
 		{
 			
 			
