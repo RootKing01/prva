@@ -32,7 +32,7 @@ import java.sql.DatabaseMetaData;
 		
 		private String strSshUser = "Progetto_oo_db"; // SSH loging username
 		private String strSshPassword = "Progetto_oo_db"; // SSH login password
-		private String strSshHost = "95.239.47.125"; // hostname or ip or SSH server
+		private String strSshHost = "dnsobject.ddns.net"; // hostname or ip or SSH server
 		private int nSshPort = 22; // remote SSH host port number
 		private String strRemoteHost = "localhost"; // hostname or ip of your database server
 		private int nLocalPort = 5433; // local port number use to bind SSH tunnel
