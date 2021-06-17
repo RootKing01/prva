@@ -84,7 +84,30 @@ public class Driver
 			prima_finestra.setVisible(true);	
 		}
 	
-	
+	public ArrayList<String> ricerca_utente(String nome, String cognome)
+	{
+		
+		PersonaDAOpostgre utente_ricerca;
+		ArrayList<String> ritorno = null;
+		
+		
+		try 
+		{
+			utente_ricerca = new PersonaDAOpostgre();
+			ritorno = utente_ricerca.getPersonaByNome(nome, cognome);
+			
+		}
+		catch (SQLException e)
+		{
+			ritorno = new ArrayList<>();
+			ritorno.add("errore sql");
+			e.printStackTrace();
+		} 
+		
+		
+		
+		return ritorno ; 
+	}
 	
 	public String creazioneCodiceFiscale(JTextField cognome_utente, JTextField nome_utente, JTextField anno_nascita, JTextField mese_nascita,
 										 JTextField giorno_nascita ,JComboBox Sesso_utente, JTextField comune_nascita_utente
@@ -286,60 +309,9 @@ public class Driver
 			}
 		
 	}	
-	
-		/*
-		for( i = 0, count = 0; i < cognome.length(); i++ )
-		{
-			
-			if( (cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')  )
-			{
-				 
-			}
-			else
-			{
-				
-				if( count == 3 )
-				{
-					break;
-				}
-				
-				codiceFiscale +=  cognome.charAt(i);
-				count++;
-				
-			}
-		}
-	
-		if(count == 0) 
-		{
-			for( i = 0; i < cognome.length() && count < 2; i++) 
-			{
-				if(cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')
-				{
-					codiceFiscale +=  cognome.charAt(i);
-				    count++; 
-				    
-				}
-		    }
-			codiceFiscale +=  'X';
-		}
-		
-		
-		if( count < 2 && count > 0)
-		{
-				for( i = 0; i < cognome.length() && count < 2; i++) 
-				{
-					if(cognome.charAt(i) == 'A' || cognome.charAt(i) == 'E' || cognome.charAt(i) == 'I' || cognome.charAt(i) == 'O' || cognome.charAt(i) == 'U')
-					{
-						codiceFiscale +=  cognome.charAt(i);
-					    count++; 
-					   
-					}
-			    }
-			
-		}
-		*/
 		
 		// PRENDIAMO LA PRIMA, LA TERZA E LA QUARTA CONSONANTE DEL NOME
+		
 		/*
 		Vengono prese le consonanti del nome (o dei nomi, se ve ne è più di uno) nel loro ordine
 	 	(primo nome, di seguito il secondo e così via) in questo modo: se il nome contiene quattro o più consonanti,
@@ -1143,22 +1115,23 @@ public class Driver
 			return codiceFiscale; 
 		}
 		
-	public boolean controlloPasswordDataBase( JTextField password )
+	public boolean controlloPasswordDataBase( JTextField password, JTextField codiceFiscale)
 	{
 		
-		String risultato = null;
+		String password_db = null;
 		boolean password_giusta_o_no = false; 
 		
+		String codiceFiscale_login = codiceFiscale.getText().toString(); 
 		
 		try
 		{    
+			
 			String password_login = password.getText().toString();
 			
 		    PersonaDAOpostgre persona_login = new PersonaDAOpostgre(); 
-			risultato = persona_login.getPasswordByCodiceFiscale( password_login );
+			password_db = persona_login.getPasswordByCodiceFiscale( codiceFiscale_login );
 			
-			System.out.println("\n\n\n\n");
-			if( risultato.equals( password_login ) ) 
+			if( password_db.equals( password_login ) ) 
 			{
 				password_giusta_o_no = true;
 			} 
@@ -1179,6 +1152,7 @@ public class Driver
 		return password_giusta_o_no;
 		
 	}
+
 	public boolean confrontoCodiceFiscaleDataBase(JTextField codiceFiscale) 
 	{
 	     
@@ -1197,8 +1171,22 @@ public class Driver
 		
 		return risultato; 
 	}
-	
 		
+	public boolean controlloSuperUser(String codiceFiscale) 
+	{   
+		
+		boolean superUser = false;  
+		
+		String superUser_1 = "PSQVRD80A01F839X"; 
+		
+		if(codiceFiscale.equals(superUser_1)) 
+		{
+			 superUser = true; 
+		}
+		
+		return superUser;
+	}
+	
 	public boolean controlloDati(	JTextField Nome			,JTextField Cognome,		
 									JTextField anno_nascita	,JTextField mese_nascita		,JTextField giorno_nascita,
 									JTextField ComuneNascita	,JTextField comune_residenza	,  
@@ -1302,12 +1290,10 @@ public class Driver
 			return true; 
 	}
 	
-	
 	public boolean controlloPassword(JPasswordField password1, JPasswordField password) {
 		
 		return password.equals(password1); 
 	}
-	
 	
 	public boolean controlloDataNascita( LocalDate data)
 	{
@@ -1318,8 +1304,6 @@ public class Driver
 			return true; 
 		
 	}
-	
-	
 	
 	public boolean controlloCap(JTextField cap_comune) 
 	    {
@@ -1364,9 +1348,7 @@ public class Driver
 		
 		
 		}
-		
-	
-		
+			
 	public boolean controlloProvincia(JTextField provincia) 
 	    {
 			
@@ -1411,8 +1393,6 @@ public class Driver
 		
 		}
 		
-		
-	
 	private boolean controlloComuneNascita(JTextField comuneNascita) {
 			
 			// aggiusta comuneNascita fatto
@@ -1491,11 +1471,7 @@ public class Driver
 			*/
 	}
 	
-	
-	
-	
-	
-	// basterebbe chiamare DBConnection.getInstance();
+// basterebbe chiamare DBConnection.getInstance();
 	public static Connection accessoConnessione() throws SQLException {
 		
 		   DBConnection connessioneDB = DBConnection.getInstance(); 

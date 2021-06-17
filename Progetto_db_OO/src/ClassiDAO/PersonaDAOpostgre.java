@@ -42,7 +42,7 @@ public class PersonaDAOpostgre {
 	private Connection connection;
 	
 	
-	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro ;
+	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro, getPersonaByNomeEcognome;
 	private static PreparedStatement getPersonaByCodiceFiscale, getPasswordByCodiceFiscale; 
 	private ResultSet rs;
 //	private static ResultSet rs1; 
@@ -58,7 +58,9 @@ public class PersonaDAOpostgre {
 		this.connection = Driver.accessoConnessione();
 		
 		
-		getPersonaByNome = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE \"nome\" like '?'");
+		getPersonaByNome = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE \"nome\" like ?");
+		
+		getPersonaByNomeEcognome = connection.prepareStatement("SELECT * FROM persona_ WHERE \"nome\" LIKE  ? AND \"cognome\" LIKE ? ");
 		 
 		inserisciPersona = connection.prepareStatement("INSERT INTO persona_tesserata VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 		
@@ -75,12 +77,8 @@ public class PersonaDAOpostgre {
 
 /////////////////////////////////////////////////////////////****METODI****////////////////////////////////////////////////////////
 
-	public ArrayList<String> getPersonaByNome(String nome) throws SQLException {
-		
-		
-		return null;
-		
-	   }
+	
+	
 
 
    public void inserisciPersona(Persona_creata persona, Tesserato tesserato) throws SQLException {
@@ -116,8 +114,37 @@ public class PersonaDAOpostgre {
 //Bisogna cerare metodo per verificare che la persona non sia già esistente all'interno del database
 // bisogna togliere lo static
 
-   
-	public boolean getPersonaByCodiceFiscale( String codiceFiscale ) throws SQLException
+   	public ArrayList<String> getPersonaByNome( String nome, String cognome ) throws SQLException 
+	{
+		ArrayList<String> utenti_ricercati = new ArrayList<>(); 
+	   
+		getPersonaByNomeEcognome.setString(1, nome);
+		getPersonaByNomeEcognome.setString(2, cognome);
+		rs = getPersonaByNomeEcognome.executeQuery();
+		
+		while( rs.next() )
+		{
+			
+			String codice_fiscale_utente = rs.getString("codiceFiscale");
+			String nome_utente = rs.getString("nome");	
+			String cognome_utente = rs.getString("cognome");
+			String data_di_nascita_utente = rs.getString("dataNascita");
+			
+		    String dati_utente = "Nome: "+ nome_utente+
+							     "\tCognome: " + cognome_utente+
+								 "\tCodice fiscale: "+codice_fiscale_utente+
+		    		             "\tData di nascita: " +data_di_nascita_utente;
+		    
+			utenti_ricercati.add(dati_utente);
+		}
+		 
+		
+		rs.close();
+		return utenti_ricercati;
+		
+	}
+	
+   	public boolean getPersonaByCodiceFiscale( String codiceFiscale ) throws SQLException
 	{
 		
 		boolean verifica = false;
@@ -141,17 +168,20 @@ public class PersonaDAOpostgre {
 	public String getPasswordByCodiceFiscale(String codiceFiscale) throws SQLException
 	{
 		
-		String risultato = null;
+		String risultato = "giopippo";
 		
 	    getPasswordByCodiceFiscale.setString(1, codiceFiscale);
 	    rs = getPasswordByCodiceFiscale.executeQuery(); 
 	    
-	    while(rs.next())	
-		risultato = rs.getString("password");
-		System.out.println(risultato);
+	    while( rs.next() )	
+		{
+	    	if( rs.getString("password") != null )
+				risultato = rs.getString("password").toString();	
+		}
+		rs.close();
+		System.out.println("risulato\t\t"+risultato);
 		
 		
-	    rs.close();
 	    
 		return risultato;
 	}

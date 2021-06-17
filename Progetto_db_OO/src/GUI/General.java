@@ -97,12 +97,25 @@ public class General extends JFrame {
 			public void mouseClicked(MouseEvent e) 
 			{
 				
+				String codiceFiscale = textField_accesso_codiceFiscale.getText();
+				
 				boolean codiceFiscale_giusto_o_sbagliato = false;
 				boolean password_giusta_o_sbagliata = false;
 				   
 				codiceFiscale_giusto_o_sbagliato = driver.confrontoCodiceFiscaleDataBase( textField_accesso_codiceFiscale );
-				password_giusta_o_sbagliata = driver.controlloPasswordDataBase( passwordField_per_accesso );
+				password_giusta_o_sbagliata = driver.controlloPasswordDataBase( passwordField_per_accesso, textField_accesso_codiceFiscale );
 				
+				
+				// controllo super utente: se falso adderà ad utente normale
+				if( driver.controlloSuperUser( codiceFiscale ) ) 
+				{
+					
+				}
+				else
+				{
+					
+					
+				}
 				
 				
 			}
