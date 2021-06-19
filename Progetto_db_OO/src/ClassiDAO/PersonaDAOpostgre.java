@@ -42,7 +42,7 @@ public class PersonaDAOpostgre {
 	private Connection connection;
 	
 	
-	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro, getPersonaByNomeEcognome;
+	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro, getPersonaByNomeEcognome, deletePersonaByCodiceFiscale;
 	private static PreparedStatement getPersonaByCodiceFiscale, getPasswordByCodiceFiscale; 
 	private ResultSet rs;
 //	private static ResultSet rs1; 
@@ -69,6 +69,8 @@ public class PersonaDAOpostgre {
 //		getPersonaByLavoro = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE managerOtesserato like ?");
 		
 		getPasswordByCodiceFiscale = connection.prepareStatement("SELECT \"password\" FROM persona_ WHERE \"codiceFiscale\" like ?"); 
+		
+		deletePersonaByCodiceFiscale = connection.prepareStatement("DELETE FROM \"persona_\" WHERE \"codiceFiscale\" like ?"); 
 		
 		
 	}
@@ -186,6 +188,15 @@ public class PersonaDAOpostgre {
 		return risultato;
 	}
 
+	public boolean deletePersonaByCodiceFiscale( String codiceFiscale ) throws SQLException
+	{
+		
+		deletePersonaByCodiceFiscale.setString(1, codiceFiscale);
+		int row = deletePersonaByCodiceFiscale.executeUpdate(); 		
+		
+		return row != 0; 
+	}
+	
 }
 
 

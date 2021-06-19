@@ -47,7 +47,7 @@ public class Inserimento_dati_persona extends JFrame {
    
 	Driver driver = new Driver(); 
     
-	ErroreInserimento errore = new ErroreInserimento(this);
+	Errore_Inserimento_Dati errore;  
     private Persona_creata persona_creata;
     private JPasswordField inserimento_password;
     private JPasswordField controllo_password;
@@ -56,6 +56,8 @@ public class Inserimento_dati_persona extends JFrame {
 	
 	
 	public Inserimento_dati_persona() {
+		
+		
 		
         persona = this; 
         

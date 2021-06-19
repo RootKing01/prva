@@ -51,7 +51,7 @@ public class persona_tesserata extends JFrame {
 
 
 
-	public persona_tesserata( Persona_creata persona, Inserimento_dati_persona dati_persona) throws NumberFormatException, SQLException {
+	public persona_tesserata( Persona_creata persona, JFrame dati_persona) throws NumberFormatException, SQLException {
 		
 		tesserato = this;
 		setLocation(500, 500); 

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
@@ -24,7 +25,7 @@ import ClassiDatabase.Comune;
 import ClassiDatabase.Persona_creata;
 import ClassiDatabase.Tesserato;
 import ConnessioneDB.DBConnection;
-import GUI.ErroreInserimento;
+import GUI.Errore_Inserimento_Dati;
 import GUI.General;
 import GUI.Inserimento_dati_persona;
 
@@ -1115,7 +1116,7 @@ public class Driver
 			return codiceFiscale; 
 		}
 		
-	public boolean controlloPasswordDataBase( JTextField password, JTextField codiceFiscale)
+	public boolean controlloPasswordDataBase( JPasswordField password, JTextField codiceFiscale)
 	{
 		
 		String password_db = null;
@@ -1126,15 +1127,37 @@ public class Driver
 		try
 		{    
 			
-			String password_login = password.getText().toString();
+			char[] password_login = password.getPassword()  ;
+			
+			
 			
 		    PersonaDAOpostgre persona_login = new PersonaDAOpostgre(); 
 			password_db = persona_login.getPasswordByCodiceFiscale( codiceFiscale_login );
+			
+			
+			char [] password_database = new char[password_db.length()]; 
+			
+			for(int i = 0; i < password_db.length(); i++ )
+			{
+				password_database[i] = password_db.charAt(i); 
+			}
 			
 			if( password_db.equals( password_login ) ) 
 			{
 				password_giusta_o_no = true;
 			} 
+			
+			
+			boolean isCorrect; 
+			
+			if (password_login.length != password_db.length()) {
+     		   isCorrect = false;
+    		} 
+			else 
+			{
+        		isCorrect = Arrays.equals(password_login, password_database);
+			}
+			
 			 
 		
 		}
@@ -1281,8 +1304,10 @@ public class Driver
 				
 	        if ( flagGenerale != true )
 			{
+				
 				finestra_di_errore = new Errore_Inserimento_Dati( controllo_errori );
 				finestra_di_errore.setVisible(true);
+			
 			}   
 	        		
 	
@@ -1292,7 +1317,12 @@ public class Driver
 	
 	public boolean controlloPassword(JPasswordField password1, JPasswordField password) {
 		
-		return password.equals(password1); 
+		char[] password_utente = password.getPassword();
+		
+		char[] conferma_password_utente = password1.getPassword(); 
+		 
+		
+		return Arrays.equals( password_utente, conferma_password_utente ); 
 	}
 	
 	public boolean controlloDataNascita( LocalDate data)
