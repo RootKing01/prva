@@ -71,10 +71,12 @@ public class pannelloSuperUser extends JFrame {
 		pannello_per_superUser();
 	}
 		
-		
+	
+	
 		//////////////////////////////////////////////////////////////////////////////////////
 		// settaggi finestra 
-		
+		 
+	   
 		
 		// visualizzazione pannello iniziale 
 		
@@ -226,8 +228,93 @@ public class pannelloSuperUser extends JFrame {
 	
 	private void modifica()
 	{
+		//metodo che va sviluppato nel seguente modo: trova all'interno del database il dato errato inserito, 
+		//modifica, nel caso di nome, cognome,  data di nascita e comune, vengono modificati quei valori, generato un nuovo 
+		//codice fiscale e sostituito a quello precedentemente costruito. Nel caso di altri dati (maschio o femmina,
+		//manager o tesserato) poiché in teoria non dovrebbe violare alcuna regola 
+		contentPane.setVisible( false );
+        contentPane= set();
+		
+		setTitle("Inserimento Persona");
+		
+		getContentPane().setBackground(Color.DARK_GRAY);
+		getContentPane().setLayout(null);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.DARK_GRAY);
+		panel.setBounds(0, 0, 949, 556);
+		getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		JLabel lblNewLabel_3 = new JLabel("Inserisci nome dell'utente da ricercare:");
+		lblNewLabel_3.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		lblNewLabel_3.setBounds(10, 55, 403, 36);
+		panel.add(lblNewLabel_3);
+		
+		JLabel lblNewLabel_3_1 = new JLabel("Inserisci cognome dell'utente da ricercare:");
+		lblNewLabel_3_1.setFont(new Font("Tahoma", Font.PLAIN, 23));
+		lblNewLabel_3_1.setBounds(10, 102, 448, 36);
+		panel.add(lblNewLabel_3_1);
+		
+		textField_nome = new JTextField();
+		textField_nome.setBounds(504, 68, 267, 20);
+		panel.add(textField_nome);
+		textField_nome.setColumns(10);
+		
+		textField_1_cognome = new JTextField();
+		textField_1_cognome.setColumns(10);
+		textField_1_cognome.setBounds(504, 115, 267, 20);
+		panel.add(textField_1_cognome);
+		
+		TextArea textArea_risultato_ricerca = new TextArea();   
+		textArea_risultato_ricerca.setEditable(false);
+		textArea_risultato_ricerca.setBounds(121, 170, 687, 293);
+		panel.add(textArea_risultato_ricerca);
+		
+		
+		JButton bottoneRicerca = new JButton("Ricerca");
+		bottoneRicerca.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				ArrayList<String> utenti_trovati;
+				Driver ricerca_utente_database = new Driver(); 
+				utenti_trovati = ricerca_utente_database.ricerca_utente( textField_nome.getText().toString(), textField_1_cognome.getText().toString() ); 
 				
-	}
+				for( String s : utenti_trovati )
+				{
+					textArea_risultato_ricerca.setText( textArea_risultato_ricerca.getText() +"\n" + s ); 
+				}
+				
+			
+			}
+		});
+		bottoneRicerca.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		bottoneRicerca.setBounds(752, 483, 176, 46);
+		panel.add(bottoneRicerca);
+		
+		JButton bottone_indietro = new JButton("Indietro");
+		bottone_indietro.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				contentPane.setVisible( false );
+				pannello_per_superUser();
+				
+			}
+		});
+		bottone_indietro.setFont(new Font("Tahoma", Font.PLAIN, 20));
+		bottone_indietro.setBounds(10, 483, 176, 46);
+		panel.add(bottone_indietro);
+				
+		
+	} 
+				
+		
+		
+		
+	
 	
 	private void aggiungi()
 	{
