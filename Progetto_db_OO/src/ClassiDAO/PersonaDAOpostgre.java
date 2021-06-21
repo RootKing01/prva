@@ -1,15 +1,19 @@
 package ClassiDAO;
 
+import java.sql.Array;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
+
+
 
 import ClassiDatabase.Persona_creata;
 import ClassiDatabase.Tesserato;
@@ -42,7 +46,8 @@ public class PersonaDAOpostgre {
 	private Connection connection;
 	
 	
-	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro, getPersonaByNomeEcognome, deletePersonaByCodiceFiscale;
+	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro, getPersonaByNomeEcognome, deletePersonaByCodiceFiscale, 
+	                          getAllPeople;
 	private static PreparedStatement getPersonaByCodiceFiscale, getPasswordByCodiceFiscale; 
 	private ResultSet rs;
 //	private static ResultSet rs1; 
@@ -72,6 +77,7 @@ public class PersonaDAOpostgre {
 		
 		deletePersonaByCodiceFiscale = connection.prepareStatement("DELETE FROM \"persona_\" WHERE \"codiceFiscale\" like ?"); 
 		
+		getAllPeople = connection.prepareStatement("SELECT * FROM persona_tesserata"); 
 		
 	}
 	// end costruttore
@@ -116,12 +122,77 @@ public class PersonaDAOpostgre {
 //Bisogna cerare metodo per verificare che la persona non sia già esistente all'interno del database
 // bisogna togliere lo static
 
-   	public ArrayList<String> getPersonaByNome( String nome, String cognome ) throws SQLException 
+   
+   public ArrayList<String> tutteLePersone() throws SQLException
+   {    
+	   	
+		ArrayList<String> tutti_gli_utenti = new ArrayList<>();
+		
+
+        rs = getAllPeople.executeQuery(); 
+	  
+
+//		rs.last();
+//		int columnsNumber = rs.getRow();
+//		
+//		
+//	    tutti_gli_utenti.add("Sono presenti nel database " + columnsNumber + " utenti.\n\n");
+//		
+//	    
+//	    
+//	    rs.beforeFirst();
+	   
+        
+        while(rs.next()) 
+	    {
+	    	
+// aggiungere ulteriori stringhe per il metodo
+  
+		  
+	    	
+	    	String codice_fiscale_utente = rs.getString("codiceFiscale");
+			String nome_utente = rs.getString("nome");	
+			String cognome_utente = rs.getString("cognome");
+			String data_di_nascita_utente = rs.getString("dataNascita");
+			boolean managerOtesserato = rs.getBoolean("managerOtesserato"); 
+			
+			
+			String menager_o_tesserato; 
+			
+			if( managerOtesserato )
+			{
+				menager_o_tesserato = "Tesserato"; 
+   			}
+			else
+			{
+				menager_o_tesserato = "Manager";
+			}
+	                  
+			
+		    String dati_utente = "Nome: "+ nome_utente+
+							     "\t\tCognome: " + cognome_utente+
+								 "\tCodice fiscale: "+codice_fiscale_utente+
+		    		             "\tData di nascita: " +data_di_nascita_utente+
+								 "\t\t"+ menager_o_tesserato;
+											    
+			tutti_gli_utenti.add(dati_utente);
+			
+			
+	    }
+	   
+	
+		
+   return tutti_gli_utenti; 
+   }
+   
+   public ArrayList<String> getPersonaByNome( String nome, String cognome ) throws SQLException 
 	{
 		ArrayList<String> utenti_ricercati = new ArrayList<>(); 
 	   
-		getPersonaByNomeEcognome.setString(1, nome);
-		getPersonaByNomeEcognome.setString(2, cognome);
+		//Il per cento indica una serie di caratteri che vengono ulteriormente presi in considerazione 
+		
+		getPersonaByNomeEcognome.setString(1, nome+"%");
+		getPersonaByNomeEcognome.setString(2, cognome+"%");
 		rs = getPersonaByNomeEcognome.executeQuery();
 		
 		while( rs.next() )
@@ -155,7 +226,7 @@ public class PersonaDAOpostgre {
 		getPersonaByCodiceFiscale.setString(1, codiceFiscale);
 		rs = getPersonaByCodiceFiscale.executeQuery();
 		
-		while(rs.next()) 
+		while( rs.next() ) 
 		{
 			
 			if( rs.getString("codiceFiscale") != null )
@@ -167,24 +238,27 @@ public class PersonaDAOpostgre {
 		return verifica;
 	}
 	
-	public String getPasswordByCodiceFiscale(String codiceFiscale) throws SQLException
+	public String getPasswordByCodiceFiscale( String codiceFiscale ) throws SQLException
 	{
 		
-		String risultato = "giopippo";
+		String risultato = null; 
 		
-	    getPasswordByCodiceFiscale.setString(1, codiceFiscale);
+	    getPasswordByCodiceFiscale.setString( 1, codiceFiscale );
 	    rs = getPasswordByCodiceFiscale.executeQuery(); 
 	    
 	    while( rs.next() )	
 		{
-	    	if( rs.getString("password") != null )
-				risultato = rs.getString("password").toString();	
+			
+	    	
+			if( rs.getString("password") != null )
+	    		risultato = rs.getString("password");
+					
+			System.out.println(risultato);
 		}
 		rs.close();
 		System.out.println("risulato\t\t"+risultato);
 		
 		
-	    
 		return risultato;
 	}
 

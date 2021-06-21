@@ -102,14 +102,17 @@ public class General extends JFrame {
 				boolean codiceFiscale_giusto_o_sbagliato = false;
 				boolean password_giusta_o_sbagliata = false;
 				   
-				codiceFiscale_giusto_o_sbagliato = driver.confrontoCodiceFiscaleDataBase( textField_accesso_codiceFiscale );
+				codiceFiscale_giusto_o_sbagliato = driver.controlloSuperUser(codiceFiscale);
 				password_giusta_o_sbagliata = driver.controlloPasswordDataBase( passwordField_per_accesso, textField_accesso_codiceFiscale );
 				
 				
-				// controllo super utente: se falso adderà ad utente normale
-				if( driver.controlloSuperUser( codiceFiscale ) ) 
+				
+				// controllo super utente: se falso non accede
+				if( codiceFiscale_giusto_o_sbagliato &&  password_giusta_o_sbagliata ) 
 				{
-					
+					general.setVisible(false);
+					pannelloSuperUser superUser = new pannelloSuperUser(); 
+					superUser.setVisible(true); 
 				}
 				else
 				{

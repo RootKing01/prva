@@ -68,10 +68,17 @@ public class pannelloSuperUser extends JFrame {
 
 	public pannelloSuperUser( ) 
 	{
+		
+		setTitle("Pannello SuperUser");
 		pannello_per_superUser();
+		//vista_utenti();
+		
 	}
 		
-	
+	public void modificaUtente()
+	{
+		
+	}
 	
 		//////////////////////////////////////////////////////////////////////////////////////
 		// settaggi finestra 
@@ -94,13 +101,15 @@ public class pannelloSuperUser extends JFrame {
 		JLabel lblNewLabel = new JLabel("BENVENUTO");
 		lblNewLabel.setBackground(Color.DARK_GRAY);
 		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(275, 23, 326, 84);
 		contentPane.add(lblNewLabel);
 		
 		JButton bottone_Inserisci_utente = new JButton("INSERISCI UTENTE");
-		bottone_Inserisci_utente.addMouseListener(new MouseAdapter() {
+		bottone_Inserisci_utente.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		bottone_Inserisci_utente.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e)
 			{
@@ -112,6 +121,8 @@ public class pannelloSuperUser extends JFrame {
 		bottone_Inserisci_utente.setBounds(322, 232, 258, 58);
 		contentPane.add( bottone_Inserisci_utente );
 		
+		
+		/*
 		JButton bottone_modifica_utente = new JButton("MODIFICA UTENTE");
 		bottone_modifica_utente.addMouseListener(new MouseAdapter() {
 			@Override
@@ -124,9 +135,12 @@ public class pannelloSuperUser extends JFrame {
 		});
 		bottone_modifica_utente.setBounds(322, 314, 258, 63);
 		contentPane.add( bottone_modifica_utente );
+		*/
 		
 		JButton bottone_elimina_utente = new JButton("ELIMINA UTENTE");
-		bottone_elimina_utente.addMouseListener(new MouseAdapter() {
+		bottone_elimina_utente.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		bottone_elimina_utente.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
@@ -135,11 +149,13 @@ public class pannelloSuperUser extends JFrame {
 				
 			}
 		});
-		bottone_elimina_utente.setBounds(322, 401, 258, 63);
+		bottone_elimina_utente.setBounds(322, 400, 258, 63);
 		contentPane.add( bottone_elimina_utente );
 		
 		JButton bottone_ricerca_utente = new JButton("RICERCA UTENTE");
-		bottone_ricerca_utente.addMouseListener(new MouseAdapter() {
+		bottone_ricerca_utente.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		bottone_ricerca_utente.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
@@ -150,6 +166,85 @@ public class pannelloSuperUser extends JFrame {
 		});
 		bottone_ricerca_utente.setBounds(322, 144, 258, 63);
 		contentPane.add(bottone_ricerca_utente);	
+		
+		
+		JButton btnNewButton_1 = new JButton("VISTA UTENTI");
+		btnNewButton_1.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				
+				vista_utenti();		
+						
+			}
+		});
+		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNewButton_1.setBounds(322, 315, 258, 63);
+		contentPane.add(btnNewButton_1);
+		
+	}
+	
+	private void vista_utenti()
+	{
+		
+		contentPane.setVisible( false );
+        contentPane= set();
+		
+		
+		JLabel lblNewLabel_4 = new JLabel("VISTA UTENTI PRESENTI NEL DATABASE");
+		lblNewLabel_4.setForeground(Color.WHITE);
+		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel_4.setBounds(152, 30, 614, 51);
+		contentPane.add(lblNewLabel_4);
+		
+		TextArea textArea_risultato_ricerca = new TextArea();   
+		textArea_risultato_ricerca.setEditable(false);
+		textArea_risultato_ricerca.setBounds(10, 87, 866, 406);
+		contentPane.add(textArea_risultato_ricerca);
+		
+		JButton btnNewButton_2 = new JButton("CERCA");
+		btnNewButton_2.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				
+				Driver vista_utenti = new Driver(); 
+				
+				try
+				{
+					   for( String s : vista_utenti.vista_utenti() )
+						{
+							textArea_risultato_ricerca.setText( ( textArea_risultato_ricerca.getText() + "\n" + s.toString() ) );
+						}
+				}
+				catch (SQLException e1) 
+				{
+					
+					e1.printStackTrace();
+				}
+				    				
+				
+			}
+		});
+		
+		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNewButton_2.setBounds(713, 499, 163, 57);
+		contentPane.add(btnNewButton_2);
+		
+		JButton btnNewButton_3 = new JButton("INDIETRO");
+		btnNewButton_3.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				contentPane.setVisible( false );
+				pannello_per_superUser();
+			}
+		});
+		btnNewButton_3.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNewButton_3.setBounds(10, 499, 163, 57);
+		contentPane.add(btnNewButton_3);
 		
 	}
 	
@@ -226,7 +321,7 @@ public class pannelloSuperUser extends JFrame {
 		contentPane.add(bottone_indietro);
 	}
 	
-	private void modifica()
+	/*private void modifica()
 	{
 		//metodo che va sviluppato nel seguente modo: trova all'interno del database il dato errato inserito, 
 		//modifica, nel caso di nome, cognome,  data di nascita e comune, vengono modificati quei valori, generato un nuovo 
@@ -311,7 +406,7 @@ public class pannelloSuperUser extends JFrame {
 		
 	} 
 				
-		
+	*/	
 		
 		
 	
@@ -355,7 +450,7 @@ public class pannelloSuperUser extends JFrame {
 			setTitle("Inserimento Persona");
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setBounds(100, 100, 902, 617);
-			contentPane_provincia = new JPanel();
+			contentPane_provincia = set();
 			contentPane_provincia.setBorder(new EmptyBorder(5, 5, 5, 5));
 			setContentPane(contentPane_provincia);
 			contentPane_provincia.setLayout(null);
@@ -484,7 +579,8 @@ public class pannelloSuperUser extends JFrame {
 			
 			JButton bottoneAnnulla = new JButton("Annulla inserimento");
 			bottoneAnnulla.setFont(new Font("Tahoma", Font.PLAIN, 18));
-			bottoneAnnulla.addMouseListener(new MouseAdapter() {
+			bottoneAnnulla.addMouseListener(new MouseAdapter() 
+			{
 				@Override
 				public void mouseClicked(MouseEvent e) 
 				{
@@ -534,17 +630,13 @@ public class pannelloSuperUser extends JFrame {
 			contentPane_provincia.add(controllo_password);
 			
 		
-			
-			
-			
-			
-		
 			contentPane_provincia.add(bottoneAnnulla);
 			
 			JButton btnNewButton = new JButton("Avanti");
 			btnNewButton.addMouseListener(new MouseAdapter() {
 				@Override
-				public void mouseClicked(MouseEvent e) {
+				public void mouseClicked(MouseEvent e) 
+				{
 					
 					boolean flag; 
 					String codiceFiscale = null; 
@@ -641,6 +733,10 @@ public class pannelloSuperUser extends JFrame {
 			contentPane_provincia.add(btnNewButton);
 			
 			
+		
+			
+			
+			
 			
 			
 		}
@@ -660,16 +756,21 @@ public class pannelloSuperUser extends JFrame {
 		pannello.setLayout(null);
 		setContentPane( pannello );
 		
+		//
 		
 		
+			
 		////////////////////////////
 		
-	///////////////////////////////
+	
 		return pannello;
 	}
 	
 	private void ricerca()
 	{
+		
+		//Funziona solo con le inziaili di nome e cognome maiuscolo
+		
 		
 		contentPane.setVisible( false );
         contentPane= set();

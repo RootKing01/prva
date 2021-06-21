@@ -79,7 +79,7 @@ public class Driver
 /////////////////////////////////////////////////****METODI****////////////////////////////////////////////////////
 
 		
-	public void Controller() 
+	private void Controller() 
 		{
 			General prima_finestra = new General(this);
 			prima_finestra.setVisible(true);	
@@ -1116,21 +1116,26 @@ public class Driver
 			return codiceFiscale; 
 		}
 		
+	public ArrayList<String> vista_utenti() throws SQLException
+	{
+		PersonaDAOpostgre vista_totale_utenti = new PersonaDAOpostgre(); 
+		
+		return vista_totale_utenti.tutteLePersone(); 
+		
+	}
+	
 	public boolean controlloPasswordDataBase( JPasswordField password, JTextField codiceFiscale)
 	{
 		
-		String password_db = null;
-		boolean password_giusta_o_no = false; 
+		String password_db = null; 
+		boolean isCorrect = false; 
 		
 		String codiceFiscale_login = codiceFiscale.getText().toString(); 
 		
 		try
 		{    
 			
-			char[] password_login = password.getPassword()  ;
-			
-			
-			
+			char[] password_login = password.getPassword();
 		    PersonaDAOpostgre persona_login = new PersonaDAOpostgre(); 
 			password_db = persona_login.getPasswordByCodiceFiscale( codiceFiscale_login );
 			
@@ -1141,16 +1146,10 @@ public class Driver
 			{
 				password_database[i] = password_db.charAt(i); 
 			}
+	
 			
-			if( password_db.equals( password_login ) ) 
+			if (password_login.length != password_db.length())
 			{
-				password_giusta_o_no = true;
-			} 
-			
-			
-			boolean isCorrect; 
-			
-			if (password_login.length != password_db.length()) {
      		   isCorrect = false;
     		} 
 			else 
@@ -1172,7 +1171,7 @@ public class Driver
 		} 
 		
 		
-		return password_giusta_o_no;
+		return isCorrect;
 		
 	}
 
@@ -1200,7 +1199,7 @@ public class Driver
 		
 		boolean superUser = false;  
 		
-		String superUser_1 = "PSQVRD80A01F839X"; 
+		String superUser_1 = "NVLVCN99R07A512C"; 
 		
 		if(codiceFiscale.equals(superUser_1)) 
 		{
