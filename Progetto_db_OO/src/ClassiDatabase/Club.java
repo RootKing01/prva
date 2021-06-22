@@ -8,12 +8,13 @@ public class Club {
 	private String nome;
 	
 	
-	public Club(String partitaIVA, String codiceFederazioneSportiva, String sedeLegale, String nome) {
+	public Club(String partitaIVA,  String sedeLegale, String nome, String codiceFederazioneSportiva)
+	{
 		super();
 		this.partitaIVA = partitaIVA;
-		this.codiceFederazioneSportiva = codiceFederazioneSportiva;
 		this.sedeLegale = sedeLegale;
 		this.nome = nome;
+		this.codiceFederazioneSportiva = codiceFederazioneSportiva;
 	}
 
 

@@ -19,10 +19,15 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 
+import ClassiDAO.ClubDAO;
+import ClassiDAO.FederazioneSportivaDAO;
 import ClassiDAO.PersonaDAOpostgre;
+import ClassiDAO.SponsorDAO;
 import ClassiDAO.comuniDao;
+import ClassiDatabase.Club;
 import ClassiDatabase.Comune;
 import ClassiDatabase.Persona_creata;
+import ClassiDatabase.Sponsor;
 import ClassiDatabase.Tesserato;
 import ConnessioneDB.DBConnection;
 import GUI.Errore_Inserimento_Dati;
@@ -39,7 +44,13 @@ public class Driver
 	{
 		
 		
-		Driver driver = new Driver();	
+		Driver driver = new Driver();
+		
+		//driver.inserimentoFederazioniSportive();
+		
+		//Comune comune = new Comune();	
+        //comune.insertComuni();
+		
 		driver.Controller();
 		
 		// RSSMRA80A01F839W	mario rossi napoli na 01 01 1980
@@ -48,7 +59,6 @@ public class Driver
 		// BGLSFN	80A01H978Y stefano baglio san marcellino ce 01 01 1980 
 		// BGLSFN	80A01F839S
 		
-		//PersonaDAOpostgre personadao = new PersonaDAOpostgre("RGOFNC00T22F839S", "fra", "rogo", "2000/12/02", "Napoli", "Napoli", "sos", "");
 		
 		
 //		try
@@ -56,9 +66,9 @@ public class Driver
 //			
 			 
 			
-			//Comune comune = new Comune(); 
+		 
 			
-//			comune.insertComuni();
+
 			
 			
 		 
@@ -84,6 +94,30 @@ public class Driver
 			General prima_finestra = new General(this);
 			prima_finestra.setVisible(true);	
 		}
+	
+	public void inserimentoSocietaSponsor( Sponsor sponsor ) throws SQLException 
+	{
+		
+		SponsorDAO societa_sponsor = new SponsorDAO(); 
+		
+		societa_sponsor.insertSponsor(sponsor);
+		
+	}
+	
+	public void inserimentoFederazioniSportive() throws SQLException 
+	{
+		FederazioneSportivaDAO federazioni_sportive = new FederazioneSportivaDAO(); 
+		
+		federazioni_sportive.insertFederazioniSportive();
+		
+	}
+	
+	public void insertClub( Club club ) throws SQLException 
+	{
+		ClubDAO inserimento_club = new ClubDAO(); 
+		
+		inserimento_club.insertClub(club);
+	}
 	
 	public ArrayList<String> ricerca_utente(String nome, String cognome)
 	{

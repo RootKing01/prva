@@ -26,10 +26,11 @@ import java.util.ArrayList;
 import javax.swing.JTextArea;
 import java.awt.TextArea;
 
-
-
+import ClassiDAO.ClubDAO;
 import ClassiDAO.PersonaDAOpostgre;
+import ClassiDatabase.Club;
 import ClassiDatabase.Persona_creata;
+import ClassiDatabase.Sponsor;
 import Controller.Driver;
 
 
@@ -44,11 +45,16 @@ public class pannelloSuperUser extends JFrame {
 	private JTextField textField_nome;
 	private JTextField textField_1_cognome;
 	private JTextField textField_cf_cancellazione;
+	private JTextField textField_nomeSocieta;
+	private JTextField textField_sedeLegale;
+	private JTextField textField_partitaIva;
 	
 	
 	/**
 	 * Launch the application.
 	 */
+	
+	/*
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -61,7 +67,7 @@ public class pannelloSuperUser extends JFrame {
 			}
 		});
 	}
-
+*/
 	/**
 	 * Create the frame.
 	 */
@@ -71,7 +77,7 @@ public class pannelloSuperUser extends JFrame {
 		
 		setTitle("Pannello SuperUser");
 		pannello_per_superUser();
-		//vista_utenti();
+		//inserisci_societa();
 		
 	}
 		
@@ -80,18 +86,7 @@ public class pannelloSuperUser extends JFrame {
 		
 	}
 	
-		//////////////////////////////////////////////////////////////////////////////////////
-		// settaggi finestra 
-		 
-	   
-		
-		// visualizzazione pannello iniziale 
-		
-		
-	//}
 
-
-	
 	private void pannello_per_superUser()
 	{
 		
@@ -118,7 +113,7 @@ public class pannelloSuperUser extends JFrame {
 				
 			}
 		});
-		bottone_Inserisci_utente.setBounds(322, 232, 258, 58);
+		bottone_Inserisci_utente.setBounds(310, 134, 258, 63);
 		contentPane.add( bottone_Inserisci_utente );
 		
 		
@@ -149,7 +144,7 @@ public class pannelloSuperUser extends JFrame {
 				
 			}
 		});
-		bottone_elimina_utente.setBounds(322, 400, 258, 63);
+		bottone_elimina_utente.setBounds(310, 233, 258, 63);
 		contentPane.add( bottone_elimina_utente );
 		
 		JButton bottone_ricerca_utente = new JButton("RICERCA UTENTE");
@@ -164,7 +159,7 @@ public class pannelloSuperUser extends JFrame {
 				
 			}
 		});
-		bottone_ricerca_utente.setBounds(322, 144, 258, 63);
+		bottone_ricerca_utente.setBounds(10, 132, 258, 65);
 		contentPane.add(bottone_ricerca_utente);	
 		
 		
@@ -180,8 +175,61 @@ public class pannelloSuperUser extends JFrame {
 			}
 		});
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		btnNewButton_1.setBounds(322, 315, 258, 63);
+		btnNewButton_1.setBounds(618, 132, 258, 65);
 		contentPane.add(btnNewButton_1);
+		
+		JButton bottone_inserisci_societa = new JButton("INSERISCI SOCIETA");
+		bottone_inserisci_societa.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		bottone_inserisci_societa.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				
+				inserisci_societa();
+									
+			}
+		});
+		bottone_inserisci_societa.setBounds(310, 340, 265, 63);
+		contentPane.add(bottone_inserisci_societa);
+		
+		JButton bottone_elimina_societa = new JButton("ELIMINA SOCIETA");
+		bottone_elimina_societa.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				
+			}
+		});
+		bottone_elimina_societa.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		bottone_elimina_societa.setBounds(310, 446, 271, 63);
+		contentPane.add(bottone_elimina_societa);
+		
+		JButton bottone_inserisci_club = new JButton("INSERISCI CLUB");
+		bottone_inserisci_club.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				
+				inserisci_club();
+				
+			}
+		});
+		bottone_inserisci_club.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		bottone_inserisci_club.setBounds(10, 339, 258, 65);
+		contentPane.add(bottone_inserisci_club);
+		
+		JButton bottone_elimina_club = new JButton("ELIMINA CLUB");
+		bottone_elimina_club.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+			}
+		});
+		bottone_elimina_club.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		bottone_elimina_club.setBounds(640, 340, 236, 63);
+		contentPane.add(bottone_elimina_club);
+		
 		
 	}
 	
@@ -756,14 +804,221 @@ public class pannelloSuperUser extends JFrame {
 		pannello.setLayout(null);
 		setContentPane( pannello );
 		
+		
+		// 
+	
 		//
 		
-		
-			
-		////////////////////////////
-		
-	
 		return pannello;
+	}
+	
+	private void inserisci_societa()
+	{
+		
+		contentPane.setVisible( false );
+		contentPane = set();
+		
+		
+		textField_nomeSocieta = new JTextField();
+		textField_nomeSocieta.setBounds(459, 227, 273, 44);
+		textField_nomeSocieta.setColumns(10);
+		contentPane.add(textField_nomeSocieta);
+		
+		JLabel lblNewLabel_5 = new JLabel("Inserisci partita iva della societ\u00E0:");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_5.setForeground(Color.WHITE);
+		lblNewLabel_5.setBounds(34, 85, 363, 44);
+		contentPane.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("Indica sede legale:");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_6.setForeground(Color.WHITE);
+		lblNewLabel_6.setBounds(34, 152, 267, 44);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Indica nome della societ\u00E0:");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_7.setForeground(Color.WHITE);
+		lblNewLabel_7.setBounds(34, 221, 323, 44);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_9 = new JLabel("INSERIMENTO SPONSOR");
+		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_9.setForeground(Color.WHITE);
+		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_9.setBounds(180, 11, 524, 58);
+		contentPane.add(lblNewLabel_9);
+		
+		
+		
+		textField_sedeLegale = new JTextField();
+		textField_sedeLegale.setColumns(10);
+		textField_sedeLegale.setBounds(459, 158, 273, 44);
+		contentPane.add(textField_sedeLegale);
+		
+		textField_partitaIva = new JTextField();
+		textField_partitaIva.setColumns(10);
+		textField_partitaIva.setBounds(459, 91, 273, 44);
+		contentPane.add(textField_partitaIva);
+		
+		JButton btnNewButton_4 = new JButton("INSERISCI");
+		btnNewButton_4.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				
+				Driver driver = new Driver();
+				
+				String partita_iva = textField_partitaIva.getText();
+				String sedeLegale = textField_sedeLegale.getText(); 
+				String nomeClub = textField_nomeSocieta.getText(); 
+				
+				Sponsor sponsor = new Sponsor( partita_iva, sedeLegale, nomeClub);
+				
+				try
+                {
+					driver.inserimentoSocietaSponsor(sponsor);
+				
+                }
+				catch (SQLException e1) 
+				{
+			        e1.printStackTrace();
+				}
+				
+			}
+		});
+		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNewButton_4.setBounds(632, 443, 187, 50);
+		contentPane.add(btnNewButton_4);
+		
+		JButton btnNewButton_5 = new JButton("INDIETRO");
+		btnNewButton_5.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				contentPane.setVisible( false );
+				pannello_per_superUser();
+				
+			}
+		});
+		btnNewButton_5.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNewButton_5.setBounds(10, 443, 187, 50);
+		contentPane.add(btnNewButton_5);
+		
+		
+		
+	}
+	private void inserisci_club()
+	{
+		contentPane.setVisible( false );
+		contentPane = set();
+		
+		textField_nomeSocieta = new JTextField();
+		textField_nomeSocieta.setBounds(459, 227, 273, 44);
+		textField_nomeSocieta.setColumns(10);
+		contentPane.add(textField_nomeSocieta);
+		
+		JLabel lblNewLabel_5 = new JLabel("Inserisci partita iva del club:");
+		lblNewLabel_5.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_5.setForeground(Color.WHITE);
+		lblNewLabel_5.setBounds(34, 85, 323, 44);
+		contentPane.add(lblNewLabel_5);
+		
+		JLabel lblNewLabel_6 = new JLabel("Indica sede legale:");
+		lblNewLabel_6.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_6.setForeground(Color.WHITE);
+		lblNewLabel_6.setBounds(34, 152, 267, 44);
+		contentPane.add(lblNewLabel_6);
+		
+		JLabel lblNewLabel_7 = new JLabel("Indica nome della societ\u00E0:");
+		lblNewLabel_7.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_7.setForeground(Color.WHITE);
+		lblNewLabel_7.setBounds(34, 221, 323, 44);
+		contentPane.add(lblNewLabel_7);
+		
+		JLabel lblNewLabel_8 = new JLabel("Codice federazione sportiva:");
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_8.setForeground(Color.WHITE);
+		lblNewLabel_8.setBounds(33, 299, 382, 50);
+		contentPane.add(lblNewLabel_8);
+		
+		JLabel lblNewLabel_9 = new JLabel("INSERIMENTO CLUB");
+		lblNewLabel_9.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_9.setForeground(Color.WHITE);
+		lblNewLabel_9.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		lblNewLabel_9.setBounds(180, 11, 524, 58);
+		contentPane.add(lblNewLabel_9);
+		
+		String [] codici_federazioni_sportive = { "AECI" ,"ACI", "FIDAL", "FIBA", "FIBS", "FIB", "FIDS", "FIDASC", "FIGC", "FICK", "FIC", "FCI", "FICR", "FGI", "FIG", "FIGH", "FIGS", "FIH", "FISR", "FIJLKAM", "FMSI", "FMI", "FIM", "FIN", "FIP", "FIPAV", "FIPM", "FIPSAS", "FIPE", "FPI", "FIR", "FIS", "FISW", "FISG", "FISE", "FISI", "FITA", "FIT", "FITET", "UITS", "FITAV", "FITARCO", "FITRI", "FIV" };
+		JComboBox comboBox_codiceFederazioneSposrtiva = new JComboBox(codici_federazioni_sportive);
+		comboBox_codiceFederazioneSposrtiva.setBounds(459, 301, 273, 44);
+		contentPane.add(comboBox_codiceFederazioneSposrtiva);
+		
+		textField_sedeLegale = new JTextField();
+		textField_sedeLegale.setColumns(10);
+		textField_sedeLegale.setBounds(459, 158, 273, 44);
+		contentPane.add(textField_sedeLegale);
+		
+		textField_partitaIva = new JTextField();
+		textField_partitaIva.setColumns(10);
+		textField_partitaIva.setBounds(459, 91, 273, 44);
+		contentPane.add(textField_partitaIva);
+		
+		JButton btnNewButton_4 = new JButton("INSERISCI");
+		btnNewButton_4.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				
+				Driver driver = new Driver();
+				
+				
+				String partita_iva = textField_partitaIva.getText();
+				String codice_federazione_sportiva = comboBox_codiceFederazioneSposrtiva.getSelectedItem().toString();
+				String sedeLegale = textField_sedeLegale.getText(); 
+				String nomeClub = textField_nomeSocieta.getText(); 
+				
+				Club club = new Club( partita_iva, sedeLegale, nomeClub, codice_federazione_sportiva );
+				
+				try
+				{
+				
+					driver.insertClub( club );
+				
+				}
+				catch (SQLException e1)
+				{
+					
+					e1.printStackTrace();
+					
+				}
+				
+			}
+		});
+		btnNewButton_4.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNewButton_4.setBounds(632, 443, 187, 50);
+		contentPane.add(btnNewButton_4);
+		
+		JButton btnNewButton_5 = new JButton("INDIETRO");
+		btnNewButton_5.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				contentPane.setVisible( false );
+				pannello_per_superUser();
+				
+			}
+		});
+		btnNewButton_5.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		btnNewButton_5.setBounds(10, 443, 187, 50);
+		contentPane.add(btnNewButton_5);
+		
+		
+		
 	}
 	
 	private void ricerca()
@@ -835,9 +1090,11 @@ public class pannelloSuperUser extends JFrame {
 		panel.add(bottoneRicerca);
 		
 		JButton bottone_indietro = new JButton("Indietro");
-		bottone_indietro.addMouseListener(new MouseAdapter() {
+		bottone_indietro.addMouseListener(new MouseAdapter() 
+		{
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e) 
+			{
 				
 				contentPane.setVisible( false );
 				pannello_per_superUser();
