@@ -14,7 +14,7 @@ public class ClubDAO
 {
 
 	private Connection connection;
-	private PreparedStatement insertClub;
+	private PreparedStatement insertClub, deleteClub;
 	private ResultSet rs;
 	
 	
@@ -22,10 +22,11 @@ public class ClubDAO
 	{
 		super();
 		
-		this.connection = Driver.accessoConnessione();	
+		connection = Driver.accessoConnessione();	
 		
 		insertClub = connection.prepareStatement("INSERT INTO \"club\" values (?, ?, ?, ?)"); 
 		
+		deleteClub = connection.prepareStatement("DELETE FROM \"club\" WHERE \"partitaIva\" like ?");
 	
 		
 		
@@ -33,11 +34,18 @@ public class ClubDAO
 		
 		
 	}
-
 	
 	
-   public void insertClub( Club club ) throws SQLException 
-   {
+	public void deletClub( String partitaIva) throws SQLException
+	{
+		
+		deleteClub.setString(1, partitaIva);
+		deleteClub.executeUpdate();
+		
+	}
+	
+   	public void insertClub( Club club ) throws SQLException 
+   	{
 	   	insertClub.setString(1, club.getPartitaIVA() );
 	   	insertClub.setString(2, club.getSedeLegale() );
 	   	insertClub.setString(3, club.getNome() );

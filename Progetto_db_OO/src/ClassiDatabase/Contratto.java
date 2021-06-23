@@ -71,7 +71,7 @@ public class Contratto {
 	}
 
 
-	public boolean isSponsorOcontratto() {
+	public boolean isSponsorOclub() {
 		return sponsorOcontratto;
 	} 
 	

@@ -20,12 +20,14 @@ import java.sql.Date;
 import java.sql.ResultSet;
 
 import ClassiDAO.ClubDAO;
+import ClassiDAO.ContrattoDAO;
 import ClassiDAO.FederazioneSportivaDAO;
 import ClassiDAO.PersonaDAOpostgre;
 import ClassiDAO.SponsorDAO;
 import ClassiDAO.comuniDao;
 import ClassiDatabase.Club;
 import ClassiDatabase.Comune;
+import ClassiDatabase.Contratto;
 import ClassiDatabase.Persona_creata;
 import ClassiDatabase.Sponsor;
 import ClassiDatabase.Tesserato;
@@ -90,10 +92,35 @@ public class Driver
 
 		
 	private void Controller() 
-		{
+	{
 			General prima_finestra = new General(this);
 			prima_finestra.setVisible(true);	
-		}
+	}
+	
+	public void inserisciContratto( Contratto contratto ) throws SQLException
+	{
+		
+		ContrattoDAO inserimentoContratto = new ContrattoDAO(); 
+		
+		inserimentoContratto.inserisciContratto( contratto );
+		
+	}
+	
+	public void eliminaSponsor( String partitaIva) throws SQLException 
+	{
+		SponsorDAO eliminaSponsor = new SponsorDAO(); 
+		
+		eliminaSponsor.cancellaSponsor( partitaIva );
+		
+	}
+
+	public void eliminaClub(String partitaIva) throws SQLException 
+	{
+		ClubDAO eliminaClub = new ClubDAO(); 
+		
+		eliminaClub.deletClub(partitaIva);
+		
+	}
 	
 	public void inserimentoSocietaSponsor( Sponsor sponsor ) throws SQLException 
 	{

@@ -12,7 +12,7 @@ public class SponsorDAO {
 
 	
 	private Connection connection;
-	private PreparedStatement insertSocieta;
+	private PreparedStatement insertSocieta, deleteSocieta;
 	private ResultSet rs;
 	
 	
@@ -23,6 +23,8 @@ public class SponsorDAO {
 		
 	   
 	    insertSocieta = connection.prepareStatement("INSERT INTO \"sponsor\" values (?, ?, ?)"); 
+	    
+	    deleteSocieta = connection.prepareStatement("DELETE FROM \"sponsor\" WHERE \"partitaIva\" like ?"); 
 				
 	}
 
@@ -36,6 +38,12 @@ public class SponsorDAO {
 		
 		insertSocieta.executeUpdate();
 	}
-
+   
+	public void cancellaSponsor(String partitaIva) throws SQLException 
+	{
+		deleteSocieta.setString(1, partitaIva);
+		
+		deleteSocieta.executeUpdate(); 
+	}
 
 }
