@@ -1,39 +1,47 @@
 package ClassiDatabase;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
 public class Contratto {
-
-	private int  codiceContratto; 
+ 
 	private String codiceFiscale; 
-	private String partitaIVAClub; 
-	private String partitaIVASponsor; 
+	private String partitaIVAClub;
+	private String partitaIVASponsor;
 	private float remunerazioneContratto; 
 	private float parcellaManager; 
-	private Date dataInizio; 
-	private Date dataFine; 
-	private boolean sponsorOcontratto;
+	private LocalDate dataInizio; 
+	private LocalDate dataFine; 
+	private boolean sponsorOclub;
 	
 	
-	public Contratto(int codiceContratto, String codiceFiscale, String partitaIVAClub, String partitaIVASponsor,
-			float remunerazioneContratto, float parcellaManager, Date dataInizio, Date dataFine,
-			boolean sponsorOcontratto) {
+	public Contratto( String codiceFiscale, String partitaIVA,
+					  float remunerazioneContratto, float parcellaManager, LocalDate dataInizio, LocalDate dataFine,
+					  boolean sponsorOclub
+					) 
+	{
+		
 		super();
-		this.codiceContratto = codiceContratto;
 		this.codiceFiscale = codiceFiscale;
-		this.partitaIVAClub = partitaIVAClub;
-		this.partitaIVASponsor = partitaIVASponsor;
+		
+		if( sponsorOclub )
+		{
+			partitaIVASponsor = partitaIVA;
+			partitaIVAClub = null;
+		}
+		else
+		{
+			partitaIVAClub = partitaIVA;
+			partitaIVASponsor = null;
+		}
+		
 		this.remunerazioneContratto = remunerazioneContratto;
 		this.parcellaManager = parcellaManager;
 		this.dataInizio = dataInizio;
 		this.dataFine = dataFine;
-		this.sponsorOcontratto = sponsorOcontratto;
+		this.sponsorOclub = sponsorOclub;
 	}
 
-
-	public int getCodiceContratto() {
-		return codiceContratto;
-	}
 
 
 	public String getCodiceFiscale() {
@@ -41,15 +49,13 @@ public class Contratto {
 	}
 
 
-	public String getPartitaIVAClub() {
-		return partitaIVAClub;
-	}
-
-
 	public String getPartitaIVASponsor() {
 		return partitaIVASponsor;
 	}
 
+	public String getPartitaIVAClub() {
+		return partitaIVAClub;
+	}
 
 	public float getRemunerazioneContratto() {
 		return remunerazioneContratto;
@@ -61,18 +67,18 @@ public class Contratto {
 	}
 
 
-	public Date getDataInizio() {
+	public LocalDate getDataInizio() {
 		return dataInizio;
 	}
 
 
-	public Date getDataFine() {
+	public LocalDate getDataFine() {
 		return dataFine;
 	}
 
 
 	public boolean isSponsorOclub() {
-		return sponsorOcontratto;
+		return sponsorOclub;
 	} 
 	
 }

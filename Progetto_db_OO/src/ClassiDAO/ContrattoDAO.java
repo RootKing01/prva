@@ -23,28 +23,27 @@ public class ContrattoDAO {
 		
 		connection = Driver.accessoConnessione();	
 		
-		insertContratto = connection.prepareStatement("INSERT INTO \"contratto\" values ( ?, ?, ?, ?, ?, ?, ?, ? )");
+		insertContratto = connection.prepareStatement("INSERT INTO \"contratto\" ( \"codiceFiscale\", \"dataInizio\", \"dataFine\", \"remunerazioneContratto\", \"parcellaMenager\", \"PartitaIVAsponsor\",\"partitaIVAclub\", \"clubOsponsor\" ) values ( ?, ?, ?, ?, ?, ?, ?, ?)" );
 		
 		//deletContratto;
 		
 	}
-
-   public void inserisciContratto( Contratto contratto ) throws SQLException 
-   {
+   	public void inserisciContratto( Contratto contratto ) throws SQLException 
+   	{
 	
 	   //insertContratto.setLong(1, contratto.getCodiceContratto());
-	   insertContratto.setString(1, contratto.getCodiceFiscale());
-	   insertContratto.setDate(2, contratto.getDataInizio());
-	   insertContratto.setDate(3, contratto.getDataFine());
-	   insertContratto.setFloat(4, contratto.getRemunerazioneContratto());
-	   insertContratto.setFloat(5, contratto.getParcellaManager());
-	   insertContratto.setBoolean(6, contratto.isSponsorOclub());
-	   insertContratto.setString(7, contratto.getPartitaIVAClub());
-	   insertContratto.setString(8, contratto.getPartitaIVASponsor());
+		insertContratto.setString(1, contratto.getCodiceFiscale());
+	    insertContratto.setObject(2, contratto.getDataInizio());
+	    insertContratto.setObject(3, contratto.getDataFine());
+	    insertContratto.setFloat(4, contratto.getRemunerazioneContratto());
+	    insertContratto.setFloat(5, contratto.getParcellaManager());
+	    insertContratto.setString(6, contratto.getPartitaIVASponsor());
+		insertContratto.setString(7, contratto.getPartitaIVAClub());
+	    insertContratto.setBoolean(8, contratto.isSponsorOclub());
+	   	
+	    insertContratto.executeUpdate(); 
 	   
-	   insertContratto.executeUpdate(); 
-	   
-   }
+   	}
 
 	
 }
