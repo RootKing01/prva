@@ -22,8 +22,10 @@ import java.sql.ResultSet;
 import ClassiDAO.ClubDAO;
 import ClassiDAO.ContrattoDAO;
 import ClassiDAO.FederazioneSportivaDAO;
+import ClassiDAO.ManagerDAOpostgre;
 import ClassiDAO.PersonaDAOpostgre;
 import ClassiDAO.SponsorDAO;
+import ClassiDAO.TesseratoDAO;
 import ClassiDAO.comuniDao;
 import ClassiDatabase.Club;
 import ClassiDatabase.Comune;
@@ -95,6 +97,20 @@ public class Driver
 	{
 			General prima_finestra = new General(this);
 			prima_finestra.setVisible(true);	
+	}
+	
+	public void aggiungiManagerAtesserato(String codiceFiscale, String codiceFiscale_manager) throws SQLException
+	{
+		
+		TesseratoDAO aggiungiManager = new TesseratoDAO(); 
+		
+		aggiungiManager.inserimentoMangerDelTesserato( codiceFiscale, codiceFiscale_manager );
+	}
+	
+	public void cancellaMangerByCodiceFiscale(String codiceFiscale) throws SQLException 
+	{
+		TesseratoDAO elimina_manager = new TesseratoDAO();
+		elimina_manager.eliminaManger(codiceFiscale);
 	}
 	
 	public void inserisciContratto( Contratto contratto ) throws SQLException

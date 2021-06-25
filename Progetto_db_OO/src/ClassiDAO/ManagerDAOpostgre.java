@@ -22,9 +22,9 @@ public class ManagerDAOpostgre {
 
 ///COSTRUTTORE
 	
-	public ManagerDAOpostgre( Connection connection) throws SQLException {
+	public ManagerDAOpostgre( ) throws SQLException {
 		 
-		this.connection = connection;
+		 this.connection = Driver.accessoConnessione();
 		
 		 inserisciManager = connection.prepareStatement("INSERT INTO manager VALUES (?)");
 		
@@ -32,6 +32,7 @@ public class ManagerDAOpostgre {
 		 
 		 getAtletiByManager =  connection.prepareStatement("SELECT * FROM tesserato WHERE codiceFiscaleManager like ?"); 
 		 
+		
 		
 	}
 ////////////	
@@ -48,8 +49,7 @@ public class ManagerDAOpostgre {
 		
 		return result; 
 	}
-	// getPersoabyCF
-	
+
 	public ArrayList<Manager> getAtletiByManager(String codiceFiscale ) throws SQLException
 	{
 		
@@ -76,7 +76,7 @@ public class ManagerDAOpostgre {
 	}
 	
 	
-	
+
 	public int inserisciManager(Manager manager) throws SQLException
     {
       
@@ -89,10 +89,6 @@ public class ManagerDAOpostgre {
 	return row; 
 	
     }
-	
-	
-	
-	
 	
 	public String getCodiceFiscale() {
 		return codiceFiscale;

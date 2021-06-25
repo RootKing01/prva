@@ -182,7 +182,7 @@ public class PersonaDAOpostgre {
 	   
 	
 		
-   return tutti_gli_utenti; 
+   		return tutti_gli_utenti; 
    }
    
    public ArrayList<String> getPersonaByNome( String nome, String cognome ) throws SQLException 
