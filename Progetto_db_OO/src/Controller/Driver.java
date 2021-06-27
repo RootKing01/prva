@@ -27,12 +27,14 @@ import ClassiDAO.PersonaDAOpostgre;
 import ClassiDAO.SponsorDAO;
 import ClassiDAO.TesseratoDAO;
 import ClassiDAO.comuniDao;
+import ClassiDAO.contratto_del_tesseratoDAO;
 import ClassiDatabase.Club;
 import ClassiDatabase.Comune;
 import ClassiDatabase.Contratto;
 import ClassiDatabase.Persona_creata;
 import ClassiDatabase.Sponsor;
 import ClassiDatabase.Tesserato;
+import ClassiDatabase.contratto_del_tesserato;
 import ConnessioneDB.DBConnection;
 import GUI.Errore_Inserimento_Dati;
 import GUI.General;
@@ -97,6 +99,18 @@ public class Driver
 	{
 			General prima_finestra = new General(this);
 			prima_finestra.setVisible(true);	
+	}
+	
+	public ArrayList<String> recap_contratti_utente_attivi( String codiceFiscale ) throws SQLException
+	{
+		
+		ArrayList<String> recap_contratti_attivi = new ArrayList<>(); 
+		contratto_del_tesseratoDAO contratti_attivi = new contratto_del_tesseratoDAO(); 
+		
+		recap_contratti_attivi = contratti_attivi.recuperoDatiUtenteTesserato( codiceFiscale );
+		
+		
+		return recap_contratti_attivi;
 	}
 	
 	public void aggiungiManagerAtesserato(String codiceFiscale, String codiceFiscale_manager) throws SQLException
@@ -1278,7 +1292,7 @@ public class Driver
 		
 		String superUser_1 = "NVLVCN99R07A512C"; 
 		
-		if(codiceFiscale.equals(superUser_1)) 
+		if( codiceFiscale.equals( superUser_1 ) ) 
 		{
 			 superUser = true; 
 		}

@@ -8,17 +8,21 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ClassiDatabase.Contratto;
+import ClassiDatabase.contratto_del_tesserato;
 import Controller.Driver;
 
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.TextArea;
+
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
@@ -44,9 +48,7 @@ public class pannelloUtente extends JFrame {
 	{
 		
 		schermata_base( codiceFiscale );
-		//cancellaManger();
-		//aggiungiManager( codiceFiscale );
-		//inserisciContratto(codiceFiscale);
+		//recap_utente( codiceFiscale );
 		//riepilogo_dati(codiceFiscale);
 		
 	}
@@ -90,7 +92,7 @@ public class pannelloUtente extends JFrame {
 			}
 		});
 		bottone_aggiungi_contratto.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		bottone_aggiungi_contratto.setBounds(297, 142, 301, 61);
+		bottone_aggiungi_contratto.setBounds(297, 91, 301, 61);
 		contentPane.add(bottone_aggiungi_contratto);
 		
 		JButton bottone_aggiungi_manager = new JButton("AGGIUNGI MANAGER");
@@ -104,7 +106,7 @@ public class pannelloUtente extends JFrame {
 			}
 		});
 		bottone_aggiungi_manager.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		bottone_aggiungi_manager.setBounds(297, 244, 301, 61);
+		bottone_aggiungi_manager.setBounds(297, 185, 301, 61);
 		contentPane.add(bottone_aggiungi_manager);
 		
 		JButton bottone_esci = new JButton("ESCI");
@@ -144,8 +146,96 @@ public class pannelloUtente extends JFrame {
 			}
 		});
 		bottone_elimina_manager.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		bottone_elimina_manager.setBounds(297, 347, 301, 61);
+		bottone_elimina_manager.setBounds(297, 281, 301, 61);
 		contentPane.add(bottone_elimina_manager);
+		
+		JButton bottone_recap = new JButton("RECAP UTENTE");
+		bottone_recap.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				
+				recap_utente( codiceFiscale );
+			
+			}
+		});
+		bottone_recap.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		bottone_recap.setBounds(297, 376, 301, 61);
+		contentPane.add( bottone_recap );
+
+		
+	}
+	
+	private void recap_utente( String codiceFiscale ) 
+	{
+		
+		contentPane.setVisible( false );
+		contentPane = set();
+		
+		TextArea textArea_recap_contratti_attivi = new TextArea();
+		textArea_recap_contratti_attivi.setBounds(0, 72, 876, 495);
+		contentPane.add(textArea_recap_contratti_attivi);
+		
+		JLabel lblNewLabel_14 = new JLabel("RECAP CONTRATTI ATTIVI");
+		lblNewLabel_14.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_14.setForeground(Color.WHITE);
+		lblNewLabel_14.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel_14.setBounds(215, 0, 430, 45);
+		contentPane.add(lblNewLabel_14);
+		
+		ArrayList<String> contratti_attivi= new ArrayList<>(); 
+		
+		Driver driver = new Driver();
+		
+		try
+		{
+			
+			contratti_attivi = driver.recap_contratti_utente_attivi( codiceFiscale );	
+		
+		}
+		catch (SQLException e) 
+		{
+			e.getStackTrace();	
+		}
+		
+		textArea_recap_contratti_attivi.setText("Codice fiscale\tCodice fiscale manager\tGettone nazionale\t"+
+												"Codice fiderazione sportiva\tCodice contratto\tData inizio\t"+
+												"Data fine\tRemunerazione contratto\tParcella manager\t"+
+												"Partiva IVA sponsor\tPartita IVA club/sponsor\n");
+		
+		for( String e : contratti_attivi  )
+		{
+			
+			//System.out.println("ciao" + e.getCodiceFiscale() );
+			
+			
+			
+			textArea_recap_contratti_attivi.setText( textArea_recap_contratti_attivi.getText() + e);
+			
+			
+			
+			
+			/*		
+			if(e.isClubOsponsor() == true) 
+			{
+				textArea_recap_contratti_attivi.setText( textArea_recap_contratti_attivi.getText() + "\n" + e.getCodiceFiscale() +" " + e.getCodiceFiscaleManager() +" " + e.getGettoneNazionale() +" "+
+						e.getCodiceFederazioneSportiva() +" "+ e.getCodiceContratto() + " " + e.getDataInizio() + " " + e.getDataFine() + " " + e.getRemunerazioneContratto() 
+						+ " " + e.getParcellaManager() + " " + e.getPartitaIvaSponsor() );
+				
+			}
+			
+			else 
+			{
+				textArea_recap_contratti_attivi.setText( textArea_recap_contratti_attivi.getText() + "\n" + e.getCodiceFiscale() +" " + e.getCodiceFiscaleManager() + " " + e.getGettoneNazionale() + " "+
+						e.getCodiceFederazioneSportiva() + " " + e.getCodiceContratto() + " " + e.getDataInizio() + " " + e.getDataFine() + " " + e.getRemunerazioneContratto() 
+						+ " " + e.getParcellaManager() + " "  + e.getPartitaIvaClub());
+			}
+			*/
+			
+			
+		}
+		
 		
 	}
 	

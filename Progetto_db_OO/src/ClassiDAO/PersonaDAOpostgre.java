@@ -66,7 +66,7 @@ public class PersonaDAOpostgre {
 		getPersonaByNome = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE \"nome\" like ?");
 		
 		getPersonaByNomeEcognome = connection.prepareStatement("SELECT * FROM persona_ WHERE \"nome\" LIKE  ? AND \"cognome\" LIKE ? ");
-		 
+		
 		inserisciPersona = connection.prepareStatement("INSERT INTO persona_tesserata VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 		
 		getPersonaByCodiceFiscale = connection.prepareStatement("SELECT \"codiceFiscale\" FROM persona_ WHERE \"codiceFiscale\" like ?"); 

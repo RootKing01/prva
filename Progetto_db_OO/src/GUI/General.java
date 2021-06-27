@@ -117,7 +117,7 @@ public class General extends JFrame {
 				else
 				{
 					general.setVisible(false);
-					pannelloUtente user = new pannelloUtente(codiceFiscale); 
+					pannelloUtente user = new pannelloUtente( codiceFiscale ); 
 					user.setVisible(true); 
 					
 				}

@@ -163,9 +163,12 @@ public class persona_tesserata extends JFrame {
 			      	tesserato.setVisible(false);
 			      	dati_persona.setVisible(false);
 			      	Driver driver = new Driver(); 
-			      	try {
+			      	try 
+					{
 						driver.inserimento_persone_tesserate_database(persona, persona_tesserata);
-					} catch (SQLException e1) {
+					}
+					catch (SQLException e1) 
+					{
 						
 						e1.printStackTrace();
 					}
