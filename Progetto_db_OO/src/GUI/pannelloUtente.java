@@ -156,7 +156,15 @@ public class pannelloUtente extends JFrame {
 			public void mouseClicked(MouseEvent e) 
 			{
 				
-				recap_utente( codiceFiscale );
+				try 
+				{
+					recap_utente( codiceFiscale );
+					
+				} catch (SQLException e1) 
+				{
+					
+					e1.printStackTrace();
+				}
 			
 			}
 		});
@@ -167,7 +175,7 @@ public class pannelloUtente extends JFrame {
 		
 	}
 	
-	private void recap_utente( String codiceFiscale ) 
+	private void recap_utente( String codiceFiscale ) throws SQLException 
 	{
 		
 		contentPane.setVisible( false );
@@ -184,25 +192,24 @@ public class pannelloUtente extends JFrame {
 		lblNewLabel_14.setBounds(215, 0, 430, 45);
 		contentPane.add(lblNewLabel_14);
 		
-		ArrayList<String> contratti_attivi= new ArrayList<>(); 
+		ArrayList<String> contratti_attivi = new ArrayList<>(); 
 		
 		Driver driver = new Driver();
 		
-		try
-		{
+		String contratti_attivi_momento = null; 
+		
+		
+			contratti_attivi = driver.recap_contratti_utente_attivi( codiceFiscale );
 			
-			contratti_attivi = driver.recap_contratti_utente_attivi( codiceFiscale );	
+			System.out.println( contratti_attivi );
+			System.out.println("Non ho saltato il try");
 		
-		}
-		catch (SQLException e) 
-		{
-			e.getStackTrace();	
-		}
 		
-		textArea_recap_contratti_attivi.setText("Codice fiscale\tCodice fiscale manager\tGettone nazionale\t"+
-												"Codice fiderazione sportiva\tCodice contratto\tData inizio\t"+
-												"Data fine\tRemunerazione contratto\tParcella manager\t"+
-												"Partiva IVA sponsor\tPartita IVA club/sponsor\n");
+		
+		textArea_recap_contratti_attivi.setText("Codice fiscale\t\tCodice fiscale manager\tGettone nazionale\t"+
+												"Codice fiderazione sportiva\tCodice contratto\t\tData inizio\t"+
+												"Data fine\tRemunerazione contratto\t\tParcella manager\t"+
+												"Partiva IVA sponsor\tPartita IVA club\n");
 		
 		for( String e : contratti_attivi  )
 		{
@@ -216,7 +223,7 @@ public class pannelloUtente extends JFrame {
 			
 			
 			
-			/*		
+		 /*
 			if(e.isClubOsponsor() == true) 
 			{
 				textArea_recap_contratti_attivi.setText( textArea_recap_contratti_attivi.getText() + "\n" + e.getCodiceFiscale() +" " + e.getCodiceFiscaleManager() +" " + e.getGettoneNazionale() +" "+
@@ -231,8 +238,8 @@ public class pannelloUtente extends JFrame {
 						e.getCodiceFederazioneSportiva() + " " + e.getCodiceContratto() + " " + e.getDataInizio() + " " + e.getDataFine() + " " + e.getRemunerazioneContratto() 
 						+ " " + e.getParcellaManager() + " "  + e.getPartitaIvaClub());
 			}
-			*/
 			
+			*/
 			
 		}
 		
