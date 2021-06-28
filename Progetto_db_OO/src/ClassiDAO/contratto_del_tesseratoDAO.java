@@ -33,7 +33,7 @@ public class contratto_del_tesseratoDAO
 		
 	}	
 	
-	public ArrayList<String> recuperoDatiUtenteTesserato( String codiceFiscale ) throws SQLException
+	public ArrayList<String> recuperoContrattiAttiviUtenteTesserato( String codiceFiscale ) throws SQLException
 	{
 		
 	    ArrayList<String> dati_tesserato = new ArrayList<String>();   
@@ -65,10 +65,45 @@ public class contratto_del_tesseratoDAO
 			dati_tesserato.add( recap_generale_attivi ); 
 		
 		}
-					
+			rs.close();	
 			return dati_tesserato;
 			
 	}
+	
+	public ArrayList<String> recuperoTuttiContrattiUtenteTesserato(String codiceFiscale) throws SQLException
+	{
+		ArrayList<String> tutti_contrati_utente = new ArrayList<>(); 
+		
+	    recapUtente_totale.setString(1, codiceFiscale);
+	    rs = recapUtente_totale.executeQuery(); 
+	    
+	    while (rs.next() )
+	    {
+	    	String codiceFiscale_utente = rs.getString("codiceFiscale"); 
+			String codiceFiscaleManager = rs.getString("codiceFiscaleManager");
+			int gettoniNazionale = rs.getInt("gettoneNazionale");
+			String codiceFederazioneSportiva = rs.getString("CodiceFederazioneSportiva");
+			int codiceContratto = rs.getInt("codiceContratto");
+		    Date dataInizio =  rs.getDate("dataInizio");
+			Date dataFine =  rs.getDate("dataFine");
+			int remunerazioneContratto = rs.getInt("remunerazioneContratto");
+			int parcellaManager = rs.getInt("parcellaMenager");
+			String partitaIvaSponsor = rs.getString("partitaIvaSponsor");
+			boolean clubOtesserato = rs.getBoolean("clubOsponsor");
+			String partitaIvaClub = rs.getString("partitaIvaClub");
+			
+			String recap_generale_attivi = codiceFiscale_utente +"\t\t"+ codiceFiscaleManager +"\t\t\t\t"+ gettoniNazionale +"\t\t\t"+ codiceFederazioneSportiva
+					                      +"\t\t\t\t\t"+ codiceContratto +"\t\t\t\t"+ dataInizio.toLocalDate() +"\t\t"+ dataFine.toLocalDate() +"\t\t\t"+ remunerazioneContratto +"\t\t\t\t"+ parcellaManager +"\t\t"+ partitaIvaSponsor
+					                      +"\t\t\t"+ partitaIvaClub; 
+			
+			tutti_contrati_utente.add( recap_generale_attivi ); 
+	    	
+	    }
+		
+		rs.close();
+		return tutti_contrati_utente;
+	}
+	
 	
 	
 }

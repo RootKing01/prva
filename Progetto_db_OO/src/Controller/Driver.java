@@ -101,13 +101,23 @@ public class Driver
 			prima_finestra.setVisible(true);	
 	}
 	
+	public ArrayList <String> recap_tutti_contratti_utente (String codiceFiscale) throws SQLException
+	{
+		ArrayList<String> recap_contratti = new ArrayList<>(); 
+		contratto_del_tesseratoDAO tutti_contratti = new contratto_del_tesseratoDAO();
+		
+		recap_contratti = tutti_contratti.recuperoTuttiContrattiUtenteTesserato( codiceFiscale ); 
+		
+		return recap_contratti; 
+	}
+	
 	public ArrayList<String> recap_contratti_utente_attivi( String codiceFiscale ) throws SQLException
 	{
 		
 		ArrayList<String> recap_contratti_attivi = new ArrayList<>(); 
 		contratto_del_tesseratoDAO contratti_attivi = new contratto_del_tesseratoDAO(); 
 		
-		recap_contratti_attivi = contratti_attivi.recuperoDatiUtenteTesserato( codiceFiscale );
+		recap_contratti_attivi = contratti_attivi.recuperoContrattiAttiviUtenteTesserato( codiceFiscale );
 		
 		
 		return recap_contratti_attivi;

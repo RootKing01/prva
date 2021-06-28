@@ -72,8 +72,17 @@ public class pannelloUtente extends JFrame {
 			public void mouseClicked(MouseEvent e) 
 			{
 				
-				riepilogo_dati( codiceFiscale );
+				try 
+				{
+					riepilogo_dati( codiceFiscale );
 					
+				} catch (SQLException e1) 
+				{
+					
+					e1.printStackTrace();
+				}
+					
+				
 			}
 		});
 		bottone_riepilogo_dati.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -132,7 +141,7 @@ public class pannelloUtente extends JFrame {
 				try 
 				{
 					
-					driver.cancellaMangerByCodiceFiscale( codiceFiscale);
+					driver.cancellaMangerByCodiceFiscale( codiceFiscale );
 					
 				}
 				catch (SQLException e1) 
@@ -182,7 +191,8 @@ public class pannelloUtente extends JFrame {
 		contentPane = set();
 		
 		TextArea textArea_recap_contratti_attivi = new TextArea();
-		textArea_recap_contratti_attivi.setBounds(0, 72, 876, 495);
+		textArea_recap_contratti_attivi.setFont(null);
+		textArea_recap_contratti_attivi.setBounds(10, 51, 866, 444);
 		contentPane.add(textArea_recap_contratti_attivi);
 		
 		JLabel lblNewLabel_14 = new JLabel("RECAP CONTRATTI ATTIVI");
@@ -192,6 +202,22 @@ public class pannelloUtente extends JFrame {
 		lblNewLabel_14.setBounds(215, 0, 430, 45);
 		contentPane.add(lblNewLabel_14);
 		
+		JButton bottone_indietro = new JButton("INDIETRO");
+		bottone_indietro.addMouseListener(new MouseAdapter()
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				
+				contentPane.setVisible( false );
+				schermata_base( codiceFiscale );
+				
+			}
+		});
+		bottone_indietro.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		bottone_indietro.setBounds(298, 516, 274, 51);
+		contentPane.add(bottone_indietro);
+		
 		ArrayList<String> contratti_attivi = new ArrayList<>(); 
 		
 		Driver driver = new Driver();
@@ -199,11 +225,7 @@ public class pannelloUtente extends JFrame {
 		String contratti_attivi_momento = null; 
 		
 		
-			contratti_attivi = driver.recap_contratti_utente_attivi( codiceFiscale );
-			
-			System.out.println( contratti_attivi );
-			System.out.println("Non ho saltato il try");
-		
+		contratti_attivi = driver.recap_contratti_utente_attivi( codiceFiscale );
 		
 		
 		textArea_recap_contratti_attivi.setText("Codice fiscale\t\tCodice fiscale manager\tGettone nazionale\t"+
@@ -215,8 +237,6 @@ public class pannelloUtente extends JFrame {
 		{
 			
 			//System.out.println("ciao" + e.getCodiceFiscale() );
-			
-			
 			
 			textArea_recap_contratti_attivi.setText( textArea_recap_contratti_attivi.getText() + e);
 			
@@ -246,14 +266,15 @@ public class pannelloUtente extends JFrame {
 		
 	}
 	
-	private void riepilogo_dati( String codice_fiscale )
+	private void riepilogo_dati( String codice_fiscale ) throws SQLException
 	{
 		contentPane.setVisible( false );
 		contentPane = set();
 		
-		JTextArea riepilogo_dati = new JTextArea();
-		riepilogo_dati.setFont(new Font("Monospaced", Font.PLAIN, 22));
-		riepilogo_dati.setBounds(0, 61, 886, 517);
+		TextArea riepilogo_dati = new TextArea();
+		riepilogo_dati.setEditable(false);
+		riepilogo_dati.setFont(new Font("Monospaced", Font.PLAIN, 11));
+		riepilogo_dati.setBounds(21, 46, 834, 452);
 		contentPane.add(riepilogo_dati);
 		
 		JLabel lblNewLabel_13 = new JLabel("RIEPILOGO DATI");
@@ -262,6 +283,44 @@ public class pannelloUtente extends JFrame {
 		lblNewLabel_13.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_13.setBounds(285, 11, 293, 39);
 		contentPane.add(lblNewLabel_13);
+		
+		JButton riepilogo_indietro = new JButton("INDIETRO");
+		riepilogo_indietro.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e)
+			{
+				
+				contentPane.setVisible( false );
+				schermata_base( codice_fiscale );
+				
+			}
+		});
+		riepilogo_indietro.setFont(new Font("Tahoma", Font.PLAIN, 25));
+		riepilogo_indietro.setBounds(289, 514, 233, 53);
+		contentPane.add(riepilogo_indietro);
+
+		
+		Driver driver = new Driver(); 
+		
+		ArrayList <String> tutti_i_contratti;
+		
+		tutti_i_contratti = driver.recap_tutti_contratti_utente(codice_fiscale); 
+		
+		riepilogo_dati.setText( riepilogo_dati.getText() + "\n" + tutti_i_contratti );
+		
+		riepilogo_dati.setText( "Codice fiscale\t\tCodice fiscale manager\tGettone nazionale\t"+
+								"Codice federazione sportiva\t\tCodice contratto\t\tData inizio\t\t"+
+								"Data fine\tRemunerazione contratto\t\tParcella manager\t"+
+								"Partiva IVA sponsor\tPartita IVA club\n");
+
+		for( String e : tutti_i_contratti  )
+       	{
+			//System.out.println("ciao" + e.getCodiceFiscale() );
+
+			riepilogo_dati.setText( riepilogo_dati.getText() + e);
+		}
+
 		
 	}
 	
@@ -548,7 +607,6 @@ public class pannelloUtente extends JFrame {
 		pannello.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pannello.setLayout(null);
 		setContentPane( pannello );
-		
 		
 		//
 		
