@@ -114,6 +114,15 @@ public class Driver
 		
 	}
 	*/
+	public ArrayList<String> recupero_contratti_manager(String codiceFiscaleManager) throws SQLException
+	{
+		contratto_del_tesseratoDAO tutti_contratti = new contratto_del_tesseratoDAO();
+		ArrayList<String> recupero_contratti = tutti_contratti.recap_contratti_tesserati(codiceFiscaleManager);
+		
+		return recupero_contratti;
+		
+	}
+	
 	public ArrayList <String> recap_tutti_contratti_utente (String codiceFiscale) throws SQLException
 	{
 		ArrayList<String> recap_contratti = new ArrayList<>(); 

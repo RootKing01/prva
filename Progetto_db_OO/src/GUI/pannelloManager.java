@@ -14,15 +14,20 @@ import Controller.Driver;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.TextArea;
+
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JTextArea;
+import javax.swing.JFormattedTextField;
 
 public class pannelloManager extends JFrame 
 {
@@ -31,6 +36,7 @@ public class pannelloManager extends JFrame
 	private Driver driver = new Driver(); 
 	private JTextField textField_codiceFiscale;
 	private JTextField textField_codiceFiscale_tesserato;
+	private JTextField totale_contratti;
 
 
 	// esci aggiungi_ed_elimina_contratti recap_manager  tesserato_che_porta_magior_guadagno
@@ -43,6 +49,7 @@ public class pannelloManager extends JFrame
 		//modifica_contratto();
 		//eliminaManagerDaTesserato();
 		//aggiungiManagerAtesserato(codiceFiscaleManager);
+		//recap_tesserati(codiceFiscaleManager);
 		
 	}
 	
@@ -64,7 +71,7 @@ public class pannelloManager extends JFrame
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
-				recap_tesserati();
+				recap_tesserati(codiceFiscaleManager);
 			}
 		});
 		bottone_recap.setFont(new Font("Tahoma", Font.PLAIN, 25));
@@ -125,18 +132,70 @@ public class pannelloManager extends JFrame
 		pannello.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pannello.setLayout(null);
 		setContentPane( pannello );		
-		
-		
-		
 		//
 		
 		return pannello;
 	}
 	
-	private void recap_tesserati()
+	private void recap_tesserati( String codiceFiscaleManager ) 
 	{
+		
 		contentPane.setVisible( false );
 		contentPane = set();
+		
+		
+		JLabel lblNewLabel_8 = new JLabel("RECAP CONTRATTI");
+		lblNewLabel_8.setForeground(Color.WHITE);
+		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		lblNewLabel_8.setBounds(257, 11, 323, 44);
+		contentPane.add(lblNewLabel_8);
+		
+		totale_contratti = new JTextField();
+		totale_contratti.setBounds(25, 401, 153, 38);
+		contentPane.add(totale_contratti);
+		totale_contratti.setColumns(10);
+		
+		TextArea area_recap_totale = new TextArea();
+		area_recap_totale.setBackground(new Color(255, 255, 255));
+		area_recap_totale.setEditable(false);
+		area_recap_totale.setBounds(25, 66, 821, 300);
+		contentPane.add(area_recap_totale);
+		
+		TextArea parcella_remunerativa = new TextArea();
+		parcella_remunerativa.setBounds(447, 377, 399, 116);
+		contentPane.add(parcella_remunerativa);
+		
+		
+		
+		area_recap_totale.setText("Codice fiscale\t\tCodice fiscale manager\tGettone nazionale\t"+
+												"Codice fiderazione sportiva\tCodice contratto\t\tData inizio\t"+
+												"Data fine\tRemunerazione contratto\t\tParcella manager\t"+
+												"Partiva IVA sponsor\tPartita IVA club\n");
+		
+		
+		try
+		{
+			
+			ArrayList<String> contratti_manager = driver.recupero_contratti_manager(codiceFiscaleManager);
+				
+			for( String e : contratti_manager )
+			{
+				
+				area_recap_totale.setText( area_recap_totale.getText() + "\n"+e);
+				
+			}
+		
+		}
+		catch (SQLException e1) 
+		{
+		
+			e1.printStackTrace();
+		}
+	
+		
+		
+		
 	}
 	
 	private void modifica_contratto()
@@ -281,10 +340,7 @@ public class pannelloManager extends JFrame
 		lblNewLabel_5.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_5.setBounds(41, 292, 808, 62);
 		contentPane.add(lblNewLabel_5);
-		
-		
 	
-		
 	}
 	
 	private void esci()
@@ -296,5 +352,4 @@ public class pannelloManager extends JFrame
 		schermata_generale.setVisible( true );
 		
 	}
-	
 }

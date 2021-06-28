@@ -16,7 +16,7 @@ import ClassiDatabase.contratto_del_tesserato;
 public class contratto_del_tesseratoDAO 
 {
 	
-	private PreparedStatement  recupero_dati_contratti_attivi, recapUtente_totale;  
+	private PreparedStatement  recupero_dati_contratti_attivi, recapUtente_totale, recap_manager_totale;  
     private ResultSet rs;
 	private Connection connection;
 	
@@ -31,7 +31,44 @@ public class contratto_del_tesseratoDAO
 
 		recapUtente_totale = connection.prepareStatement("SELECT * FROM contratto_del_tesserato WHERE \"codiceFiscale\" like ?");
 		
+		recap_manager_totale =	connection.prepareStatement("SELECT * FROM contratto_del_tesserato WHERE \"codiceFiscaleManager\" = ? ");
+			
 	}	
+	
+	public ArrayList<String> recap_contratti_tesserati( String codiceFiscaleManager_ ) throws SQLException
+	{
+		ArrayList<String> totale = new ArrayList<>();
+		
+		recap_manager_totale.setString( 1, codiceFiscaleManager_ );				
+		rs = recap_manager_totale.executeQuery();
+		
+		while( rs.next() )
+		{
+			
+			String codiceFiscale_utente = rs.getString("codiceFiscale"); 
+			String codiceFiscaleManager = rs.getString("codiceFiscaleManager");
+			int gettoniNazionale = rs.getInt("gettoneNazionale");
+			String codiceFederazioneSportiva = rs.getString("CodiceFederazioneSportiva");
+			int codiceContratto = rs.getInt("codiceContratto");
+		    Date dataInizio =  rs.getDate("dataInizio");
+			Date dataFine =  rs.getDate("dataFine");
+			int remunerazioneContratto = rs.getInt("remunerazioneContratto");
+			int parcellaManager = rs.getInt("parcellaMenager");
+			String partitaIvaSponsor = rs.getString("partitaIvaSponsor");
+			boolean clubOtesserato = rs.getBoolean("clubOsponsor");
+			String partitaIvaClub = rs.getString("partitaIvaClub");
+			
+			String recap_generale_attivi = codiceFiscale_utente +"\t"+ codiceFiscaleManager +"\t\t\t"+ gettoniNazionale +"\t\t\t"+ codiceFederazioneSportiva
+					                      +"\t\t\t\t"+ codiceContratto +"\t"+ dataInizio.toLocalDate() +"\t"+ dataFine.toLocalDate() +"\t\t"+ remunerazioneContratto +"\t\t\t\t"+ parcellaManager +"\t\t\t"+ partitaIvaSponsor
+					                      +"\t\t\t"+ partitaIvaClub; 
+			
+			totale.add( recap_generale_attivi ); 
+			
+		}
+		
+		rs.close();
+		return totale;
+	}
 	
 	public ArrayList<String> recuperoContrattiAttiviUtenteTesserato( String codiceFiscale ) throws SQLException
 	{
