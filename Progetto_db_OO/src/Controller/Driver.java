@@ -36,6 +36,7 @@ import ClassiDatabase.Sponsor;
 import ClassiDatabase.Tesserato;
 import ClassiDatabase.contratto_del_tesserato;
 import ConnessioneDB.DBConnection;
+import GUI.ConfermaPasswordTesserato;
 import GUI.Errore_Inserimento_Dati;
 import GUI.General;
 import GUI.Inserimento_dati_persona;
@@ -51,13 +52,13 @@ public class Driver
 		
 		
 		Driver driver = new Driver();
+		driver.Controller();
 		
 		//driver.inserimentoFederazioniSportive();
 		
 		//Comune comune = new Comune();	
-        //comune.insertComuni();
+        //comune.insertComuni(); 
 		
-		driver.Controller();
 		
 		// RSSMRA80A01F839W	mario rossi napoli na 01 01 1980
 		// RGONNA80A01F839W anna rogo ...
@@ -97,10 +98,22 @@ public class Driver
 		
 	private void Controller() 
 	{
-			General prima_finestra = new General(this);
+			General prima_finestra = new General();
 			prima_finestra.setVisible(true);	
 	}
-	
+	/*
+	public void associaMenagerATesserato( String codiceFiscaleMenager ) throws SQLException
+	{
+		
+		TesseratoDAO insert_db = new TesseratoDAO();
+		//ConfermaPasswordTesserato pagina_di_conferma_password = new ConfermaPasswordTesserato( codiceFiscaleMenager );
+		
+		//pagina_di_conferma_password.setVisible( true );
+		
+		
+		
+	}
+	*/
 	public ArrayList <String> recap_tutti_contratti_utente (String codiceFiscale) throws SQLException
 	{
 		ArrayList<String> recap_contratti = new ArrayList<>(); 
@@ -129,11 +142,14 @@ public class Driver
 		TesseratoDAO aggiungiManager = new TesseratoDAO(); 
 		
 		aggiungiManager.inserimentoMangerDelTesserato( codiceFiscale, codiceFiscale_manager );
+		
 	}
 	
 	public void cancellaMangerByCodiceFiscale(String codiceFiscale) throws SQLException 
 	{
+		
 		TesseratoDAO elimina_manager = new TesseratoDAO();
+		
 		elimina_manager.eliminaManger(codiceFiscale);
 	}
 	
@@ -1238,7 +1254,7 @@ public class Driver
 			
 			char[] password_login = password.getPassword();
 		    PersonaDAOpostgre persona_login = new PersonaDAOpostgre(); 
-			password_db = persona_login.getPasswordByCodiceFiscale( codiceFiscale_login );
+			password_db = persona_login.controlloPasswordByCodiceFiscale( codiceFiscale_login );
 			
 			
 			char [] password_database = new char[password_db.length()]; 
@@ -1284,9 +1300,11 @@ public class Driver
 		try
 		{    
 			PersonaDAOpostgre codiceFiscale_persona = new PersonaDAOpostgre(); 
-			risultato = codiceFiscale_persona.getPersonaByCodiceFiscale( codiceFiscale.toString() );
+			risultato = codiceFiscale_persona.controlloPersonaByCodiceFiscale( codiceFiscale.toString() );
 		
-		} catch (SQLException e) {
+		}
+		catch (SQLException e) 
+		{
 			
 			e.printStackTrace();
 		} 
@@ -1294,8 +1312,8 @@ public class Driver
 		
 		return risultato; 
 	}
-		
-	public boolean controlloSuperUser(String codiceFiscale) 
+	
+	public boolean controlloSuperUser( String codiceFiscale ) 
 	{   
 		
 		boolean superUser = false;  
@@ -1308,6 +1326,16 @@ public class Driver
 		}
 		
 		return superUser;
+	}
+	
+	public boolean controlloAccessoManagerOtesserato( String codiceFiscale ) throws SQLException
+	{
+		
+		boolean managerOTesserato = false;
+		PersonaDAOpostgre managerOtesserato = new PersonaDAOpostgre();
+			
+		return managerOtesserato.controlloManagerOtesserato(codiceFiscale);
+		
 	}
 	
 	public boolean controlloDati(	JTextField Nome			,JTextField Cognome,		

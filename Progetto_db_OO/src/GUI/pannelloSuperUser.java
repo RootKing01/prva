@@ -40,7 +40,7 @@ public class pannelloSuperUser extends JFrame {
 	private JPanel contentPane;
 	private JPanel contentPane1;
 	
-	// da cancellare
+
 	private JTextField textField_nome;
 	private JTextField textField_1_cognome;
 	private JTextField textField_cf_cancellazione;
@@ -49,28 +49,7 @@ public class pannelloSuperUser extends JFrame {
 	private JTextField textField_sedeLegale;
 	
 	
-	/**
-	 * Launch the application.
-	 */
 	
-	/*
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					pannelloSuperUser frame = new pannelloSuperUser();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-*/
-	/**
-	 * Create the frame.
-	 */
-
 	public pannelloSuperUser( ) 
 	{
 		
@@ -81,12 +60,6 @@ public class pannelloSuperUser extends JFrame {
 		
 	}
 		
-	public void modificaUtente()
-	{
-		
-	}
-	
-
 	private void pannello_per_superUser()
 	{
 		
@@ -461,9 +434,6 @@ public class pannelloSuperUser extends JFrame {
 	} 
 				
 	*/	
-		
-		
-	
 	
 	private void aggiungi()
 	{
@@ -797,7 +767,6 @@ public class pannelloSuperUser extends JFrame {
 		
 	///////////////////////////////////////////////////////////////////////////////////
 	
-	
 	private JPanel set()
 	{
 		
@@ -815,7 +784,6 @@ public class pannelloSuperUser extends JFrame {
 		
 		return pannello;
 	}
-	
 	
 	private void elimina_sponsor()
 	{
@@ -886,8 +854,6 @@ public class pannelloSuperUser extends JFrame {
 		
 	}
 	
-	
-	
 	private void elimina_club()
 	{
 		
@@ -956,7 +922,6 @@ public class pannelloSuperUser extends JFrame {
 		contentPane.add(btnNewButton_6);
 		
 	}
-	
 	
 	private void inserisci_societa()
 	{
@@ -1056,7 +1021,8 @@ public class pannelloSuperUser extends JFrame {
 		
 		
 	}
-	private void inserisci_club()
+	
+    private void inserisci_club()
 	{
 		contentPane.setVisible( false );
 		contentPane = set();

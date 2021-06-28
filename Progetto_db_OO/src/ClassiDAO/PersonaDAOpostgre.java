@@ -48,7 +48,7 @@ public class PersonaDAOpostgre {
 	
 	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro, getPersonaByNomeEcognome, deletePersonaByCodiceFiscale, 
 	                          getAllPeople;
-	private static PreparedStatement getPersonaByCodiceFiscale, getPasswordByCodiceFiscale; 
+	private static PreparedStatement controlloPersonaByCodiceFiscale, controlloPasswordByCodiceFiscale, controlloManagerOtesserato; 
 	private ResultSet rs;
 //	private static ResultSet rs1; 
 	
@@ -69,16 +69,17 @@ public class PersonaDAOpostgre {
 		
 		inserisciPersona = connection.prepareStatement("INSERT INTO persona_tesserata VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )");
 		
-		getPersonaByCodiceFiscale = connection.prepareStatement("SELECT \"codiceFiscale\" FROM persona_ WHERE \"codiceFiscale\" like ?"); 
+		controlloPersonaByCodiceFiscale = connection.prepareStatement("SELECT \"codiceFiscale\" FROM persona_ WHERE \"codiceFiscale\" like ?"); 
 		
 //		getPersonaByLavoro = connection.prepareStatement("SELECT * FROM persona_tesserata WHERE managerOtesserato like ?");
 		
-		getPasswordByCodiceFiscale = connection.prepareStatement("SELECT \"password\" FROM persona_ WHERE \"codiceFiscale\" like ?"); 
+		controlloPasswordByCodiceFiscale = connection.prepareStatement("SELECT \"password\" FROM persona_ WHERE \"codiceFiscale\" like ?"); 
 		
 		deletePersonaByCodiceFiscale = connection.prepareStatement("DELETE FROM \"persona_\" WHERE \"codiceFiscale\" like ?"); 
 		
 		getAllPeople = connection.prepareStatement("SELECT * FROM persona_tesserata"); 
 		
+		controlloManagerOtesserato = connection.prepareStatement("SELECT \"managerOtesserato\" FROM persona_ WHERE \"codiceFiscale\" like ?");
 	}
 	// end costruttore
 
@@ -122,6 +123,22 @@ public class PersonaDAOpostgre {
 //Bisogna cerare metodo per verificare che la persona non sia già esistente all'interno del database
 // bisogna togliere lo static
 
+   public boolean controlloManagerOtesserato(String codiceFiscale) throws SQLException   
+{
+   		boolean managerOtesserato = false; 
+	   
+	   	controlloManagerOtesserato.setString(1, codiceFiscale);
+	   	rs = controlloManagerOtesserato.executeQuery(); 
+	   
+	   	while( rs.next() )
+		{
+			managerOtesserato = rs.getBoolean( "managerOtesserato");
+		}
+	   	
+	   	
+	   	rs.close();
+	   	return managerOtesserato; 
+   }
    
    public ArrayList<String> tutteLePersone() throws SQLException
    {    
@@ -185,7 +202,7 @@ public class PersonaDAOpostgre {
    		return tutti_gli_utenti; 
    }
    
-   public ArrayList<String> getPersonaByNome( String nome, String cognome ) throws SQLException 
+    public ArrayList<String> getPersonaByNome( String nome, String cognome ) throws SQLException 
 	{
 		ArrayList<String> utenti_ricercati = new ArrayList<>(); 
 	   
@@ -217,14 +234,14 @@ public class PersonaDAOpostgre {
 		
 	}
 	
-   	public boolean getPersonaByCodiceFiscale( String codiceFiscale ) throws SQLException
+   	public boolean controlloPersonaByCodiceFiscale( String codiceFiscale ) throws SQLException
 	{
 		
 		boolean verifica = false;
 		
 		
-		getPersonaByCodiceFiscale.setString(1, codiceFiscale);
-		rs = getPersonaByCodiceFiscale.executeQuery();
+		controlloPersonaByCodiceFiscale.setString(1, codiceFiscale);
+		rs = controlloPersonaByCodiceFiscale.executeQuery();
 		
 		while( rs.next() ) 
 		{
@@ -238,13 +255,13 @@ public class PersonaDAOpostgre {
 		return verifica;
 	}
 	
-	public String getPasswordByCodiceFiscale( String codiceFiscale ) throws SQLException
+	public String controlloPasswordByCodiceFiscale( String codiceFiscale ) throws SQLException
 	{
 		
 		String risultato = null; 
 		
-	    getPasswordByCodiceFiscale.setString( 1, codiceFiscale );
-	    rs = getPasswordByCodiceFiscale.executeQuery(); 
+	    controlloPasswordByCodiceFiscale.setString( 1, codiceFiscale );
+	    rs = controlloPasswordByCodiceFiscale.executeQuery(); 
 	    
 	    while( rs.next() )	
 		{
@@ -256,7 +273,7 @@ public class PersonaDAOpostgre {
 			System.out.println(risultato);
 		}
 		rs.close();
-		System.out.println("risulato\t\t"+risultato);
+		//System.out.println("risulato\t\t"+risultato);
 		
 		
 		return risultato;

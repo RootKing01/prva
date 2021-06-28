@@ -12,7 +12,7 @@ import Controller.Driver;
 public class ContrattoDAO {
     
 	private Connection connection;
-	private PreparedStatement insertContratto, deleteContratto;
+	private PreparedStatement insertContratto, deleteContratto, modificaContrattoByManager, eliminaContrattoByManager;
 	private ResultSet rs;
 	
 	
@@ -26,6 +26,8 @@ public class ContrattoDAO {
 		insertContratto = connection.prepareStatement("INSERT INTO \"contratto\" ( \"codiceFiscale\", \"dataInizio\", \"dataFine\", \"remunerazioneContratto\", \"parcellaMenager\", \"PartitaIVAsponsor\",\"partitaIVAclub\", \"clubOsponsor\" ) values ( ?, ?, ?, ?, ?, ?, ?, ?)" );
 		
 		//deletContratto;
+		
+		modificaContrattoByManager = connection.prepareStatement(""); 
 		
 	}
    	public void inserisciContratto( Contratto contratto ) throws SQLException 

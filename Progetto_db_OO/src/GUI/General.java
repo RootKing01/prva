@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import ClassiDAO.PersonaDAOpostgre;
 import Controller.Driver;
 
 import java.awt.FlowLayout;
@@ -17,6 +18,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.SQLException;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -36,7 +38,7 @@ public class General extends JFrame {
 
 	
 ////////////////////////////////////////////****FRAME****//////////////////////////////////////
-	public General(Driver d) 
+	public General() 
 	{
 		
 		 
@@ -48,8 +50,7 @@ public class General extends JFrame {
 			frame.setVisible(true);	
 		*/
 		
-		contentPane = new JPanel();
-		driver = d; 
+		contentPane = new JPanel();	 
 		general = this; 
 		
 		setBackground(Color.DARK_GRAY);
@@ -65,7 +66,8 @@ public class General extends JFrame {
 		
 		JButton bottoneInserisci = new JButton("Registrati ora!");
 		bottoneInserisci.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		bottoneInserisci.addMouseListener(new MouseAdapter() {
+		bottoneInserisci.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
@@ -92,7 +94,8 @@ public class General extends JFrame {
 		
 
 		JButton btnNewButton = new JButton("Accedi");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		btnNewButton.addMouseListener(new MouseAdapter() 
+		{
 			@Override
 			public void mouseClicked(MouseEvent e) 
 			{
@@ -101,27 +104,44 @@ public class General extends JFrame {
 				
 				boolean codiceFiscale_giusto_o_sbagliato = false;
 				boolean password_giusta_o_sbagliata = false;
+				
 				   
-				codiceFiscale_giusto_o_sbagliato = driver.controlloSuperUser(codiceFiscale);
+				codiceFiscale_giusto_o_sbagliato = 
 				password_giusta_o_sbagliata = driver.controlloPasswordDataBase( passwordField_per_accesso, textField_accesso_codiceFiscale );
 				
-				
-				
-				// controllo super utente: se falso non accede
-				if( codiceFiscale_giusto_o_sbagliato &&  password_giusta_o_sbagliata ) 
+				if( driver.controlloSuperUser(codiceFiscale) &&   password_giusta_o_sbagliata )
 				{
 					general.setVisible(false);
 					pannelloSuperUser superUser = new pannelloSuperUser(); 
-					superUser.setVisible(true); 
-				}
-				else
+					superUser.setVisible(true);
+				} else
 				{
-					general.setVisible(false);
-					pannelloUtente user = new pannelloUtente( codiceFiscale ); 
-					user.setVisible(true); 
-					
-				}
+					try 
+					{
+						if( driver.controlloAccessoManagerOtesserato( codiceFiscale ) ) 
+						{
+						    // controllo super utente: se falso non accede
+							
+							general.setVisible(false);
+							pannelloUtente user = new pannelloUtente( codiceFiscale ); 
+							user.setVisible(true); 
+							
+						}
+						else
+						{
+							general.setVisible(false); 
+							pannelloManager pannello_manager = new pannelloManager( codiceFiscale ); 
+							pannello_manager.setVisible(true);
+						}
+				 	}
+					catch (SQLException e1) 
+					{
+						
+						e1.printStackTrace();
+					}
 				
+				
+				}
 				
 			}
 		});
@@ -157,4 +177,7 @@ public class General extends JFrame {
 		contentPane.add(lblNewLabel_3);
 		
 	}
+	/*
+
+	*/
 }
