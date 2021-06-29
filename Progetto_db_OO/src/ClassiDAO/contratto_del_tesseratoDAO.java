@@ -26,12 +26,12 @@ public class contratto_del_tesseratoDAO
 		
 		connection = Driver.accessoConnessione();
 		
-		
-	    recupero_dati_contratti_attivi = connection.prepareStatement("SELECT * FROM contratto_del_tesserato WHERE \"codiceFiscale\" like ? AND \"dataFine\" > CURRENT_DATE");	
+		// in contratto del tesserato
+	    recupero_dati_contratti_attivi = connection.prepareStatement("SELECT * FROM contratto_del_tesserato WHERE \"codiceFiscale\" like ? AND \"dataFine\" > CURRENT_DATE   ");	
 
 		recapUtente_totale = connection.prepareStatement("SELECT * FROM contratto_del_tesserato WHERE \"codiceFiscale\" like ?");
 		
-		recap_manager_totale =	connection.prepareStatement("SELECT * FROM contratto_del_tesserato WHERE \"codiceFiscaleManager\" = ? ");
+		recap_manager_totale =	connection.prepareStatement("SELECT * FROM contratto_del_tesserato WHERE \"codiceFiscaleManager\" = ? ORDER BY  \"parcellaMenager\" DESC  ");
 			
 	}	
 	
@@ -102,9 +102,9 @@ public class contratto_del_tesseratoDAO
 			dati_tesserato.add( recap_generale_attivi ); 
 		
 		}
-			rs.close();	
-			return dati_tesserato;
-			
+		
+		rs.close();	
+		return dati_tesserato;	
 	}
 	
 	public ArrayList<String> recuperoTuttiContrattiUtenteTesserato(String codiceFiscale) throws SQLException

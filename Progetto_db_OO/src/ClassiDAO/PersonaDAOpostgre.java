@@ -197,7 +197,7 @@ public class PersonaDAOpostgre {
 			
 	    }
 	   
-	
+		rs.close();
 		
    		return tutti_gli_utenti; 
    }
@@ -272,10 +272,10 @@ public class PersonaDAOpostgre {
 					
 			System.out.println(risultato);
 		}
-		rs.close();
+		
 		//System.out.println("risulato\t\t"+risultato);
 		
-		
+		rs.close();
 		return risultato;
 	}
 

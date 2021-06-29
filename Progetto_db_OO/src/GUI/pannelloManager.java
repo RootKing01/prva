@@ -36,7 +36,6 @@ public class pannelloManager extends JFrame
 	private Driver driver = new Driver(); 
 	private JTextField textField_codiceFiscale;
 	private JTextField textField_codiceFiscale_tesserato;
-	private JTextField totale_contratti;
 
 
 	// esci aggiungi_ed_elimina_contratti recap_manager  tesserato_che_porta_magior_guadagno
@@ -148,41 +147,68 @@ public class pannelloManager extends JFrame
 		lblNewLabel_8.setForeground(Color.WHITE);
 		lblNewLabel_8.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_8.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		lblNewLabel_8.setBounds(257, 11, 323, 44);
+		lblNewLabel_8.setBounds(260, 0, 323, 44);
 		contentPane.add(lblNewLabel_8);
 		
-		totale_contratti = new JTextField();
-		totale_contratti.setBounds(25, 401, 153, 38);
-		contentPane.add(totale_contratti);
-		totale_contratti.setColumns(10);
+		
+		JLabel numero_tesserati = new JLabel("New label");
+		numero_tesserati.setForeground(Color.WHITE);
+		numero_tesserati.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		numero_tesserati.setBounds(301, 446, 247, 26);
+		contentPane.add(numero_tesserati);
+		
 		
 		TextArea area_recap_totale = new TextArea();
 		area_recap_totale.setBackground(new Color(255, 255, 255));
 		area_recap_totale.setEditable(false);
-		area_recap_totale.setBounds(25, 66, 821, 300);
+		area_recap_totale.setBounds(25, 57, 821, 383);
 		contentPane.add(area_recap_totale);
 		
-		TextArea parcella_remunerativa = new TextArea();
-		parcella_remunerativa.setBounds(447, 377, 399, 116);
-		contentPane.add(parcella_remunerativa);
+		
+		JButton bottone_indietro = new JButton("INDIETRO");
+		bottone_indietro.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				schermata_base( codiceFiscaleManager );
+			}
+		});
+		bottone_indietro.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		bottone_indietro.setBounds(25, 480, 183, 56);
+		contentPane.add(bottone_indietro);
+	
 		
 		
-		
-		area_recap_totale.setText("Codice fiscale\t\tCodice fiscale manager\tGettone nazionale\t"+
-												"Codice fiderazione sportiva\tCodice contratto\t\tData inizio\t"+
-												"Data fine\tRemunerazione contratto\t\tParcella manager\t"+
-												"Partiva IVA sponsor\tPartita IVA club\n");
-		
+		int numero_tesserati_manager = 0; 
+		int count = 1;
 		
 		try
 		{
+			
+			
+			numero_tesserati_manager = driver.tutti_i_tesserati_manager( codiceFiscaleManager ).size();	
+			
+			// label
+			numero_tesserati.setText( "NUMERO TESSERATI GESTITI:\t" + numero_tesserati_manager);
+			
+			
+			// text area
+			area_recap_totale.setText( area_recap_totale.getText() + 
+										"Codice fiscale\t\tCodice fiscale manager\tGettone nazionale\t"+
+										"Codice fiderazione sportiva\tCodice contratto\t\tData inizio\t"+
+										"Data fine\tRemunerazione contratto\t\tParcella manager\t"+
+										"Partiva IVA sponsor\tPartita IVA club\n");
+			
 			
 			ArrayList<String> contratti_manager = driver.recupero_contratti_manager(codiceFiscaleManager);
 				
 			for( String e : contratti_manager )
 			{
 				
-				area_recap_totale.setText( area_recap_totale.getText() + "\n"+e);
+				area_recap_totale.setText( area_recap_totale.getText() + "\n"+ count + "# "+ e);
+				
+				count++;
 				
 			}
 		

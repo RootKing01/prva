@@ -19,7 +19,7 @@ public class TesseratoDAO extends PersonaDAOpostgre {
 	private int gettoneNazionale;
 	
 	
-	private PreparedStatement inserimentoMangerDelTesserato, deleteManagerDelTesserato, recuperoDati_contratti_attivi, recapUtente_totale;  
+	private PreparedStatement inserimentoMangerDelTesserato, deleteManagerDelTesserato, recuperoDati_contratti_attivi, recapUtente_totale, conteggioTesserati;  
     private ResultSet rs;
 	private Connection connection;
 	
@@ -36,6 +36,7 @@ public class TesseratoDAO extends PersonaDAOpostgre {
 		
 	    deleteManagerDelTesserato = connection.prepareStatement("UPDATE tesserato SET \"codiceFiscaleManager\" = null WHERE \"codiceFiscale\" like ?"); 
 	    
+	    conteggioTesserati = connection.prepareStatement("SELECT \"codiceFiscale\" FROM tesserato WHERE \"codiceFiscaleManager\" like ?"); 
 	}
 
 
@@ -48,6 +49,23 @@ public class TesseratoDAO extends PersonaDAOpostgre {
 	
   
     
+    
+    public ArrayList<String> conteggioTesserati( String codiceFiscaleManager ) throws SQLException
+    {
+    	
+    	ArrayList<String> tutti_i_tesserati_del_manager = new ArrayList<>(); 
+    	
+    	conteggioTesserati.setString(1, codiceFiscaleManager);
+    	rs = conteggioTesserati.executeQuery(); 
+    	
+    	while( rs.next() )
+    	{
+    		tutti_i_tesserati_del_manager.add( rs.getString("codiceFiscale") ); 
+    	}
+    	
+    	rs.close();
+    	return tutti_i_tesserati_del_manager; 
+    }
     
 	
 	public void inserimentoMangerDelTesserato( String codice_fiscale_tesserato, String codice_fiscale_manager ) throws SQLException
