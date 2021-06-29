@@ -121,7 +121,11 @@ public class pannelloUtente extends JFrame {
 		JButton bottone_esci = new JButton("ESCI");
 		bottone_esci.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent e)
+			{
+				pannelloUtente.this.setVisible(false);
+				General general = new General();
+				general.setVisible(true);
 			}
 		});
 		bottone_esci.setFont(new Font("Tahoma", Font.PLAIN, 25));

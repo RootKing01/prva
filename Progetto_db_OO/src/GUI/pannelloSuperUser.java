@@ -105,6 +105,18 @@ public class pannelloSuperUser extends JFrame {
 		contentPane.add( bottone_modifica_utente );
 		*/
 		
+		JButton bottone_esci = new JButton("ESCI");
+		bottone_esci.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) 
+			{
+				esci();
+			}
+		});
+		bottone_esci.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		bottone_esci.setBounds(20, 503, 181, 49);
+		contentPane.add(bottone_esci);
+		
 		JButton bottone_elimina_utente = new JButton("ELIMINA UTENTE");
 		bottone_elimina_utente.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		bottone_elimina_utente.addMouseListener(new MouseAdapter() 
@@ -778,12 +790,24 @@ public class pannelloSuperUser extends JFrame {
 		pannello.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pannello.setLayout(null);
 		setContentPane( pannello );
+		
+		
 		//
 	
 		//
 		
 		return pannello;
 	}
+	
+	
+	private void esci() 
+	{
+		pannelloSuperUser.this.setVisible(false);
+		General general = new General(); 
+		general.setVisible(true);
+	}
+	
+	
 	
 	private void elimina_sponsor()
 	{
