@@ -176,7 +176,7 @@ public class General extends JFrame {
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_3.setForeground(Color.WHITE);
-		lblNewLabel_3.setIcon(new ImageIcon("C:\\Users\\Vincioking\\Desktop\\nr.png"));
+		lblNewLabel_3.setIcon(new ImageIcon("File\\nr.png"));
 		lblNewLabel_3.setBounds(-91, 27, 534, 382);
 		contentPane.add(lblNewLabel_3);
 		
