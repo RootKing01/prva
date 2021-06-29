@@ -89,7 +89,7 @@ public class General extends JFrame {
 		textField_accesso_codiceFiscale.setColumns(10);
 		
 		passwordField_per_accesso = new JPasswordField();
-		passwordField_per_accesso.setBounds(524, 202, 204, 20);
+		passwordField_per_accesso.setBounds(524, 202, 235, 20);
 		contentPane.add(passwordField_per_accesso);
 		
 
@@ -149,21 +149,25 @@ public class General extends JFrame {
 		contentPane.add(btnNewButton);
 		
 		JLabel lblNewLabel = new JLabel("Inserisci il codice fiscale\r\n");
+		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel.setBounds(294, 135, 316, 35);
 		contentPane.add(lblNewLabel);
 		
 		JLabel lblInserisciLaPassword = new JLabel("Inserisci la password\r\n\r\n");
+		lblInserisciLaPassword.setForeground(Color.WHITE);
 		lblInserisciLaPassword.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblInserisciLaPassword.setBounds(326, 191, 316, 35);
 		contentPane.add(lblInserisciLaPassword);
 		
 		JLabel lblNewLabel_1 = new JLabel("Non ancora iscritto?");
+		lblNewLabel_1.setForeground(Color.ORANGE);
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_1.setBounds(347, 364, 226, 64);
 		contentPane.add(lblNewLabel_1);
 		
 		JLabel lblNewLabel_2 = new JLabel("SMARTSPORT 2.0");
+		lblNewLabel_2.setForeground(Color.WHITE);
 		lblNewLabel_2.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		lblNewLabel_2.setBounds(134, 0, 494, 79);
