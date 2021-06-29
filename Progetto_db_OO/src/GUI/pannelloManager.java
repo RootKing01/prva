@@ -372,7 +372,7 @@ public class pannelloManager extends JFrame
 	private void esci()
 	{
 		
-		pannelloManager.this.setVisible(false);;
+		pannelloManager.this.setVisible(false);
 		
 		General schermata_generale = new General();
 		schermata_generale.setVisible( true );
