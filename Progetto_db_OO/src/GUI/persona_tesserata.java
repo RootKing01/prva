@@ -27,7 +27,8 @@ import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
-public class persona_tesserata extends JFrame {
+public class persona_tesserata extends JFrame 
+{
 
 	
 //	public static void main(String[] args) throws SQLException, IOException 
@@ -51,11 +52,13 @@ public class persona_tesserata extends JFrame {
 
 
 
-	public persona_tesserata( Persona_creata persona, JFrame dati_persona) throws NumberFormatException, SQLException {
+	public persona_tesserata( Persona_creata persona, JFrame dati_persona) throws NumberFormatException, SQLException 
+	{
 		
 		tesserato = this;
-		setLocation(500, 500); 
-				
+		//setLocation(500, 500); 
+		setLocationRelativeTo( null );
+			
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 951, 572);
 		contentPane = new JPanel();

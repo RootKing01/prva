@@ -101,7 +101,7 @@ public class pannelloUtente extends JFrame {
 			}
 		});
 		bottone_aggiungi_contratto.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		bottone_aggiungi_contratto.setBounds(297, 91, 301, 61);
+		bottone_aggiungi_contratto.setBounds(288, 91, 320, 61);
 		contentPane.add(bottone_aggiungi_contratto);
 		
 		JButton bottone_aggiungi_manager = new JButton("AGGIUNGI MANAGER");
@@ -115,7 +115,7 @@ public class pannelloUtente extends JFrame {
 			}
 		});
 		bottone_aggiungi_manager.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		bottone_aggiungi_manager.setBounds(297, 185, 301, 61);
+		bottone_aggiungi_manager.setBounds(288, 184, 320, 61);
 		contentPane.add(bottone_aggiungi_manager);
 		
 		JButton bottone_esci = new JButton("ESCI");
@@ -159,7 +159,7 @@ public class pannelloUtente extends JFrame {
 			}
 		});
 		bottone_elimina_manager.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		bottone_elimina_manager.setBounds(297, 281, 301, 61);
+		bottone_elimina_manager.setBounds(288, 280, 320, 61);
 		contentPane.add(bottone_elimina_manager);
 		
 		JButton bottone_recap = new JButton("RECAP UTENTE");
@@ -182,7 +182,7 @@ public class pannelloUtente extends JFrame {
 			}
 		});
 		bottone_recap.setFont(new Font("Tahoma", Font.PLAIN, 25));
-		bottone_recap.setBounds(297, 376, 301, 61);
+		bottone_recap.setBounds(288, 376, 320, 61);
 		contentPane.add( bottone_recap );
 
 		
@@ -612,6 +612,7 @@ public class pannelloUtente extends JFrame {
 		pannello.setLayout(null);
 		setContentPane( pannello );
 		
+		setLocationRelativeTo( null );
 		//
 		
 		return pannello;

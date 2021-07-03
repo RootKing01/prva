@@ -21,7 +21,8 @@ import java.sql.SQLException;
 import javax.swing.JPasswordField;
 import java.awt.Window.Type;
 
-public class ConfermaPasswordTesserato extends JDialog {
+public class ConfermaPasswordTesserato extends JDialog 
+{
 
 
 	private final JPanel contentPanel = new JPanel();
@@ -34,6 +35,7 @@ public class ConfermaPasswordTesserato extends JDialog {
 		setResizable(false);
 
 		setBounds(100, 100, 928, 535);
+		setLocationRelativeTo( null );
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBackground(Color.DARK_GRAY);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));

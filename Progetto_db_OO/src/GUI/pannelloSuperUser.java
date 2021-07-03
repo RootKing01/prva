@@ -38,7 +38,7 @@ import Controller.Driver;
 public class pannelloSuperUser extends JFrame {
 
 	private JPanel contentPane;
-	private JPanel contentPane1;
+	//private JPanel contentPane1;
 	
 
 	private JTextField textField_nome;
@@ -55,9 +55,10 @@ public class pannelloSuperUser extends JFrame {
 		
 		setTitle("Pannello SuperUser");
 		pannello_per_superUser();
-		
+		//aggiungi(); 
 		//elimina_societa();
-		
+		//set();
+		//ricerca();
 	}
 		
 	private void pannello_per_superUser()
@@ -67,6 +68,7 @@ public class pannelloSuperUser extends JFrame {
 		contentPane.setVisible( true );
 		
 		JLabel lblNewLabel = new JLabel("BENVENUTO");
+
 		lblNewLabel.setBackground(Color.DARK_GRAY);
 		lblNewLabel.setForeground(Color.WHITE);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 30));
@@ -454,7 +456,7 @@ public class pannelloSuperUser extends JFrame {
 //		n.setVisible( true );
 	///////////////////////////////////////////////////////////////////////////////////
 		
-		JPanel contentPane_provincia;
+		
 		JTextField textFieldNome;
 		JTextField textFieldCognome;
 		JTextField textFieldDataNascita_anno;
@@ -477,75 +479,83 @@ public class pannelloSuperUser extends JFrame {
 	    JPasswordField inserimento_password;
 	    JPasswordField controllo_password;
 	    
-	
+	    
+	        contentPane.setVisible(false);
+            contentPane = set();
+	        
 	
 			persona = this; 
 	        
-			setLocation(500, 500); 
+			 
 			
-			setTitle("Inserimento Persona");
-			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			setBounds(100, 100, 902, 617);
-			contentPane_provincia = set();
-			contentPane_provincia.setBorder(new EmptyBorder(5, 5, 5, 5));
-			setContentPane(contentPane_provincia);
-			contentPane_provincia.setLayout(null);
+			
 			
 			JLabel labelNome = new JLabel("Nome: ");
+			labelNome.setForeground(Color.WHITE);
 			labelNome.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelNome.setBounds(26, 11, 178, 29);
-			contentPane_provincia.add(labelNome);
+			contentPane.add(labelNome);
 			
 			JLabel labelCognome = new JLabel("Cognome :");
+			labelCognome.setForeground(Color.WHITE);
 			labelCognome.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelCognome.setBounds(26, 51, 178, 29);
-			contentPane_provincia.add(labelCognome);
+			contentPane.add(labelCognome);
 			
 			JLabel labelDataNascita = new JLabel("Data di nascita:");
+			labelDataNascita.setForeground(Color.WHITE);
 			labelDataNascita.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelDataNascita.setBounds(26, 91, 178, 29);
-			contentPane_provincia.add(labelDataNascita);
+			contentPane.add(labelDataNascita);
 			
 			JLabel labelComuneNascita = new JLabel("Comune di nascita: ");
+			labelComuneNascita.setForeground(Color.WHITE);
 			labelComuneNascita.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelComuneNascita.setBounds(26, 117, 178, 39);
-			contentPane_provincia.add(labelComuneNascita);
+			contentPane.add(labelComuneNascita);
 			
 			JLabel labelComuneResidenza = new JLabel("Comune di residenza: ");
+			labelComuneResidenza.setForeground(Color.WHITE);
 			labelComuneResidenza.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelComuneResidenza.setBounds(26, 158, 208, 34);
-			contentPane_provincia.add(labelComuneResidenza);
+			contentPane.add(labelComuneResidenza);
 			
 			JLabel labelVia = new JLabel("Via: ");
+			labelVia.setForeground(Color.WHITE);
 			labelVia.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelVia.setBounds(26, 191, 178, 38);
-			contentPane_provincia.add(labelVia);
+			contentPane.add(labelVia);
 			
 			JLabel labelNumeroCivico = new JLabel("Numero civico: ");
+			labelNumeroCivico.setForeground(Color.WHITE);
 			labelNumeroCivico.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelNumeroCivico.setBounds(26, 235, 178, 39);
-			contentPane_provincia.add(labelNumeroCivico);
+			contentPane.add(labelNumeroCivico);
 			
 			JLabel label_CAP = new JLabel("CAP:");
+			label_CAP.setForeground(Color.WHITE);
 			label_CAP.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			label_CAP.setBounds(362, 235, 178, 39);
-			contentPane_provincia.add(label_CAP);
+			contentPane.add(label_CAP);
 			
 			JLabel labelSesso = new JLabel("Identit\u00E0 di genere:");
+			labelSesso.setForeground(Color.WHITE);
 			labelSesso.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelSesso.setBounds(26, 289, 178, 39);
-			contentPane_provincia.add(labelSesso);
+			contentPane.add(labelSesso);
 			
 			JLabel labelProvincia = new JLabel("Provincia di nascita: ");
+			labelProvincia.setForeground(Color.WHITE);
 			labelProvincia.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelProvincia.setBounds(362, 291, 184, 34);
-			contentPane_provincia.add(labelProvincia);
+			contentPane.add(labelProvincia);
 			
 			JLabel labelManagerOTesserato = new JLabel("Manager o tesserato?");
+			labelManagerOTesserato.setForeground(Color.WHITE);
 			labelManagerOTesserato.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			labelManagerOTesserato.setVerticalAlignment(SwingConstants.TOP);
 			labelManagerOTesserato.setBounds(21, 339, 213, 39);
-			contentPane_provincia.add(labelManagerOTesserato);
+			contentPane.add(labelManagerOTesserato);
 			
 			
 			
@@ -553,63 +563,63 @@ public class pannelloSuperUser extends JFrame {
 		    textFieldNome = new JTextField();
 			textFieldNome.setColumns(10);
 			textFieldNome.setBounds(235, 19, 337, 20);
-			contentPane_provincia.add(textFieldNome);
+			contentPane.add(textFieldNome);
 			
 			textFieldCognome = new JTextField();
 			textFieldCognome.setColumns(10);
 			textFieldCognome.setBounds(235, 59, 337, 20);
-			contentPane_provincia.add(textFieldCognome);
+			contentPane.add(textFieldCognome);
 			
 			textFieldDataNascita_anno = new JTextField();
 			textFieldDataNascita_anno.setColumns(10);
 			textFieldDataNascita_anno.setBounds(502, 99, 76, 20);
-			contentPane_provincia.add(textFieldDataNascita_anno);
+			contentPane.add(textFieldDataNascita_anno);
 			
 			textFieldDataNascita_giorno = new JTextField();
 			textFieldDataNascita_giorno.setBounds(259, 99, 76, 20);
-			contentPane_provincia.add(textFieldDataNascita_giorno);
+			contentPane.add(textFieldDataNascita_giorno);
 			textFieldDataNascita_giorno.setColumns(10);
 			
 			textFieldDataNascita_mese = new JTextField();
 			textFieldDataNascita_mese.setBounds(385, 99, 76, 20);
-			contentPane_provincia.add(textFieldDataNascita_mese);
+			contentPane.add(textFieldDataNascita_mese);
 			textFieldDataNascita_mese.setColumns(10);
 		
 			textFieldComuneNascita = new JTextField();
 			textFieldComuneNascita.setColumns(10);
 			textFieldComuneNascita.setBounds(235, 130, 337, 20);
-			contentPane_provincia.add(textFieldComuneNascita);
+			contentPane.add(textFieldComuneNascita);
 			
 			textFieldComuneResidenza = new JTextField();
 			textFieldComuneResidenza.setColumns(10);
 			textFieldComuneResidenza.setBounds(235, 169, 337, 20);
-			contentPane_provincia.add(textFieldComuneResidenza);
+			contentPane.add(textFieldComuneResidenza);
 			
 			textFieldVia = new JTextField();
 			textFieldVia.setColumns(10);
 			textFieldVia.setBounds(235, 204, 343, 20);
-			contentPane_provincia.add(textFieldVia);
+			contentPane.add(textFieldVia);
 			
 			textFieldNumeroCivico = new JTextField();
 			textFieldNumeroCivico.setColumns(10);
 			textFieldNumeroCivico.setBounds(235, 242, 46, 33);
-			contentPane_provincia.add(textFieldNumeroCivico);
+			contentPane.add(textFieldNumeroCivico);
 			
 			textFieldCAP = new JTextField();
 			textFieldCAP.setColumns(10);
 			textFieldCAP.setBounds(579, 242, 46, 32);
-			contentPane_provincia.add(textFieldCAP);
+			contentPane.add(textFieldCAP);
 			
 			JComboBox comboBoxSesso = new JComboBox();
 			comboBoxSesso.setBounds(235, 289, 46, 22);
-			contentPane_provincia.add(comboBoxSesso);
+			contentPane.add(comboBoxSesso);
 			comboBoxSesso.addItem("M");
 			comboBoxSesso.addItem("F");
 			
 			JComboBox comboBoxManagerOtesserato = new JComboBox();
 			comboBoxManagerOtesserato.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			comboBoxManagerOtesserato.setBounds(235, 322, 88, 34);
-			contentPane_provincia.add(comboBoxManagerOtesserato);
+			contentPane.add(comboBoxManagerOtesserato);
 			comboBoxManagerOtesserato.addItem("Manager");
 			comboBoxManagerOtesserato.addItem("Tesserato");
 			
@@ -620,56 +630,62 @@ public class pannelloSuperUser extends JFrame {
 				@Override
 				public void mouseClicked(MouseEvent e) 
 				{
-					contentPane_provincia.setVisible( false );
+					contentPane.setVisible( false );
 					pannello_per_superUser();
 					
 				}
 			});
-			bottoneAnnulla.setBounds(26, 507, 187, 60);
-			contentPane_provincia.add(bottoneAnnulla);
+			bottoneAnnulla.setBounds(26, 507, 208, 60);
+			contentPane.add(bottoneAnnulla);
 			
 			textFieldProvincia = new JTextField();
 			textFieldProvincia.setBounds(579, 283, 46, 29);
-			contentPane_provincia.add(textFieldProvincia);
+			contentPane.add(textFieldProvincia);
 			textFieldProvincia.setColumns(10);
 			
 			
 			
 			JLabel lblNewLabel = new JLabel("Anno");
+			lblNewLabel.setForeground(Color.WHITE);
 			lblNewLabel.setBounds(472, 102, 46, 14);
-			contentPane_provincia.add(lblNewLabel);
+			contentPane.add(lblNewLabel);
 			
 			JLabel lblNewLabel_1 = new JLabel("Mese");
+			lblNewLabel_1.setForeground(Color.WHITE);
 			lblNewLabel_1.setBounds(345, 102, 46, 14);
-			contentPane_provincia.add(lblNewLabel_1);
+			contentPane.add(lblNewLabel_1);
 			
 			JLabel lblNewLabel_2 = new JLabel("Giorno");
+			lblNewLabel_2.setForeground(Color.WHITE);
 			lblNewLabel_2.setBounds(214, 102, 46, 14);
-			contentPane_provincia.add(lblNewLabel_2);
+			contentPane.add(lblNewLabel_2);
 			
 			JLabel creazione_password = new JLabel("Crea e inserisci una password:");
+			creazione_password.setForeground(Color.WHITE);
 			creazione_password.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			creazione_password.setBounds(26, 389, 279, 29);
-			contentPane_provincia.add(creazione_password);
+			contentPane.add(creazione_password);
 			
 			inserimento_password = new JPasswordField();
 			inserimento_password.setBounds(345, 397, 198, 20);
-			contentPane_provincia.add(inserimento_password);
+			contentPane.add(inserimento_password);
 			
 			JLabel reinserimento_password = new JLabel("Reinserisci password:");
+			reinserimento_password.setForeground(Color.WHITE);
 			reinserimento_password.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			reinserimento_password.setBounds(26, 439, 279, 39);
-			contentPane_provincia.add(reinserimento_password);
+			contentPane.add(reinserimento_password);
 			
 			controllo_password = new JPasswordField();
 			controllo_password.setBounds(345, 452, 198, 20);
-			contentPane_provincia.add(controllo_password);
+			contentPane.add(controllo_password);
 			
 		
-			contentPane_provincia.add(bottoneAnnulla);
+			contentPane.add(bottoneAnnulla);
 			
 			JButton btnNewButton = new JButton("Avanti");
-			btnNewButton.addMouseListener(new MouseAdapter() {
+			btnNewButton.addMouseListener(new MouseAdapter() 
+			{
 				@Override
 				public void mouseClicked(MouseEvent e) 
 				{
@@ -744,7 +760,7 @@ public class pannelloSuperUser extends JFrame {
 		                System.out.println("\n\n\n\n\n\n"+comboBoxManagerOtesserato.getSelectedItem().toString() );				
 						System.out.println("Adesso ho creato una nuova persona \n");
 						
-						persona_tesserata tesserato = new persona_tesserata( persona_creata , persona);
+						persona_tesserata tesserato = new persona_tesserata( persona_creata , persona );
 						
 						System.out.println("Adesso vado in tesserato\n");
 						
@@ -766,7 +782,7 @@ public class pannelloSuperUser extends JFrame {
 			});
 			btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 			btnNewButton.setBounds(579, 507, 187, 60);
-			contentPane_provincia.add(btnNewButton);
+			contentPane.add(btnNewButton);
 			
 			
 		
@@ -779,24 +795,29 @@ public class pannelloSuperUser extends JFrame {
 		
 	///////////////////////////////////////////////////////////////////////////////////
 	
+	
 	private JPanel set()
 	{
 		
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		contentPane = new JPanel();	
+		setLocation( 550 , 250 );
 		setBounds(100, 100, 902, 617); 
-		JPanel pannello = new JPanel();
-		pannello.setBackground(Color.DARK_GRAY);
-		pannello.setBorder(new EmptyBorder(5, 5, 5, 5));
-		pannello.setLayout(null);
-		setContentPane( pannello );
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
+		contentPane.setBackground(Color.DARK_GRAY);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(null);
+		setContentPane( contentPane );
 		
-		//
+		setLocationRelativeTo( null );
+		
+		//////////////////////////////////////////////////////////////////////////
 	
-		//
 		
-		return pannello;
+	
+	   /////////////////////////////////////////////////////////////////////////
+		
+		return contentPane;
 	}
 	
 	
@@ -1199,7 +1220,7 @@ public class pannelloSuperUser extends JFrame {
 		
 		TextArea textArea_risultato_ricerca = new TextArea();   
 		textArea_risultato_ricerca.setEditable(false);
-		textArea_risultato_ricerca.setBounds(121, 170, 687, 293);
+		textArea_risultato_ricerca.setBounds(85, 169, 687, 293);
 		panel.add(textArea_risultato_ricerca);
 		
 		
@@ -1222,7 +1243,7 @@ public class pannelloSuperUser extends JFrame {
 			}
 		});
 		bottoneRicerca.setFont(new Font("Tahoma", Font.PLAIN, 20));
-		bottoneRicerca.setBounds(752, 483, 176, 46);
+		bottoneRicerca.setBounds(698, 483, 176, 46);
 		panel.add(bottoneRicerca);
 		
 		JButton bottone_indietro = new JButton("Indietro");

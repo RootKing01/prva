@@ -58,6 +58,9 @@ public class General extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 785, 506);
 		
+		//setLocation( 550 , 250 );
+		
+		setLocationRelativeTo( null );
 		
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -106,7 +109,7 @@ public class General extends JFrame {
 				boolean password_giusta_o_sbagliata = false;
 				
 				   
-				codiceFiscale_giusto_o_sbagliato = 
+				//codiceFiscale_giusto_o_sbagliato = 
 				password_giusta_o_sbagliata = driver.controlloPasswordDataBase( passwordField_per_accesso, textField_accesso_codiceFiscale );
 				
 				if( driver.controlloSuperUser(codiceFiscale) &&   password_giusta_o_sbagliata )
@@ -118,7 +121,7 @@ public class General extends JFrame {
 				{
 					try 
 					{
-						if( driver.controlloAccessoManagerOtesserato( codiceFiscale ) ) 
+						if( driver.controlloAccessoManagerOtesserato( codiceFiscale ) &&   password_giusta_o_sbagliata  ) 
 						{
 						    // controllo super utente: se falso non accede
 							
@@ -129,9 +132,12 @@ public class General extends JFrame {
 						}
 						else
 						{
-							general.setVisible(false); 
-							pannelloManager pannello_manager = new pannelloManager( codiceFiscale ); 
-							pannello_manager.setVisible(true);
+							if( !driver.controlloAccessoManagerOtesserato( codiceFiscale ) &&   password_giusta_o_sbagliata  ) 
+							{
+								general.setVisible(false); 
+								pannelloManager pannello_manager = new pannelloManager( codiceFiscale ); 
+								pannello_manager.setVisible(true);
+							}
 						}
 				 	}
 					catch (SQLException e1) 

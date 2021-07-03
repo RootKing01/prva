@@ -131,6 +131,8 @@ public class pannelloManager extends JFrame
 		pannello.setBorder(new EmptyBorder(5, 5, 5, 5));
 		pannello.setLayout(null);
 		setContentPane( pannello );		
+		
+		setLocationRelativeTo( null );
 		//
 		
 		return pannello;

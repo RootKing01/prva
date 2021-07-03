@@ -16,10 +16,11 @@ public class Errore_Inserimento_Dati extends JDialog {
 
 
 
-	public Errore_Inserimento_Dati( String [] stringa_di_controllo ) {
+	public Errore_Inserimento_Dati( String [] stringa_di_controllo ) 
+	{
 		
-		setLocation(500, 500);
-        
+		//setLocation(500, 500);
+        setLocationRelativeTo( null );
 		
 		setTitle("Errore Inserimento Dati");
 
