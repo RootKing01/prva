@@ -39,16 +39,9 @@ public class TesseratoDAO extends PersonaDAOpostgre {
 	    conteggioTesserati = connection.prepareStatement("SELECT \"codiceFiscale\" FROM tesserato WHERE \"codiceFiscaleManager\" like ?"); 
 	}
 
-
-	
-	
-	
 	
 /////////////////////////////////////////////////////****METODI****//////////////////////////////////////////////////////////////////
 	
-	
-  
-    
     
     public ArrayList<String> conteggioTesserati( String codiceFiscaleManager ) throws SQLException
     {

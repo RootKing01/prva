@@ -20,41 +20,18 @@ import ClassiDatabase.Tesserato;
 import ConnessioneDB.DBConnection;
 import Controller.Driver;
 
-public class PersonaDAOpostgre {
-
-	/*
-		private String codiceFiscale; 
-		private String nome; 
-		private String cognome; 
-		private String comuneNascita; 
-		private String comuneResidenza; 
-		private String via; 
-		private String provinciaNascita;
-		private String password; 
-		private int numeroCivico;
-		private int cap; 
-		private LocalDate dataNascita; 
-		private boolean managerOtesserato;
-		// forse possiamo anche togliere questi parametri 
-		
-		
-		String codiceFiscale, String nome, String cognome, String comuneNascita, String comuneResidenza,
-									String via, String provinciaNascita, int numeroCivico, int CAP, String sesso, LocalDate dataNascita,
-									boolean ManagerOtesserato, String password
-	*/
+public class PersonaDAOpostgre 
+{
 	
 	private Connection connection;
-	
+
 	
 	private PreparedStatement getPersonaByNome, inserisciPersona, getPersonaByLavoro, getPersonaByNomeEcognome, deletePersonaByCodiceFiscale, 
 	                          getAllPeople;
+	
 	private static PreparedStatement controlloPersonaByCodiceFiscale, controlloPasswordByCodiceFiscale, controlloManagerOtesserato; 
 	private ResultSet rs;
-//	private static ResultSet rs1; 
-	
-	 
-
-	
+ 
 	
 	public PersonaDAOpostgre( ) throws SQLException
 	{
@@ -90,7 +67,8 @@ public class PersonaDAOpostgre {
 	
 
 
-   public void inserisciPersona(Persona_creata persona, Tesserato tesserato) throws SQLException {
+   public void inserisciPersona(Persona_creata persona, Tesserato tesserato) throws SQLException 
+   {
 	   
 	   inserisciPersona.setString(1, persona.getCodiceFiscale() );
 	   inserisciPersona.setString(2, persona.getNome() );
@@ -120,11 +98,11 @@ public class PersonaDAOpostgre {
 	
 	
 
-//Bisogna cerare metodo per verificare che la persona non sia già esistente all'interno del database
+//Bisogna cerare metodo per verificare che la persona non sia giï¿½ esistente all'interno del database
 // bisogna togliere lo static
 
    public boolean controlloManagerOtesserato(String codiceFiscale) throws SQLException   
-{
+   {
    		boolean managerOtesserato = false; 
 	   
 	   	controlloManagerOtesserato.setString(1, codiceFiscale);

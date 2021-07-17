@@ -35,7 +35,6 @@ public class ManagerDAOpostgre {
 		
 		
 	}
-////////////	
 
 
 ////////////////////////////////////////////////////////////****METODI***/////////////////////////////////////////////////////////////////////////////////
@@ -90,23 +89,15 @@ public class ManagerDAOpostgre {
 	
     }
 	
-	public String getCodiceFiscale() {
+	public String getCodiceFiscale() 
+	{
 		return codiceFiscale;
 	}
 	
-	public void addTesserato(TesseratoDAO tesserato) {
-		
-	
-	}
-	
-	public void removeTesserato(TesseratoDAO tesserato) {
-		
-		
-		
-	}
 	
 	
-	public void creazioneEinserimentoManager(String codiceFiscale) {
+	public void creazioneEinserimentoManager(String codiceFiscale)
+	{
 		
 		if(this.codiceFiscale.equals(codiceFiscale))
 			System.out.println();

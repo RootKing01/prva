@@ -1,5 +1,10 @@
 package DAOinterface;
 
-public interface InterfacciaContratto {
+import ClassiDatabase.Contratto;
 
+public interface InterfacciaContratto 
+{
+
+	public void inserisciContratto( Contratto contratto );
+	
 }

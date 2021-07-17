@@ -1,5 +1,9 @@
 package DAOinterface;
 
-public interface InterfacciaFederazioneSportiva {
+public interface InterfacciaFederazioneSportiva 
+{
+	
+	public void insertFederazioniSportive();
+	
 
 }
