@@ -362,4 +362,305 @@
       "TesseratoDAOPostgre"
     ]
   }
+
+
+  {
+    "name": "DBConnection",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "La classe si occupa della gestione della connessione al database, in particolare si occupa del trasferimento di QUERY ed UPDATE che dal software creato giungono alla base di dati. Inoltre, la classe, con un ssh tunnel, gestisce le connessioni da remoto."
+    ],
+    "collaborators": [
+      "Connection",
+      "DriverManager",
+      "Statement",
+      "Properties",
+      "Jsch",
+      "Session",
+      "DataBaseMetaData",
+      "ResultSet"
+    ]
+  },
+  {
+    "name": "Driver",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Gestione QUERY e UPDATE delle classi DAO",
+      "Creazione codice fiscale",
+      "Controllo dati",
+      "Controllo password",
+      "Accesso connessione",
+      "Main"
+    ],
+    "collaborators": [
+      "LocalDate",
+      "ArrayList",
+      "Arrays",
+      "JComboBox",
+      "JDialog",
+      "JFrame",
+      "JPasswordField",
+      "JTextField",
+      "Connection",
+      "Date",
+      "ResultSet",
+      "ClubDAO",
+      "ContrattoDAO",
+      "FederazioneSportivaDAO",
+      "ManagerDAOpostgre",
+      "PersonaDAOpostgre",
+      "SponsorDAO",
+      "TesseratoDAO",
+      "comuniDao",
+      "contratto_del_tesseratoDAO",
+      "Club",
+      "Comune",
+      "Contratto",
+      "Persona_creata",
+      "Sponsor",
+      "Tesserato",
+      "contratto_del_tesserato",
+      "DBConnection",
+      "ConfermaPasswordTesserato",
+      "Errore_Inserimento_Dati",
+      "General",
+      "Inserimento_dati_persona"
+    ]
+  },
+  {
+    "name": "ConfermaPasswordTesserato",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "JDialog che ha il compito di verificare che la password del tesserato inserita risulti essere la stessa presente sulla base di dati."
+    ],
+    "collaborators": [
+      "BorderLayout",
+      "FlowLayout",
+      "Driver",
+      "JButton",
+      "JDialog",
+      "JPanel",
+      "EmptyBorder",
+      "Color",
+      "JLabel",
+      "SwingConstants",
+      "Font",
+      "JTextField",
+      "MouseAdapter",
+      "MouseEvent",
+      "JPasswordField"
+    ]
+  },
+  {
+    "name": "Errore_Inserimento_Dati",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "JDialog che si occupa di richiamare il metodo di controllo dati e, se questi risultano errati, avvisare l'utente."
+    ],
+    "collaborators": [
+      "BorderLayout",
+      "FlowLayout",
+      "JButton",
+      "JDialog",
+      "JPanel",
+      "EmptyBorder",
+      "TextArea"
+    ]
+  },
+  {
+    "name": "General",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Schermata di accesso che si occupa di recuperare i dati immessi dall'utente, in primis per verificare che siano corretti, e, in secondo luogo, di smistare l'utente nella successiva sezione apposita."
+    ],
+    "collaborators": [
+      "BorderLayout",
+      "EventQueue",
+      "JFrame",
+      "JPanel",
+      "EmptyBorder",
+      "PersonaDAOpostgre",
+      "Driver",
+      "FlowLayout",
+      "Color",
+      "JButton",
+      "ActionListener",
+      "ActionEvent",
+      "SwingConstants",
+      "MouseAdapter",
+      "MouseEvent",
+      "Font",
+      "JTextField",
+      "JPasswordField",
+      "JLabel",
+      "ImageIcon",
+      ""
+    ]
+  },
+  {
+    "name": "Inserimento_dati_persona",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "JFrame che si occupa del recupero dei dati immessi dall'utente al momento dell'iscrizione"
+    ],
+    "collaborators": [
+      "BorderLayout",
+      "EventQueue",
+      "JFrame",
+      "JPanel",
+      "EmptyBorder",
+      "Persona_creata",
+      "Driver",
+      "JLabel",
+      "SwingConstants",
+      "JTextField",
+      "Font",
+      "JComboBox",
+      "ComponentOrientation",
+      "DateTimeSyntax",
+      "JButton",
+      "MouseAdapter",
+      "MouseEvent",
+      "Date",
+      "DateFormat",
+      "LocalDate",
+      "JPasswordField",
+      "Color"
+    ]
+  },
+  {
+    "name": "pannelloManager",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "JFrame dedicato all'utente manager, che ha accesso alla propria sezione"
+    ],
+    "collaborators": [
+      "BorderLayout",
+      "Color",
+      "EventQueue",
+      "JFrame",
+      "JPanel",
+      "EmptyBorder",
+      "TesseratoDAO",
+      "Driver",
+      "JLabel",
+      "SwingConstants",
+      "Font",
+      "TextArea",
+      "JButton",
+      "MouseAdapter",
+      "MouseEvent",
+      "ArrayList",
+      "JTextField",
+      ""
+    ]
+  },
+  {
+    "name": "pannelloSuperUser",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "JFrame dedicato al superUser, che ha accesso a tutte le funzioni del software"
+    ],
+    "collaborators": [
+      "JFrame",
+      "JPanel",
+      "JPasswordField",
+      "EmptyBorder",
+      "JLabel",
+      "JTextField",
+      "SwingConstants",
+      "Font",
+      "Color",
+      "JButton",
+      "JComboBox",
+      "MouseAdapter",
+      "MouseEvent",
+      "LocalDate",
+      "ArrayList",
+      "TextArea",
+      "PersonaDAOpostgre",
+      "Club",
+      "Persona_creata",
+      "Sponsor",
+      "Driver"
+    ]
+  },
+  {
+    "name": "pannelloUtente",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "JFrame dedicato all'utente, che avrà possibilità di recap dei dati e gestione del proprio manager"
+    ],
+    "collaborators": [
+      "JFrame",
+      "JPanel",
+      "EmptyBorder",
+      "Contratto",
+      "Driver",
+      "Color",
+      "JLabel",
+      "Font",
+      "TextArea",
+      "SwingConstants",
+      "JButton",
+      "MouseAdapter",
+      "MouseEvent",
+      "LocalDate",
+      "ArrayList",
+      "ActionListener",
+      "ActionEvent",
+      "JTextField",
+      "JComboBox",
+      ""
+    ]
+  },
+  {
+    "name": "persona_tesserata",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "JFrame che si occupa del recupero dei dati immessi dall'utente che si è definito tesserato"
+    ],
+    "collaborators": [
+      "JFrame",
+      "JPanel",
+      "EmptyBorder",
+      "PersonaDAOpostgre",
+      "TesseratoDAO",
+      "Comune",
+      "Persona_creata",
+      "Tesserato",
+      "Driver",
+      "JTextField",
+      "JLabel",
+      "SwingConstants",
+      "Font",
+      "JComboBox",
+      "JButton",
+      "MouseAdapter",
+      "MouseEvent",
+      ""
+    ]
+  }
+
+
 ]
