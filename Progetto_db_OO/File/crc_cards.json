@@ -1,0 +1,365 @@
+[
+  {
+    "name": "Persona_creata",
+    "superclasses": "",
+    "subclasses": "Manager, Tesserato",
+    "type": 1,
+    "responsibilities": [
+      "gestire le informazioni e fornisce metodi per le persone"
+    ],
+    "collaborators": [
+      "Manager",
+      "Tesserato"
+    ]
+  },
+  {
+    "name": "Tessearto",
+    "superclasses": "Persona",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "gestire le informazioni e fornire metodi per i tesserati"
+    ],
+    "collaborators": [
+      "Manager",
+      "Persona",
+      "Federazione Sportiva",
+      "Contratto"
+    ]
+  },
+  {
+    "name": "Manager",
+    "superclasses": "Persona",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "gestire le informazioni e i dati dei Manager"
+    ],
+    "collaborators": [
+      "Persona",
+      "Tesserato"
+    ]
+  },
+  {
+    "name": "Contratto",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "gestisce le informazioni per i contratti tra le persone ( tesserato e manager ) e le aziende "
+    ],
+    "collaborators": [
+      "Tesserato",
+      "Club",
+      "Sponsor"
+    ]
+  },
+  {
+    "name": "Federazione Sportiva",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "Gestire le iscrizioni degli atleti tesserati a un club"
+    ],
+    "collaborators": [
+      "Club ",
+      "Tesserati"
+    ]
+  },
+  {
+    "name": "Club",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "gestire le informazioni riguardanti i club"
+    ],
+    "collaborators": [
+      "Contratto",
+      "Federazione Sportiva"
+    ]
+  },
+  {
+    "name": "Sponsor",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "gestire le informazioni e mettere a disposizione metodi per le aziende che vogliono fare da Sponsor "
+    ],
+    "collaborators": [
+      "Contratto"
+    ]
+  },
+  {
+    "name": "ClubDAOPostgre",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "inserire club nel db postgre ",
+      "eliminare club nel db postgre  "
+    ],
+    "collaborators": [
+      "Driver",
+      "Club"
+    ]
+  },
+  {
+    "name": "SponsorDAOPostgre",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "inserisci Sponsor nel db postgre ",
+      "elimina Sponsor db postgre "
+    ],
+    "collaborators": [
+      "Driver",
+      "Sponsor"
+    ]
+  },
+  {
+    "name": "ComuniDAOPostgre",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "inserire Comune nel db postgre ",
+      "ottenere nome comune dal nome comune dal db postgre ",
+      "ottenere codice fisco comune dal nome comune dal db postgre ",
+      "ottenere nome provincia comune dal nome comune dal db postgre ",
+      "ottenere nome cap comune dal cap comune dal db postgre "
+    ],
+    "collaborators": [
+      "Connection",
+      "Comune"
+    ]
+  },
+  {
+    "name": "Contratto_del_tesseratoDAOPostgre",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "restituire un recap dei contratti del tesserato dal bd postgre",
+      "restituire contratti attivi per il Tesserato dal bd postgre",
+      "restituire tutti i contratti per il Tesserato"
+    ],
+    "collaborators": [
+      "Driver",
+      "Tesserato",
+      "contratto_del_tesserato"
+    ]
+  },
+  {
+    "name": "ContrattoDAOPostgre",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "inserire nel db postgre un contratto"
+    ],
+    "collaborators": [
+      "Driver",
+      "Contratto",
+      ""
+    ]
+  },
+  {
+    "name": "FederazioneSportivaDAOPostgre",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "inserire federazioni sportive nel db postgre "
+    ],
+    "collaborators": [
+      "Driver",
+      ""
+    ]
+  },
+  {
+    "name": "ManagerDAOpostgre",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "inserire manager nel db postgre",
+      "recuperare info sul manager dal nome da postgre",
+      "recuperare atleti gestiti dal manager da postgre"
+    ],
+    "collaborators": [
+      "Driver",
+      "Manager",
+      "Comune"
+    ]
+  },
+  {
+    "name": "PersonaDAOpostgre",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "inserire le persone nel db postgre",
+      "controlla se la persona è un manager o un tesserato sul db postgre",
+      "restituisce tutte le persone dal db postgre",
+      "restituisce le info della persona partendo dal nome dal db postgre",
+      "dire se una persona esiste nel db postgre partendo dal codice fiscale",
+      "restituisce la password sul db postgre partendo dal codice fiscale",
+      "elimina la persona dal db postgre partendo dal codice fiscale"
+    ],
+    "collaborators": [
+      "Driver",
+      "Persona",
+      "Tesserato",
+      "DBConnection"
+    ]
+  },
+  {
+    "name": "TesseartoDAOPostgre",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 1,
+    "responsibilities": [
+      "contare quanti tesserati associati ad un manager sul db postgre",
+      "inserire un manager al tesserato sul db postgre",
+      "eliminare un manager dal conto del tesserato sul db postgre"
+    ],
+    "collaborators": [
+      "Driver",
+      "Tesserato"
+    ]
+  },
+  {
+    "name": "InterfacciaClub",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      "eliminare club",
+      "inserire club"
+    ],
+    "collaborators": [
+      "ClubDAOPostgre"
+    ]
+  },
+  {
+    "name": "InterfacciaComuni",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      "inserire comuni",
+      "ottenere codice fisco",
+      "ottenere cap",
+      "restituire nome provincia se esiste nel db",
+      "restituire nome se esiste nel db",
+      ""
+    ],
+    "collaborators": [
+      "ComuniDAOPostgre"
+    ]
+  },
+  {
+    "name": "InterfacciaContratto",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      "inserire contratto nel db"
+    ],
+    "collaborators": [
+      "ContrattoDAOPostgre"
+    ]
+  },
+  {
+    "name": "InterfacciaContrattoDelTesserato",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      "restituire un recap dei contratti del tesserato ",
+      "recuperare i contratti attivi del tesserato",
+      "recuperare tutti i contratti del tesserato"
+    ],
+    "collaborators": [
+      "Contratto_del_tesseratoDAOPostgre"
+    ]
+  },
+  {
+    "name": "InterfacciaFederazioneSportiva",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      "inserire le federazioni sportive"
+    ],
+    "collaborators": [
+      "FederazioneSportivaDAOPostgre"
+    ]
+  },
+  {
+    "name": "InterfacciaManager",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      "ottenere info sul manager dal nome ",
+      "ottenere info sugli atleti gestiti dal manager",
+      "inserire manager",
+      "ottenere codice fiscale del manager",
+      "creazione e/o inserimento del manager nel tesserato"
+    ],
+    "collaborators": [
+      "ManagerDAOPostgre"
+    ]
+  },
+  {
+    "name": "InterfacciaPersona",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      "inserire una persona",
+      "controllare se la persona è manager o tesserato",
+      "restituire tutte le persone ",
+      "ottenere le info sulla persona dal nome",
+      "controllare se la persona esiste nel db tramite codice fiscale",
+      "ottenere la password della persona tramite codice fiscale",
+      "eliminare una persona dal codice fiscale",
+      ""
+    ],
+    "collaborators": [
+      "PeronsaDAOPostgre"
+    ]
+  },
+  {
+    "name": "InterfacciaSponsor",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      "inserire sponsor",
+      "eliminare sponsor"
+    ],
+    "collaborators": [
+      "SponsorDAOPostgre"
+    ]
+  },
+  {
+    "name": "InterfacciaTesserato",
+    "superclasses": "",
+    "subclasses": "",
+    "type": 3,
+    "responsibilities": [
+      "restituire il numero dei tesserati",
+      "inserire il manger al tesserato",
+      "eliminare il manager"
+    ],
+    "collaborators": [
+      "TesseratoDAOPostgre"
+    ]
+  }
+]
