@@ -98,9 +98,6 @@ public class PersonaDAOpostgre
 	
 	
 
-//Bisogna cerare metodo per verificare che la persona non sia gi� esistente all'interno del database
-// bisogna togliere lo static
-
    public boolean controlloManagerOtesserato(String codiceFiscale) throws SQLException   
    {
    		boolean managerOtesserato = false; 
@@ -246,12 +243,11 @@ public class PersonaDAOpostgre
 			
 	    	
 			if( rs.getString("password") != null )
-	    		risultato = rs.getString("password");
-					
-			System.out.println(risultato);
+			{
+				risultato = rs.getString("password");
+			}		
 		}
 		
-		//System.out.println("risulato\t\t"+risultato);
 		
 		rs.close();
 		return risultato;

@@ -10,7 +10,7 @@ import javax.swing.JTextField;
 import ClassiDatabase.Club;
 import Controller.Driver;
 
-public class ClubDAO 
+public class ClubDAOPostgre 
 {
 
 	private Connection connection;
@@ -18,7 +18,7 @@ public class ClubDAO
 	private ResultSet rs;
 	
 	
-	public ClubDAO() throws SQLException 
+	public ClubDAOPostgre() throws SQLException 
 	{
 		super();
 		

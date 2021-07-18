@@ -9,16 +9,16 @@ import java.sql.SQLException;
 import ClassiDatabase.Contratto;
 import Controller.Driver;
 
-public class ContrattoDAO {
+public class ContrattoDAOPostgre {
     
 	private Connection connection;
-	private PreparedStatement insertContratto, deleteContratto, modificaContrattoByManager, eliminaContrattoByManager;
+	private PreparedStatement insertContratto,/* possibili aggiunte -> */ deleteContratto, modificaContrattoByManager, eliminaContrattoByManager;
 	private ResultSet rs;
 	
 	
 	
 	
-	public ContrattoDAO() throws SQLException 
+	public ContrattoDAOPostgre() throws SQLException 
 	{
 		
 		connection = Driver.accessoConnessione();	

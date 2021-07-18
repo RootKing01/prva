@@ -7,14 +7,14 @@ import java.sql.SQLException;
 
 import Controller.Driver;
 
-public class FederazioneSportivaDAO {
+public class FederazioneSportivaDAOPostgre {
 
 	private Connection connection;
 	private PreparedStatement insertFederazioneSportiva;
 	private ResultSet rs;
 	
 	
-	public FederazioneSportivaDAO( ) throws SQLException 
+	public FederazioneSportivaDAOPostgre( ) throws SQLException 
 	{
 		
 		super();

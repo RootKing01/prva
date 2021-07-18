@@ -302,7 +302,7 @@ public class Inserimento_dati_persona extends JFrame
 					}
 					else
 					{
-						System.out.println("La creazione del codice fiscale non è andata a buon fine\n");
+						System.out.println("La creazione del codice fiscale non ï¿½ andata a buon fine\n");
 					}
 						
 //					int anno = Integer.parseInt( textFieldDataNascita_anno.getText() ); 

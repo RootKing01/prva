@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import ClassiDatabase.Tesserato;
 import Controller.Driver;
 
-public class TesseratoDAO extends PersonaDAOpostgre {
+public class TesseratoDAOPostgre extends PersonaDAOpostgre {
 
 	private String codiceFiscale; 
 	private String codiceFiscaleManager; 
@@ -27,7 +27,7 @@ public class TesseratoDAO extends PersonaDAOpostgre {
 	
 	
 	
-    public TesseratoDAO( ) throws SQLException 
+    public TesseratoDAOPostgre( ) throws SQLException 
 	{
 	
 		connection = Driver.accessoConnessione();	

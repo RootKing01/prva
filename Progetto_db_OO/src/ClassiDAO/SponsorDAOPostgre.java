@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import ClassiDatabase.Sponsor;
 import Controller.Driver;
 
-public class SponsorDAO {
+public class SponsorDAOPostgre {
 
 	
 	private Connection connection;
@@ -16,7 +16,7 @@ public class SponsorDAO {
 	private ResultSet rs;
 	
 	
-	public SponsorDAO( ) throws SQLException
+	public SponsorDAOPostgre( ) throws SQLException
 	{
 		
 		connection = Driver.accessoConnessione();

@@ -18,7 +18,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
-import ClassiDAO.comuniDao;
+import ClassiDAO.ComuniDAOPostgre;
 import ConnessioneDB.DBConnection;
 import Controller.Driver;
 
@@ -118,7 +118,7 @@ public class Comune {
 			
 				
     	
-	//Eseguiamo un controllo sulla stringa presa per vedere se effettivamente è stato recuperato il contenuto  
+	//Eseguiamo un controllo sulla stringa presa per vedere se effettivamente ï¿½ stato recuperato il contenuto  
 		//modificaFile(s);
 
 //	      System.out.println(s);
@@ -210,7 +210,7 @@ public void modificaFile(String s) throws IOException {
 		  Driver driver = new Driver(); 
 		  Connection connection = driver.accessoConnessione(); 
 				
-		  comuniDao comuneDao = new comuniDao(connection); 	 
+		  ComuniDAOPostgre comuneDao = new ComuniDAOPostgre(connection); 	 
 		  comuneDao.inserisciComune(comune); 
 				 
 				 

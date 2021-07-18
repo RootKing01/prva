@@ -8,7 +8,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ClassiDAO.TesseratoDAO;
+import ClassiDAO.TesseratoDAOPostgre;
 import Controller.Driver;
 
 import javax.swing.JLabel;

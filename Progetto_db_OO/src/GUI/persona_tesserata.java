@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import ClassiDAO.PersonaDAOpostgre;
-import ClassiDAO.TesseratoDAO;
+import ClassiDAO.TesseratoDAOPostgre;
 import ClassiDatabase.Comune;
 import ClassiDatabase.Persona_creata;
 import ClassiDatabase.Tesserato;

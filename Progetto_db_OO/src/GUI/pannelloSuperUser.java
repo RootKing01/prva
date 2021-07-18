@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import javax.swing.JTextArea;
 import java.awt.TextArea;
 
-import ClassiDAO.ClubDAO;
+import ClassiDAO.ClubDAOPostgre;
 import ClassiDAO.PersonaDAOpostgre;
 import ClassiDatabase.Club;
 import ClassiDatabase.Persona_creata;
@@ -367,7 +367,7 @@ public class pannelloSuperUser extends JFrame {
 		//metodo che va sviluppato nel seguente modo: trova all'interno del database il dato errato inserito, 
 		//modifica, nel caso di nome, cognome,  data di nascita e comune, vengono modificati quei valori, generato un nuovo 
 		//codice fiscale e sostituito a quello precedentemente costruito. Nel caso di altri dati (maschio o femmina,
-		//manager o tesserato) poiché in teoria non dovrebbe violare alcuna regola 
+		//manager o tesserato) poichï¿½ in teoria non dovrebbe violare alcuna regola 
 		contentPane.setVisible( false );
         contentPane= set();
 		
@@ -712,7 +712,7 @@ public class pannelloSuperUser extends JFrame {
 						}
 						else
 						{
-							System.out.println("La creazione del codice fiscale non è andata a buon fine\n");
+							System.out.println("La creazione del codice fiscale non ï¿½ andata a buon fine\n");
 						}
 							
 //						int anno = Integer.parseInt( textFieldDataNascita_anno.getText() ); 

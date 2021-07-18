@@ -19,15 +19,15 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.ResultSet;
 
-import ClassiDAO.ClubDAO;
-import ClassiDAO.ContrattoDAO;
-import ClassiDAO.FederazioneSportivaDAO;
+import ClassiDAO.ClubDAOPostgre;
+import ClassiDAO.ContrattoDAOPostgre;
+import ClassiDAO.FederazioneSportivaDAOPostgre;
 import ClassiDAO.ManagerDAOpostgre;
 import ClassiDAO.PersonaDAOpostgre;
-import ClassiDAO.SponsorDAO;
-import ClassiDAO.TesseratoDAO;
-import ClassiDAO.comuniDao;
-import ClassiDAO.contratto_del_tesseratoDAO;
+import ClassiDAO.SponsorDAOPostgre;
+import ClassiDAO.TesseratoDAOPostgre;
+import ClassiDAO.ComuniDAOPostgre;
+import ClassiDAO.Contratto_del_tesseratoDAOPostgre;
 import ClassiDatabase.Club;
 import ClassiDatabase.Comune;
 import ClassiDatabase.Contratto;
@@ -117,7 +117,7 @@ public class Driver
 	
 	public ArrayList<String> tutti_i_tesserati_manager(String codiceFiscaleManager) throws SQLException
 	{
-		TesseratoDAO tesserati = new TesseratoDAO(); 
+		TesseratoDAOPostgre tesserati = new TesseratoDAOPostgre(); 
 		
 		ArrayList<String> numero_di_tesserati = tesserati.conteggioTesserati( codiceFiscaleManager );  
 		
@@ -127,7 +127,7 @@ public class Driver
 	public ArrayList<String> recupero_contratti_manager( String codiceFiscaleManager ) throws SQLException
 	{
 		
-		contratto_del_tesseratoDAO tutti_contratti = new contratto_del_tesseratoDAO();
+		Contratto_del_tesseratoDAOPostgre tutti_contratti = new Contratto_del_tesseratoDAOPostgre();
 		ArrayList<String> recupero_contratti = tutti_contratti.recap_contratti_tesserati(codiceFiscaleManager);
 		
 		return recupero_contratti;
@@ -137,7 +137,7 @@ public class Driver
 	public ArrayList <String> recap_tutti_contratti_utente( String codiceFiscale ) throws SQLException
 	{
 		ArrayList<String> recap_contratti = new ArrayList<>(); 
-		contratto_del_tesseratoDAO tutti_contratti = new contratto_del_tesseratoDAO();
+		Contratto_del_tesseratoDAOPostgre tutti_contratti = new Contratto_del_tesseratoDAOPostgre();
 		
 		recap_contratti = tutti_contratti.recuperoTuttiContrattiUtenteTesserato( codiceFiscale ); 
 		
@@ -148,7 +148,7 @@ public class Driver
 	{
 		
 		ArrayList<String> recap_contratti_attivi = new ArrayList<>(); 
-		contratto_del_tesseratoDAO contratti_attivi = new contratto_del_tesseratoDAO(); 
+		Contratto_del_tesseratoDAOPostgre contratti_attivi = new Contratto_del_tesseratoDAOPostgre(); 
 		
 		recap_contratti_attivi = contratti_attivi.recuperoContrattiAttiviUtenteTesserato( codiceFiscale );
 		
@@ -159,7 +159,7 @@ public class Driver
 	public void aggiungiManagerAtesserato(String codiceFiscale, String codiceFiscale_manager) throws SQLException
 	{
 		
-		TesseratoDAO aggiungiManager = new TesseratoDAO(); 
+		TesseratoDAOPostgre aggiungiManager = new TesseratoDAOPostgre(); 
 		
 		aggiungiManager.inserimentoMangerDelTesserato( codiceFiscale, codiceFiscale_manager );
 		
@@ -168,7 +168,7 @@ public class Driver
 	public void cancellaMangerByCodiceFiscale(String codiceFiscale) throws SQLException 
 	{
 		
-		TesseratoDAO elimina_manager = new TesseratoDAO();
+		TesseratoDAOPostgre elimina_manager = new TesseratoDAOPostgre();
 		
 		elimina_manager.eliminaManger(codiceFiscale);
 	}
@@ -176,7 +176,7 @@ public class Driver
 	public void inserisciContratto( Contratto contratto ) throws SQLException
 	{
 		
-		ContrattoDAO inserimentoContratto = new ContrattoDAO(); 
+		ContrattoDAOPostgre inserimentoContratto = new ContrattoDAOPostgre(); 
 		
 		inserimentoContratto.inserisciContratto( contratto );
 		
@@ -184,7 +184,7 @@ public class Driver
 	
 	public void eliminaSponsor( String partitaIva) throws SQLException 
 	{
-		SponsorDAO eliminaSponsor = new SponsorDAO(); 
+		SponsorDAOPostgre eliminaSponsor = new SponsorDAOPostgre(); 
 		
 		eliminaSponsor.cancellaSponsor( partitaIva );
 		
@@ -192,7 +192,7 @@ public class Driver
 
 	public void eliminaClub(String partitaIva) throws SQLException 
 	{
-		ClubDAO eliminaClub = new ClubDAO(); 
+		ClubDAOPostgre eliminaClub = new ClubDAOPostgre(); 
 		
 		eliminaClub.deletClub(partitaIva);
 		
@@ -201,7 +201,7 @@ public class Driver
 	public void inserimentoSocietaSponsor( Sponsor sponsor ) throws SQLException 
 	{
 		
-		SponsorDAO societa_sponsor = new SponsorDAO(); 
+		SponsorDAOPostgre societa_sponsor = new SponsorDAOPostgre(); 
 		
 		societa_sponsor.insertSponsor(sponsor);
 		
@@ -209,7 +209,7 @@ public class Driver
 	
 	public void inserimentoFederazioniSportive() throws SQLException 
 	{
-		FederazioneSportivaDAO federazioni_sportive = new FederazioneSportivaDAO(); 
+		FederazioneSportivaDAOPostgre federazioni_sportive = new FederazioneSportivaDAOPostgre(); 
 		
 		federazioni_sportive.insertFederazioniSportive();
 		
@@ -217,7 +217,7 @@ public class Driver
 	
 	public void insertClub( Club club ) throws SQLException 
 	{
-		ClubDAO inserimento_club = new ClubDAO(); 
+		ClubDAOPostgre inserimento_club = new ClubDAOPostgre(); 
 		
 		inserimento_club.insertClub(club);
 	}
@@ -451,8 +451,8 @@ public class Driver
 		// PRENDIAMO LA PRIMA, LA TERZA E LA QUARTA CONSONANTE DEL NOME
 		
 		/*
-		Vengono prese le consonanti del nome (o dei nomi, se ve ne è più di uno) nel loro ordine
-	 	(primo nome, di seguito il secondo e così via) in questo modo: se il nome contiene quattro o più consonanti,
+		Vengono prese le consonanti del nome (o dei nomi, se ve ne ï¿½ piï¿½ di uno) nel loro ordine
+	 	(primo nome, di seguito il secondo e cosï¿½ via) in questo modo: se il nome contiene quattro o piï¿½ consonanti,
 	 	si scelgono la prima, la terza e la quarta (per esempio: Gianfranco -> GFR), altrimenti le prime tre in ordine
 			(per esempio: Tiziana -> TZN). Se il nome non ha consonanti a sufficienza, si prendono anche le vocali; 
 		in ogni caso le vocali vengono riportate dopo le consonanti (per esempio: Luca  LCU). 
@@ -708,7 +708,7 @@ public class Driver
 		//AGGIUNGIAMO IL CODICE FISCO AL CODICE FISCALE 
 		System.out.println("Accedo alla connesione");
 		
-		comuniDao codice_fisco = new comuniDao(accessoConnessione()); 
+		ComuniDAOPostgre codice_fisco = new ComuniDAOPostgre(accessoConnessione()); 
 		
 		String codice_fisco_real = codice_fisco.getCodiceFisco(comune_nascita); 
 		
@@ -1299,7 +1299,7 @@ public class Driver
 		}
 		catch (SQLException e)
 		{
-			System.out.println("il boolean psw è null");
+			System.out.println("il boolean psw ï¿½ null");
 			e.printStackTrace();
 		}
 		catch (Exception e1 )
@@ -1495,7 +1495,7 @@ public class Driver
 		{   
 			
 			System.out.println("sono prima nel try controlloCap");
-			comuniDao comunedao = new comuniDao(accessoConnessione());
+			ComuniDAOPostgre comunedao = new ComuniDAOPostgre(accessoConnessione());
 			
 			System.out.println("ha preso la connessione");
 			
@@ -1539,7 +1539,7 @@ public class Driver
 			{   
 				
 				System.out.println("sono prima nel try controlloProvincia");
-				comuniDao comunedao = new comuniDao(accessoConnessione());
+				ComuniDAOPostgre comunedao = new ComuniDAOPostgre(accessoConnessione());
 				
 				System.out.println("ha preso la connessione");
 				
@@ -1606,7 +1606,7 @@ public class Driver
 			{   
 				
 				System.out.println("sono prima nel try controlloComune");
-				comuniDao comunedao = new comuniDao(accessoConnessione());
+				ComuniDAOPostgre comunedao = new ComuniDAOPostgre(accessoConnessione());
 				
 				System.out.println("ha preso la connessione");
 				

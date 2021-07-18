@@ -13,7 +13,7 @@ import ClassiDatabase.Tesserato;
 import Controller.Driver;
 import ClassiDatabase.contratto_del_tesserato;
 
-public class contratto_del_tesseratoDAO 
+public class Contratto_del_tesseratoDAOPostgre 
 {
 	
 	private PreparedStatement  recupero_dati_contratti_attivi, recapUtente_totale, recap_manager_totale;  
@@ -21,7 +21,7 @@ public class contratto_del_tesseratoDAO
 	private Connection connection;
 	
 	
-	public contratto_del_tesseratoDAO() throws SQLException
+	public Contratto_del_tesseratoDAOPostgre() throws SQLException
 	{
 		
 		connection = Driver.accessoConnessione();

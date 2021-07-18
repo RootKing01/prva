@@ -11,22 +11,22 @@ import ConnessioneDB.DBConnection;
 
 
 
-public class comuniDao {
+public class ComuniDAOPostgre {
 
     //Creiamo un oggetto connection di tipo Connection per effettuare la connessione al database 
 	
 	private Connection connection; 
 	
-   //Creiamo un oggetto di tipo PreparedStatment che è sempre di tipo sql e permette di fissare un comando sql da usare 
+   //Creiamo un oggetto di tipo PreparedStatment che ï¿½ sempre di tipo sql e permette di fissare un comando sql da usare 
 	
 	private PreparedStatement getComuneByNome, getCodiceFiscoByNome, getProvinciaByNome,  getCapComune,  inserisciComune; 
 	         
 	
-   //Creiamo ora il costruttore comuniDao che prende in input un oggetto di tipo connessione e che servirà  a gestire le operazioni con il DB
+   //Creiamo ora il costruttore comuniDao che prende in input un oggetto di tipo connessione e che servirï¿½  a gestire le operazioni con il DB
 	
 	
 	
-	public comuniDao(Connection connection) throws SQLException{
+	public ComuniDAOPostgre(Connection connection) throws SQLException{
 		
 		this.connection = connection;   
 	 
