@@ -362,7 +362,6 @@
       "TesseratoDAOPostgre"
     ]
   },
-
   {
     "name": "DBConnection",
     "superclasses": "",
