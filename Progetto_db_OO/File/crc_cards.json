@@ -361,8 +361,7 @@
     "collaborators": [
       "TesseratoDAOPostgre"
     ]
-  }
-
+  },
 
   {
     "name": "DBConnection",
